@@ -120,7 +120,7 @@ app.on('ready', function () {
     win.webContents.on("did-finish-load", () => {
         if (isDev) return;
         request({
-                url: 'https://api.github.com/repos/OrangeNote/RuneBook/releases/latest',
+                url: 'https://api.github.com/repos/Soundofdarkness/RuneBook/releases/latest',
                 headers: {
                     'User-Agent': 'request'
                 }
