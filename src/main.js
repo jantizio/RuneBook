@@ -179,7 +179,7 @@ ipcMain.on("update:do", (event, arg) => {
     }
     else {
         win.webContents.send('update:downloaded');
-        shell.openExternal(`https://github.com/OrangeNote/RuneBook/releases/download/v${latestv}/RuneBook-${latestv}-mac.zip`)
+        shell.openExternal(`https://github.com/Soundofdarkness/RuneBook/releases/download/v${latestv}/RuneBook-${latestv}-mac.zip`)
     }
 });
 

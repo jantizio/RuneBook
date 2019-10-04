@@ -1,11 +1,11 @@
 {
   "name": "RuneBook",
   "productName": "RuneBook",
-  "version": "1.8.11",
+  "version": "1.8.12",
   "description": "An automatic rune pages manager for League of Legends",
   "main": "./src/main.js",
   "license": "MIT",
-  "repository": "https://github.com/OrangeNote/RuneBook",
+  "repository": "https://github.com/Soundofdarkness/RuneBook",
   "author": {
     "name": "OrangeNote",
     "url": "https://github.com/OrangeNote"
@@ -15,7 +15,7 @@
     "start": "electron ./src/main.js",
     "build": "electron-packager . --out=dist --asar --overwrite --all",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder -mw -p always",
+    "dist": "electron-builder -mw -p onTagOrDraft",
     "dist:mac": "electron-builder --mac",
     "dist:win": "electron-builder --win",
     "dist:all": "electron-builder -mw"
