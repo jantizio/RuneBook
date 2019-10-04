@@ -15,10 +15,15 @@
     "start": "electron ./src/main.js",
     "build": "electron-packager . --out=dist --asar --overwrite --all",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder -mw -p onTagOrDraft",
+    "dist": "electron-builder --win -p onTagOrDraft",
     "dist:mac": "electron-builder --mac",
     "dist:win": "electron-builder --win",
     "dist:all": "electron-builder -mw"
+  },
+  "build": {
+    "win": {
+      "icon": "build/icon.ico"
+    }
   },
   "dependencies": {
     "atob": "^2.1.1",
@@ -48,7 +53,7 @@
     "devtron": "^1.1.0",
     "electron": "^1.6.6",
     "electron-builder": "^19.54.0",
-    "electron-packager": "^8.0.0",
+    "electron-packager": "^12.1.0",
     "xo": "^0.18.0"
   },
   "xo": {
