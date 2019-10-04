@@ -1,4 +1,4 @@
-#<img src="https://raw.githubusercontent.com/Soundofdarkness/Runebook/master/img/logo.png" width="40" height="40" alt="Logo"> Runebook
+# <img src="https://raw.githubusercontent.com/Soundofdarkness/Runebook/master/img/logo.png" width="40" height="40" alt="Logo"> Runebook
 > *The runes decide my path.* - Ryze, the Rune Mage
 
 # Download
