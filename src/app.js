@@ -76,9 +76,9 @@ freezer.on("changelog:ready", () => {
 	}
 });
 
-request('https://ddragon.leagueoflegends.com/realms/euw.json', function (error, response, data) {
+request('https://ddragon.leagueoflegends.com/api/versions.json', function (error, response, data) {
 	if(!error && response && response.statusCode == 200) {
-		freezer.emit("version:set", JSON.parse(data)["v"]);
+		freezer.emit("version:set", JSON.parse(data)[0]);
 	}
 	else throw Error("Couldn't get ddragon api version");
 });
@@ -89,6 +89,7 @@ freezer.on('version:set', (ver) => {
 			freezer.get().set('championsinfo', JSON.parse(data).data);
 			freezer.emit("championsinfo:set");
 		}
+		else throw Error("Couldn't fetch champions.json from ddragon.")
 	});
 });
 

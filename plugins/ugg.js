@@ -118,17 +118,17 @@ async function getDataSource(champion) {
     let lolVersion = lolVersions[0];
     let lolVersionUGG = getUGGFormattedLolVersion(lolVersion);
 
-    const overviewVersion = "1.2.6";
+    const overviewVersion = "1.4.0";
 
     // This here will hopefully not stay for long, i just don't yet know a way to get the static data version u.gg uses)
     // In fact, now that i think of it, i will just add a way to cache champId's at some point, then we dont need this at all
-    const staticPatchOverride = "9.19.1";
+    // const staticPatchOverride = "9.19.1";
 
-    const championDataUrl = `https://static.u.gg/assets/lol/riot_static/${staticPatchOverride}/data/en_US/champion/${champion}.json`;
+    const championDataUrl = `https://static.u.gg/assets/lol/riot_static/${lolVersion}/data/en_US/champion.json`;
 
     const championData = await getJson(championDataUrl);
     const championId = championData.data[champion].key;
-
+    console.log(`U.GG => ${lolVersionUGG}`);
     const championStatsUrl = `https://stats2.u.gg/lol/${uGGAPIVersion}/overview/${lolVersionUGG}/ranked_solo_5x5/${championId}/${overviewVersion}.json`;
 
     return getJson(championStatsUrl);
