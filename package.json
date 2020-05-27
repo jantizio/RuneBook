@@ -15,10 +15,10 @@
     "start": "electron ./src/main.js",
     "build": "electron-packager . --out=dist --asar --overwrite --all",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder -mw -p always",
+    "dist": "electron-builder -w -p onTagOrDraft",
     "dist:mac": "electron-builder --mac",
     "dist:win": "electron-builder --win",
-    "dist:all": "electron-builder -mw"
+    "dist:all": "electron-builder -mw -p onTagOrDraft"
   },
   "build": {
     "win": {
