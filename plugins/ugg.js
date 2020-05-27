@@ -63,11 +63,7 @@ const u = {
 };
 
 // KEY CONSTS - UPDATE THESE ACCORDING TO GUIDE https://gist.github.com/paolostyle/fe8ce06313d3e53c134a24762b9e519c
-const uGGDataVersion = '1.2';
 const uGGAPIVersion = '1.1';
-
-const riotVersionEndpoint = 'https://ddragon.leagueoflegends.com/api/versions.json';
-const uGGDataVersionsEndpoint = 'https://u.gg/json/new_ugg_versions/' + uGGDataVersion + '.json';
 
 const server = u.servers.world;
 const tier = u.tiers.platPlus;
@@ -113,17 +109,10 @@ function extractPage(champion) {
 
 async function getDataSource(champion) {
   try {
-    const lolVersions = await getJson(riotVersionEndpoint);
-
-    let lolVersion = lolVersions[0];
+    let lolVersion = freezer.get().lolversion;
     let lolVersionUGG = getUGGFormattedLolVersion(lolVersion);
-
+    
     const overviewVersion = "1.4.0";
-
-    // This here will hopefully not stay for long, i just don't yet know a way to get the static data version u.gg uses)
-    // In fact, now that i think of it, i will just add a way to cache champId's at some point, then we dont need this at all
-    // const staticPatchOverride = "9.19.1";
-
     const championDataUrl = `https://static.u.gg/assets/lol/riot_static/${lolVersion}/data/en_US/champion.json`;
 
     const championData = await getJson(championDataUrl);
