@@ -42,11 +42,17 @@ function createWindow() {
         minWidth: minWidth,
         minHeight: minHeight,
         maximizable: false,
+        resizable: true, 
+        fullScreenable: false,
         x: mainWindowState.x,
         y: mainWindowState.y,
         frame: false,
         useContentSize: false,
-        show: false
+        show: false,
+        webPreferences: {
+            nodeIntegration: true,
+            enableRemoteModule: true
+        }      
     };
 
     // Create a copy of the 'normal' options
