@@ -114,11 +114,14 @@ async function getDataSource(champion) {
     
     const overviewVersion = "1.4.0";
     const championDataUrl = `https://static.u.gg/assets/lol/riot_static/${lolVersion}/data/en_US/champion.json`;
+    console.log(`U.GG DataUrl => ${championDataUrl}`);
 
     const championData = await getJson(championDataUrl);
     const championId = championData.data[champion].key;
     console.log(`U.GG => ${lolVersionUGG}`);
     const championStatsUrl = `https://stats2.u.gg/lol/${uGGAPIVersion}/overview/${lolVersionUGG}/ranked_solo_5x5/${championId}/${overviewVersion}.json`;
+
+    console.log(`U.GG ReqUrl => ${championStatsUrl}`);
 
     return getJson(championStatsUrl);
   } catch (e) {
