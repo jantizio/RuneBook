@@ -40,13 +40,13 @@ function bind(data) {
 			console.log("connected", res);
 			freezer.emit(`api:connected`);
 		}
-		if(res[1] == "OnJsonApiEvent") {	
+		if(res[1] == "OnJsonApiEvent") {
 			var evt = res[2];
 			var url = `${evt.uri}:${evt.eventType}`;
 
 			if (message_filter.includes(url)){
 				//console.log(url);
-				freezer.emit(`${evt.uri}:${evt.eventType}`, evt.data);
+				freezer.emit(url, evt.data);
 			}
 		}
 	});
