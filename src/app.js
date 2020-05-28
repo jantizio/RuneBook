@@ -419,6 +419,7 @@ connector.on('connect', (data) => {
 connector.on('disconnect', () => {
 	console.log("client closed");
 	api.destroy();
+	freezer.get().connection.set({ page: null, summonerLevel: 0 });
 	freezer.get().session.set({ connected: false, state: "" });
 	freezer.get().set("champselect", false);
 });
