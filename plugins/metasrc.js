@@ -76,7 +76,7 @@ var perksMap = {
     "statmodsattackspeedicon": 5005,
     "statmodscdrscalingicon": 5007,
     "statmodsadaptiveforceicon": 5008
-}
+};
 
 async function getPage(requestUri, champInfo) {
     var page = {
@@ -98,9 +98,9 @@ async function getPage(requestUri, champInfo) {
         modeUrlBase = modeUrlBase.replace(/([^:]\/)\/+/g, "$1");
         var urlParts = requestUri.split('/');
 
-        if(!champInfo){
-            var champInfo = freezer.get().championsinfo;
-            champInfo = champInfo[Object.keys(champInfo).find(k => k.toLowerCase() ===  urlParts[3].toLowerCase())];
+        if (!champInfo) {
+            champInfo = freezer.get().championsinfo;
+            champInfo = champInfo[Object.keys(champInfo).find(k => k.toLowerCase() === urlParts[3].toLowerCase())];
         }
 
         if (urlParts[3].search(new RegExp(champInfo.id, "i")) == -1) {
@@ -187,7 +187,7 @@ async function getResponseFromUrl(requestUri, errorMsg = '') {
             return response;
         })
         .catch(function(err) {
-            throw Error(errorMsg + " => " + err)
+            throw Error(errorMsg + " => " + err);
         });
 }
 
@@ -208,7 +208,7 @@ async function _getPages(champion, callback) {
             $('div[id=splash-content] div > div > div > a').each(async (index, elem) => {
                 var runePage = await getPage($(elem).attr('href').trim(), champInfo);
 
-                if(runePage){
+                if (runePage) {
                     runePages.pages[runePage.name] = runePage;
                 }
             });
@@ -242,9 +242,9 @@ var plugin = {
             callback(runePage);
         }).catch(function(err) {
             throw Error("rune page not loaded");
-        });;
+        });
     }
-}
+};
 
 module.exports = {
     plugin
