@@ -78,7 +78,7 @@ var perksMap = {
     "statmodsadaptiveforceicon": 5008
 }
 
-async function getPage(requestUri, champion) {
+async function getPage(requestUri, champInfo) {
     var page = {
         "name": name,
         "primaryStyleId": -1,
@@ -94,7 +94,24 @@ async function getPage(requestUri, champion) {
     };
 
     try {
-        var response = await getResponseFromUrl(requestUri, "Error when determining the rune page");
+        var modeUrlBase = baseUrl + requestUri + rankFilter;
+        modeUrlBase = modeUrlBase.replace(/([^:]\/)\/+/g, "$1");
+        var urlParts = requestUri.split('/');
+
+        if(!champInfo){
+            var champInfo = freezer.get().championsinfo;
+            champInfo = champInfo[Object.keys(champInfo).find(k => k.toLowerCase() ===  urlParts[3].toLowerCase())];
+        }
+
+        if (urlParts[3].search(new RegExp(champInfo.id, "i")) == -1) {
+            return;
+        }
+
+        page.name = "[" + urlParts[1].toUpperCase() + "] " + champInfo.name;
+        if (urlParts.length > 4)
+            page.name += " " + urlParts[4].toUpperCase();
+
+        var response = await getResponseFromUrl(modeUrlBase, "Error when determining the rune page");
         var $ = cheerio.load(response.body);
 
         var ids = $('svg > image[data-xlink-href]').map((i, x) => getIdFromImageUrl($(x).attr('data-xlink-href'))).toArray();
@@ -179,43 +196,29 @@ async function _getPages(champion, callback) {
         pages: {}
     };
 
-    var champ = freezer.get().championsinfo[champion]
+    var champInfo = freezer.get().championsinfo[champion];
 
     try {
-        var gameModeUrls = await getModeUrls(champion);
+        var gameModeUrls = await getModeUrls(champInfo.id);
 
         for (var i = 0, len = gameModeUrls.length; i < len; i++) {
             var response = await getResponseFromUrl(gameModeUrls[i], "Error when determining lanes");
             var $ = cheerio.load(response.body);
 
             $('div[id=splash-content] div > div > div > a').each(async (index, elem) => {
-                var href = $(elem).attr('href').trim();
+                var runePage = await getPage($(elem).attr('href').trim(), champInfo);
 
-                var modeUrlBase = baseUrl + href + rankFilter;
-                modeUrlBase = modeUrlBase.replace(/([^:]\/)\/+/g, "$1");
-                var urlParts = href.split('/');
-
-                if (urlParts[3].search(new RegExp(champion, "i")) == -1) {
-                    return;
+                if(runePage){
+                    runePages.pages[runePage.name] = runePage;
                 }
-
-                // Unfortunately we have to request each url again, because the rank-filter is only valid if the "lane" is available.
-                var runePage = await getPage(modeUrlBase);
-
-                runePage.name = "[" + urlParts[1].toUpperCase() + "] " + champ.name;
-                if (urlParts.length > 4)
-                    runePage.name += " " + urlParts[4].toUpperCase();
-
-                runePages.pages[runePage.name] = runePage;
-
-                const ordered = {};
-                Object.keys(runePages.pages).sort().forEach(function(key) {
-                    ordered[key] = runePages.pages[key];
-                });
-
-                runePages.pages = ordered;
             });
         }
+
+        const ordered = {};
+        Object.keys(runePages.pages).sort().forEach(function(key) {
+            ordered[key] = runePages.pages[key];
+        });
+        runePages.pages = ordered;
 
         callback(runePages);
     } catch (e) {
@@ -235,13 +238,11 @@ var plugin = {
     },
 
     syncBookmark(bookmark, callback) {
-        request.get(bookmark.src, (error, response, html) => {
-            if (!error && response.statusCode == 200) {
-                callback(extractPage(html, bookmark.meta.champion, false, null, bookmark.meta.pageType));
-            } else {
-                throw Error("rune page not loaded");
-            }
-        });
+        getPage(bookmark.src).then(function(runePage) {
+            callback(runePage);
+        }).catch(function(err) {
+            throw Error("rune page not loaded");
+        });;
     }
 }
 
