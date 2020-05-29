@@ -148,7 +148,6 @@ function exctractPage(html, pageUrl) {
 
 	var data = [];
     $("li.rune-path--rune", path).each(function () {
-        console.log("[" + $(this).attr("data-link-title") + "]");
         data.push($(this).attr("data-link-title"));
 	});
 
@@ -156,9 +155,6 @@ function exctractPage(html, pageUrl) {
 	page.subStyleId = stylesMap[$("div.rune-path--secondary .rune-path--path", path).attr("data-content-title")];
 
     for (var i = 0; i < data.length; i++) {
-        //data[i] = data[i].replace('\'', '');
-        //console.log(data[i]);
-        console.log("//" + extractKeyValue(perksMap,8321 ) + "//" );
 		page.selectedPerkIds[i] = perksMap[data[i]];
 	}
 
@@ -177,10 +173,6 @@ function exctractPage(html, pageUrl) {
 
 	console.log(page)
 	return page;
-}
-
-function extractKeyValue(obj, value) {
-    return Object.keys(obj)[Object.values(obj).indexOf(value)];
 }
 
 function _getPages(champion, callback) {
