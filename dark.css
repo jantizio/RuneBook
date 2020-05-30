@@ -1,5 +1,83 @@
+/* [START] of styles for settings-panel.tag */
+#content-dark {
+    /* For the entire settings panel */
+    background: #191D24 !important;
+}
+
+#i1-8n-dark {
+    /* Text from locales */
+    color: #bd9d5e !important;
+}
+
+#cog-dark {
+    /* Cog icon in settings title */
+    color: slategray !important;
+}
+
+#lang-dark {
+    /* Language dropdown */
+    background: black !important;
+    border-color: grey !important;
+    color: #bd9d5e !important;
+}
+
+.ui.selection.visible.dropdown > .text:not(.default) {
+    /* For Text on language label not to disappear when dropdown is visible */
+    color: #bd9d5e !important;
+}
+
+#item-dark {
+    /* Languages when dropdown enabled */
+    background: #191D24 !important;
+    border-color: grey !important;
+    color: #bd9d5e !important;
+}
+
+#displayleaguepath {
+    /* League path display */
+    background: black !important;
+    border-right-color: grey !important;
+    color: #bd9d5e !important;
+}
+
+#changeleaguelabel {
+    /* Restart Runebook label */
+    background: orange !important;
+}
+
+#i1-8n-dark-2 {
+    /* Text inside Restart Runebook label */
+    color: white !important;
+}
+
+#displaypath {
+    /* Local rune page file */
+    background: black !important;
+    border-right-color: grey !important;
+    color: #bd9d5e !important;
+}
+
+#button-dark {
+    /* Open folder button for local rune page file */
+    background: black !important;
+    color: #bd9d5e !important;
+}
+
+#footer-dark {
+    /* For the footer */
+    background: black !important;
+    color: #bd9d5e !important;
+}
+
+#bug-dark {
+    /* For the bug icon */
+    color: #bd9d5e !important;
+}
+
+/* [END] of styles for settings-panel.tag */
+
 body {
-	background: #191D24;
+    background: #191D24;
 }
 
 .ui.secondary.pointing.menu {
