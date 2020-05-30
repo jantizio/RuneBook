@@ -229,7 +229,7 @@ async function _getPages(champion, callback) {
 
 var plugin = {
     id: "metasrc",
-    name: "MetaSrc",
+    name: "Meta Src",
     active: true,
     bookmarks: false,
 
