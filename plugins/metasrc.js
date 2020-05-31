@@ -108,8 +108,10 @@ async function getPage(requestUri, champInfo) {
         }
 
         page.name = "[" + urlParts[1].toUpperCase() + "] " + champInfo.name;
-        if (urlParts.length > 4)
-            page.name += " " + urlParts[4].toUpperCase();
+        if (urlParts.length > 4){
+            var lane = urlParts[4];
+            page.name += ` ${lane[0].toUpperCase()}${lane.slice(1)}`;
+        }
 
         var response = await getResponseFromUrl(modeUrlBase, "Error when determining the rune page");
         var $ = cheerio.load(response.body);
@@ -201,17 +203,33 @@ async function _getPages(champion, callback) {
     try {
         var gameModeUrls = await getModeUrls(champInfo.id);
 
+        // determine last 3 LoL versions
+        var versions = freezer.get().lolversions.slice(0,10).map(versItem => {
+            return versItem.split('.').slice(0, 2).join('.');
+        }).filter(function(elem, index, self) {
+            return index === self.indexOf(elem);
+        }).slice(0,3);
+
         for (var i = 0, len = gameModeUrls.length; i < len; i++) {
             var response = await getResponseFromUrl(gameModeUrls[i], "Error when determining lanes");
             var $ = cheerio.load(response.body);
 
-            $('div[id=splash-content] div > div > div > a').each(async (index, elem) => {
-                var runePage = await getPage($(elem).attr('href').trim(), champInfo);
+            // Determine available versions
+            let modeVersions = $('select[id=patch] > option').map(function() {
+                return $(this).text().trim();
+            }).toArray()[0];
 
+            if(!versions.includes(modeVersions))
+                continue;
+
+            for (let [index, elem] of Object.entries($('div[id=splash-content] > div > div > div > a'))){
+                if(isNaN(index))
+                    continue;
+                var runePage = await getPage($(elem).attr('href').trim(), champInfo);
                 if (runePage) {
                     runePages.pages[runePage.name] = runePage;
                 }
-            });
+            }          
         }
 
         const ordered = {};
