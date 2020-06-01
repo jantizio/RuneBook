@@ -1,77 +1,77 @@
 /* [START] of styles for settings-panel.tag */
-#content-dark {
+
+.ui.modal.settings-modal > .content {
     /* For the entire settings panel */
     background: #191D24 !important;
 }
 
-#i1-8n-dark {
+.field > label > i1-8n,
+.field > span > i1-8n,
+span > i1-8n,
+.ui.toggle.checkbox > label > i1-8n {
     /* Text from locales */
+    color: #d8cfbd !important;
+}
+
+.ui.horizontal.divider.header {
+    /* For the settings headers */
     color: #bd9d5e !important;
 }
 
-#cog-dark {
-    /* Cog icon in settings title */
-    color: slategray !important;
-}
-
-#lang-dark {
+.ui.selection.dropdown.lang {
     /* Language dropdown */
     background: black !important;
     border-color: grey !important;
-    color: #bd9d5e !important;
+    color: #d8cfbd !important;
 }
 
 .ui.selection.visible.dropdown > .text:not(.default) {
     /* For Text on language label not to disappear when dropdown is visible */
-    color: #bd9d5e !important;
+    color: #d8cfbd !important;
 }
 
-#item-dark {
+.ui.selection.dropdown.lang > .menu > .item {
     /* Languages when dropdown enabled */
     background: #191D24 !important;
     border-color: grey !important;
-    color: #bd9d5e !important;
+    color: #d8cfbd !important;
 }
 
 #displayleaguepath {
     /* League path display */
     background: black !important;
     border-right-color: grey !important;
-    color: #bd9d5e !important;
+    color: #d8cfbd !important;
 }
 
 #changeleaguelabel {
     /* Restart Runebook label */
-    background: orange !important;
-}
-
-#i1-8n-dark-2 {
-    /* Text inside Restart Runebook label */
-    color: white !important;
+    background: #71552B !important;
+    color: #d8cfbd !important;
 }
 
 #displaypath {
     /* Local rune page file */
     background: black !important;
     border-right-color: grey !important;
-    color: #bd9d5e !important;
+    color: #d8cfbd !important;
 }
 
-#button-dark {
+.ui.icon.button {
     /* Open folder button for local rune page file */
     background: black !important;
-    color: #bd9d5e !important;
+    color: #d8cfbd !important;
 }
 
-#footer-dark {
+.ui.bottom.attached.label {
     /* For the footer */
     background: black !important;
-    color: #bd9d5e !important;
+    color: #d8cfbd !important;
 }
 
-#bug-dark {
+.bug.icon {
     /* For the bug icon */
-    color: #bd9d5e !important;
+    color: #d8cfbd !important;
 }
 
 /* [END] of styles for settings-panel.tag */
