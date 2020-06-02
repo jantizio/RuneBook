@@ -18,7 +18,7 @@
     </virtual>
   </h2>
 
-  <div if={ opts.current.champion } class="ui middle aligned relaxed divided list" style="height: 100%; overflow-y: auto;">
+  <div if={ opts.current.champion } class="ui middle aligned relaxed divided list" style="height: 100%;">
     <div class="item" each={ page, key in opts.current.champ_data.pages }>
       <div class="right floated content" data-key={ key }>
         
