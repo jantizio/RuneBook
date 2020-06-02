@@ -17,8 +17,8 @@
 
     </div>
 
-    <div style="flex: 1; display: flex; flex-direction: column;" class={ opts.tab.loaded ? "ui bottom attached tab segment active" : "ui bottom attached tab segment active" }>
-      <div if={ opts.tab.loaded } class={ opts.current.champion && !_.isEmpty(opts.current.champ_data.pages.toJS()) ? "ui one column centered grid" : "ui one column middle aligned centered grid" } style="flex: 1; height: 150px;">
+    <div style="flex: 1; display: flex; flex-direction: column; height: 150px; overflow: hidden;" class={ opts.tab.loaded ? "ui bottom attached tab segment active" : "ui bottom attached tab segment active" }>
+      <div if={ opts.tab.loaded } class={ opts.current.champion && !_.isEmpty(opts.current.champ_data.pages.toJS()) ? "ui one column centered grid" : "ui one column middle aligned centered grid" } style="flex: 1; overflow: auto;">
         <div class="row">
           <div class="column" style={ opts.current.champion && !_.isEmpty(opts.current.champ_data.pages.toJS()) ? "height: 100%;" : "" }>
             
