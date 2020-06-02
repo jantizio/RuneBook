@@ -8,6 +8,10 @@ runebook {
 	min-height: 100vh;
 }
 
+select-champion {
+	margin-bottom: -14px;
+}
+
 chapters-segment, 
 chapters-segment > .ui.container {
 	flex: 1; 
@@ -181,6 +185,7 @@ chapters-segment .ui.active.inverted.dimmer {
 
 current-page .ui.button {
 	background: #BD9D5E;
+	margin-right: 10px;
 }
 
 page-list .ui.button {
