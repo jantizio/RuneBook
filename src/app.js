@@ -1,6 +1,11 @@
 var settings = require('./settings');
 var freezer = require('./state');
 
+if(settings.get("darktheme") == null){
+	const { nativeTheme } = require('electron').remote.require('electron')
+	settings.set("darktheme", nativeTheme.shouldUseDarkColors ?? false);
+}
+
 freezer.get().configfile.set({
 	name: settings.get("config.name") + settings.get("config.ext"),
 	cwd: settings.get("config.cwd"),
