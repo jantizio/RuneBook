@@ -2,6 +2,29 @@ body {
 	background: #191D24;
 }
 
+.runepage.list > .item {
+	display: flex !important;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.runepage.list > .item > .runeimages {
+	flex: 0 0 auto;
+	order: 1;
+}
+
+.runepage.list > .item > .pagename {
+	flex: 1 1 auto;
+	padding: 0 1em;
+	order: 2;
+}
+
+.runepage.list > .item > .buttons {
+	flex: 0 0 auto;
+	order: 3;
+}
+
 .ui.secondary.pointing.menu {
 	background: #121212;
 	border-bottom: 1px solid #BD9D5E;
