@@ -25,7 +25,7 @@
           <i class={ opts.lastuploadedpage.page == key && opts.lastuploadedpage.champion == opts.current.champion ? (opts.lastuploadedpage.loading ? "notched circle loading icon" : (opts.lastuploadedpage.valid === false ? "warning sign icon" : "checkmark icon")) : "upload icon" } data-key={key}></i>
         </div>
         
-        <div if={ opts.plugins.local[opts.tab.active] } class="ui icon button" onclick={ setFav } data-key={key}>
+        <div if={ opts.plugins.local[opts.tab.active] && opts.favupload } class="ui icon button" onclick={ setFav } data-key={key}>
           <i class={ key == opts.current.champ_data.fav ? "heart icon" : "heart outline icon" } data-key={key}></i>
         </div>
         
@@ -60,7 +60,7 @@
   <script>
 
 		this.on('updated', function() {
-      if (process.platform != 'darwin') $('.page-list-tooltip').popup()
+      if (process.platform != 'darwin') $('.page-list-tooltip').popup();
 		});
     this.on('mount', function() {
       if (process.platform != 'darwin') $('.page-list-tooltip').popup()

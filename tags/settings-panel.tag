@@ -115,6 +115,7 @@
       this.refs.lang.value = opts.configfile.lang;
       this.refs.pathdiscovery.checked = opts.configfile.pathdiscovery;
       this.refs.darktheme.checked = opts.configfile.darktheme;
+      this.refs.favupload.checked = opts.configfile.favupload;
     });
 
     freezer.on("update:downloaded", () => {
@@ -153,7 +154,7 @@
     }
 
     toggleFavUpload(evt) {
-      evt.preventUpdate = true;
+      // evt.preventUpdate = true;
       freezer.emit("favupload:switch", this.refs.favupload.checked);
     }
 

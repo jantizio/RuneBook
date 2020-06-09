@@ -7,6 +7,7 @@ freezer.get().configfile.set({
 	leaguepath: settings.get("leaguepath"),
 	pathdiscovery: settings.get("pathdiscovery"),
 	darktheme: settings.get("darktheme"),
+	favupload: settings.get("favupload"),
 	lang: settings.get("lang")
 });
 
@@ -51,6 +52,7 @@ freezer.on("darktheme:switch", (val) => {
 freezer.on("favupload:switch", (val) => {
 	freezer.get().configfile.set("favupload", val);
 	settings.set("favupload", val);
+	console.log('fav:', val);
 });
 
 freezer.on("lang:update", (val) => {
