@@ -19,11 +19,11 @@ var plugin = {
 		callback(res);
 	},
 
-	favPage(champion, page) {
-		if(store.get(`local.${champion}.fav`) == page) {
+	favPage(champion, pagename) {
+		if(store.get(`local.${champion}.fav`) == pagename) {
 			store.set(`local.${champion}.fav`, null);
 		}
-		else store.set(`local.${champion}.fav`, page);
+		else store.set(`local.${champion}.fav`, pagename);
 	},
 
 	deletePage(champion, page) {

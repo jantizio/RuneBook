@@ -60,6 +60,7 @@ var state = {
 
 	champselect: false,
 	autochamp: false,
+	favupload: false,
 
 	tooltips: {
 		rune: null
