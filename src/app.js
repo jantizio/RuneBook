@@ -142,20 +142,19 @@ freezer.on('champion:choose', (champion) => {
 	state = freezer.get();
 
 	plugins[state.tab.active].getPages(champion, (res) => {
-		if(freezer.get().tab.active != state.tab.active) return;
-		freezer.get().current.set({ champion, champ_data: res || {pages: {}} });
-		freezer.get().tab.set({ loaded: true });
-
 		// Cache results obtained from a remote source
 		if(freezer.get().plugins.remote[plugin])
 			freezer.get().plugins.remote[plugin].cache.set(champion, res);
+
+		if(freezer.get().tab.active != state.tab.active) return;
+		freezer.get().current.set({ champion, champ_data: res || {pages: {}} });
+		freezer.get().tab.set({ loaded: true });
 	});
 });
 
 freezer.on("tab:switch", (tab) => {
 	freezer.get().tab.set({ active: tab, loaded: true });
 	settings.set("lasttab", tab);
-
 
 	var state = freezer.get();
 
@@ -175,13 +174,13 @@ freezer.on("tab:switch", (tab) => {
 
 	if(!state.current.champion) return;
 	plugins[state.tab.active].getPages(state.current.champion, (res) => {
-		if(freezer.get().tab.active != state.tab.active) return;
-		freezer.get().current.set({ champion: freezer.get().current.champion, champ_data: res || {pages: {}} });
-		freezer.get().tab.set({ loaded: true });
-
 		// Cache results obtained from a remote source
 		if(freezer.get().plugins.remote[plugin])
 			freezer.get().plugins.remote[plugin].cache.set(champion, res);
+		
+		if(freezer.get().tab.active != state.tab.active) return;
+		freezer.get().current.set({ champion: freezer.get().current.champion, champ_data: res || {pages: {}} });
+		freezer.get().tab.set({ loaded: true });
 	});
 });
 
