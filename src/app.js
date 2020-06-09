@@ -48,6 +48,11 @@ freezer.on("darktheme:switch", (val) => {
 	settings.set("darktheme", val);
 });
 
+freezer.on("favupload:switch", (val) => {
+	freezer.get().configfile.set("favupload", val);
+	settings.set("favupload", val);
+});
+
 freezer.on("lang:update", (val) => {
 	freezer.get().configfile.set("lang", val);
 	settings.set("lang", val);
@@ -380,12 +385,11 @@ freezer.on("autochamp:enable", () => {
 
 function handleChampionUpdate(data) {
 	var player = data.myTeam.find((el) => data.localPlayerCellId === el.cellId);
-	console.log(player);
 	if (!player) return;
 
 	freezer.get().set("champselect", (data.timer.phase !== "FINALIZATION") ? true : false);
 
-	if(player.championId === 0) return;	
+	if(player.championId === 0) return;		// no champ selected = do nothing
 	var champions = freezer.get().championsinfo;
 	var champion = Object.keys(champions).find((el) => champions[el].key == player.championId);
 
@@ -398,7 +402,7 @@ function handleChampionUpdate(data) {
 	}
 	
 	// Fav page check & autoupload
-	// if(freezer.get().favupload === false) return;
+	if(freezer.get().favupload === false) return;
 	// Check if player has locked in a champion	
 	var isLockedIn = data.actions.some(action => 
 		action.some(el => 

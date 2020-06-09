@@ -81,9 +81,15 @@
            <h4 class="ui horizontal divider header">
             <i class="yellow flask icon" style="padding-right:.5em;font-size:1em"></i><i1-8n>settings.experimental</i1-8n>
           </h4>
-          <div class="ui toggle checkbox">
-            <input type="checkbox" name="darktheme" onchange={ toggleDarkTheme } ref="darktheme">
-            <label><i1-8n>settings.darktheme</i1-8n></label>
+          <div class="flex-row">
+            <div class="ui toggle checkbox">
+              <input type="checkbox" name="darktheme" onchange={ toggleDarkTheme } ref="darktheme">
+              <label><i1-8n>settings.darktheme</i1-8n></label>
+            </div>
+            <div class="ui toggle checkbox">
+              <input type="checkbox" name="favupload" onchange={ toggleFavUpload } ref="favupload">
+              <label><i1-8n>settings.favupload</i1-8n></label>
+            </div>
           </div>
 
           <h4 class="ui horizontal divider header">
@@ -144,6 +150,11 @@
     toggleDarkTheme(evt) {
       // evt.preventUpdate = true;
       freezer.emit("darktheme:switch", this.refs.darktheme.checked);
+    }
+
+    toggleFavUpload(evt) {
+      evt.preventUpdate = true;
+      freezer.emit("favupload:switch", this.refs.favupload.checked);
     }
 
     doUpdate(evt) {
