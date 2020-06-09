@@ -91,7 +91,7 @@ request('https://ddragon.leagueoflegends.com/api/versions.json', function (error
 });
 
 freezer.on('version:set', (ver) => {
-	request('http://ddragon.leagueoflegends.com/cdn/'+ver+'/data/en_US/champion.json', function(error, response, data) {
+	request('https://ddragon.leagueoflegends.com/cdn/'+ver+'/data/en_US/champion.json', function(error, response, data) {
 		if(!error && response && response.statusCode == 200){
 			freezer.get().set('championsinfo', JSON.parse(data).data);
 			freezer.emit("championsinfo:set");
