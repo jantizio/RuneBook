@@ -407,18 +407,22 @@ function handleChampionUpdate(data) {
 		freezer.emit('champion:choose', champion);
 	}
 	
-	// Fav page check & autoupload
+	// Fav page autoupload enabled?
 	if(freezer.get().favautoupload === false) return;
+	// In case autochamp is disabled, check if current champion matches what is hovered ingame
+	if(freezer.get().current.champion !== champion) return;
+	// Is there a fav page for current champ?
+	var fav = freezer.get().current.champ_data.fav;
+	if (!fav) return;
 	// Check if player has locked in a champion	
 	var isLockedIn = data.actions.some(action => 
 		action.some(el => 
 			((el.actorCellId === data.localPlayerCellId) && (el.type === "pick") && (el.completed === true))
 	));
 	if (!isLockedIn) return;
-	
-	var fav = freezer.get().current.champ_data.fav;
-	console.log("Fav page:", fav);
-	if (fav) freezer.emit('page:upload', champion, fav);
+	// All checks passed, upload favorite page
+	console.log("Uploading Fav page:", fav);
+	freezer.emit('page:upload', champion, fav);
 }
 
 freezer.on("autochamp:disable", () => {
