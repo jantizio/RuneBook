@@ -86,9 +86,9 @@
               <input type="checkbox" name="darktheme" onchange={ toggleDarkTheme } ref="darktheme">
               <label><i1-8n>settings.darktheme</i1-8n></label>
             </div>
-            <div class="ui toggle checkbox">
-              <input type="checkbox" name="favupload" onchange={ toggleFavUpload } ref="favupload">
-              <label><i1-8n>settings.favupload</i1-8n></label>
+            <div class="ui toggle checkbox" data-tooltip={ i18n.localise('settings.favautoupload.tooltip')} data-position="bottom right" data-variation="basic" data-inverted="">
+              <input type="checkbox" name="favautoupload" onchange={ toggleFavAutoUpload } ref="favautoupload">
+              <label><i1-8n>settings.favautoupload</i1-8n></label>
             </div>
           </div>
 
@@ -115,7 +115,7 @@
       this.refs.lang.value = opts.configfile.lang;
       this.refs.pathdiscovery.checked = opts.configfile.pathdiscovery;
       this.refs.darktheme.checked = opts.configfile.darktheme;
-      this.refs.favupload.checked = opts.configfile.favupload;
+      this.refs.favautoupload.checked = opts.configfile.favautoupload;
     });
 
     freezer.on("update:downloaded", () => {
@@ -153,9 +153,9 @@
       freezer.emit("darktheme:switch", this.refs.darktheme.checked);
     }
 
-    toggleFavUpload(evt) {
+    toggleFavAutoUpload(evt) {
       // evt.preventUpdate = true;
-      freezer.emit("favupload:switch", this.refs.favupload.checked);
+      freezer.emit("favautoupload:switch", this.refs.favautoupload.checked);
     }
 
     doUpdate(evt) {

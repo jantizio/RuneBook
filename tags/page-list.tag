@@ -25,7 +25,7 @@
           <i class={ opts.lastuploadedpage.page == key && opts.lastuploadedpage.champion == opts.current.champion ? (opts.lastuploadedpage.loading ? "notched circle loading icon" : (opts.lastuploadedpage.valid === false ? "warning sign icon" : "checkmark icon")) : "upload icon" } data-key={key}></i>
         </div>
         
-        <div if={ opts.plugins.local[opts.tab.active] && opts.favupload } class="ui icon button" onclick={ setFav } data-key={key}>
+        <div if={ opts.plugins.local[opts.tab.active] && opts.favautoupload } class="ui icon button" onclick={ setFav } data-key={key} data-tooltip={ i18n.localise('pagelist.favautoupload')} data-position="left center" data-inverted="">
           <i class={ key == opts.current.champ_data.fav ? "heart icon" : "heart outline icon" } data-key={key}></i>
         </div>
         
@@ -33,7 +33,7 @@
           <i class={ opts.lastsyncedpage.page == key && opts.lastsyncedpage.champion == opts.current.champion ? (opts.lastsyncedpage.loading ? "sync alternate icon loading" : "checkmark icon") : "sync alternate icon" } data-key={key}></i>
         </div>
 
-        <div if={ opts.plugins.local[opts.tab.active] } class="ui icon button {red: !page.bookmark}" data-key={key} data-tooltip={page.bookmark ? i18n.localise('pagelist.unlink') : ""} data-position="left center" data-inverted="" onclick={ page.bookmark ? unlinkBookmark : deletePage }>
+        <div if={ opts.plugins.local[opts.tab.active] } class="ui icon button {red: !page.bookmark}" data-key={key} data-tooltip={page.bookmark ? i18n.localise('pagelist.unlink') : i18n.localise('pagelist.delete')} data-position="left center" data-inverted="" onclick={ page.bookmark ? unlinkBookmark : deletePage }>
           <i class={page.bookmark ? "unlink icon" : "trash icon"} data-key={key}></i>
         </div>
 

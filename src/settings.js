@@ -13,7 +13,7 @@ settings = new Store({
 		leaguepath: 'C:\\Riot Games\\League of Legends\\LeagueClient.exe',
 		pathdiscovery: true,
 		autochamp: false,
-		favupload: false,
+		favautoupload: false,
 		lasttab: "local",
 		darktheme: false,
 	}

@@ -7,7 +7,7 @@ freezer.get().configfile.set({
 	leaguepath: settings.get("leaguepath"),
 	pathdiscovery: settings.get("pathdiscovery"),
 	darktheme: settings.get("darktheme"),
-	favupload: settings.get("favupload"),
+	favautoupload: settings.get("favautoupload"),
 	lang: settings.get("lang")
 });
 
@@ -49,9 +49,9 @@ freezer.on("darktheme:switch", (val) => {
 	settings.set("darktheme", val);
 });
 
-freezer.on("favupload:switch", (val) => {
-	freezer.get().configfile.set("favupload", val);
-	settings.set("favupload", val);
+freezer.on("favautoupload:switch", (val) => {
+	freezer.get().configfile.set("favautoupload", val);
+	settings.set("favautoupload", val);
 	console.log('fav:', val);
 });
 
@@ -398,13 +398,13 @@ function handleChampionUpdate(data) {
 	// Detect champion hover
 	if(freezer.get().autochamp === true) {
 		console.log(champion);
-		// Switch to local and dont query remote plugin. Undesirable for remote-only users.
+		// Switch to local and dont query remote plugin. Undesirable for remote-only users, but prevents request spam
 		// if(champion !== freezer.get().current.champion) freezer.get().tab.set("active", "local"); 
 		freezer.emit('champion:choose', champion);
 	}
 	
 	// Fav page check & autoupload
-	if(freezer.get().favupload === false) return;
+	if(freezer.get().favautoupload === false) return;
 	// Check if player has locked in a champion	
 	var isLockedIn = data.actions.some(action => 
 		action.some(el => 
