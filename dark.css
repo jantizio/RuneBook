@@ -50,7 +50,6 @@ span > i1-8n,
 #displayleaguepath {
     /* League path display */
     background: black !important;
-    border-right-color: grey !important;
     color: #d8cfbd !important;
 }
 
@@ -62,13 +61,6 @@ span > i1-8n,
 
 #displaypath {
     /* Local rune page file */
-    background: black !important;
-    border-right-color: grey !important;
-    color: #d8cfbd !important;
-}
-
-.ui.icon.button {
-    /* Open folder button for local rune page file */
     background: black !important;
     color: #d8cfbd !important;
 }
@@ -266,35 +258,19 @@ page-list ::-webkit-scrollbar-thumb:hover {
 	color: #d8cfbd;
 }
 
-current-page .ui.button {
+.ui.button {
 	background: #71552B;
 }
 
-page-list .ui.button {
-	background: #71552B;
-}
-
-current-page .ui.button:hover {
+.ui.button:hover {
 	background: #BD9D5E;
 }
 
-page-list .ui.button:hover {
-	background: #BD9D5E;
-}
-
-current-page .ui.button:focus {
+.ui.button:focus {
 	background: #71552B;
 }
 
-page-list .ui.button:focus {
-	background: #71552B;
-}
-
-current-page .ui.button:active {
-	background: #BD9D5E;
-}
-
-page-list .ui.button:active {
+.ui.button:active {
 	background: #BD9D5E;
 }
 
