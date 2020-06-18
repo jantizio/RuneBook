@@ -295,3 +295,40 @@ page-list ::-webkit-scrollbar-thumb:hover {
 	border-top: 1px solid #71552B !important;
 	box-shadow: none !important;
 }
+
+.changelog-modal > .header {
+	background: #191D24 !important;
+	color: #bd9d5e !important;
+	border-bottom-color: #bd9d5e !important;
+	text-align: center;
+}
+
+.changelog-modal > .content {
+	background: #191D24 !important;
+	color: #d8cfbd !important;
+}
+
+.changelog-modal > .content > img {
+	width: 66% !important;
+}
+
+.changelog-modal .ui.horizontal.divider {
+	color: #bd9d5e !important;
+}
+
+.changelog-modal .icon {
+	color: #d8cfbd !important;
+}
+
+.ui.modal .scrolling::-webkit-scrollbar-track {
+	background: none !important;
+}
+
+.ui.modal .scrolling::-webkit-scrollbar-thumb,
+.ui.modal .scrolling::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.ui.modal .scrolling::-webkit-scrollbar-thumb:hover {
+	background: rgba(255, 255, 255, 0.15) !important;
+}
