@@ -243,3 +243,39 @@ chapters-segment .ui.active.inverted.dimmer {
 	border-top: 1px solid #BD9D5E !important;
 	box-shadow: none !important;
 }
+
+.changelog-modal > .header {
+	background: #ffffff !important;
+	color: #000000de !important;
+	text-align: center;
+}
+
+.changelog-modal > .content {
+	background: #ffffff !important;
+	color: #000000de !important;
+}
+
+.changelog-modal > .content > img {
+	width: 66% !important;
+}
+
+.changelog-modal .ui.horizontal.divider {
+	color: #191D24 !important;
+}
+
+.changelog-modal .icon {
+	color: #191D24 !important;
+}
+
+.ui.modal .scrolling::-webkit-scrollbar-track {
+	background: none !important;
+}
+
+.ui.modal .scrolling::-webkit-scrollbar-thumb,
+.ui.modal .scrolling::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(0, 0, 0, .25) !important;
+}
+
+.ui.modal .scrolling::-webkit-scrollbar-thumb:hover {
+	background: rgba(0, 0, 0, .15) !important;
+}
