@@ -91,6 +91,13 @@ request('https://ddragon.leagueoflegends.com/api/versions.json', function (error
 });
 
 freezer.on('version:set', (ver) => {
+	request('https://ddragon.leagueoflegends.com/cdn/'+ver+'/data/en_US/runesReforged.json', function(error, response, data) {
+		if(!error && response && response.statusCode == 200){
+			freezer.get().set('runesreforgedinfo', JSON.parse(data));
+		}
+		else throw Error("Couldn't fetch runesReforged.json from ddragon.")
+	});
+
 	request('https://ddragon.leagueoflegends.com/cdn/'+ver+'/data/en_US/champion.json', function(error, response, data) {
 		if(!error && response && response.statusCode == 200){
 			freezer.get().set('championsinfo', JSON.parse(data).data);
