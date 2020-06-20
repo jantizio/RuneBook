@@ -31,6 +31,8 @@
   "pagelist.syncfrom": "Συγχρονισμός από ",
   "pagelist.unlink": "Αφαίρεση αυτής της σελίδας",
   "pagelist.bookmarkpage": "Αποθήκευση αυτής της σελίδας ως τοπική",
+  "pagelist.favautoupload": "Automatically upload this page to client",
+  "pagelist.delete": "Delete this page",
   "pagelist.emptylocalpage": "Δεν φαίνεται να έχετε σελίδες για αυτόν τον ήρωα.",
   "pagelist.emptylocalpage.subheader": "Κάντε κλικ στο παρακάτω κουμπί για αποθήκευση της τρέχουσας σελίδας.",
   "pagelist.emptyremotepage": "Δεν ήταν δυνατή η εύρεση σελίδων ρούνων για αυτόν τον ήρωα.",
@@ -38,6 +40,8 @@
   "pagelist.confirmdialog": "Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτήν τη σελίδα;",
   "settings.experimental": "Πειραματικό",
   "settings.darktheme": "Σκουρόχρωμο θέμα",
+  "settings.favautoupload": "Auto-upload favorite page",
+  "settings.favautoupload.tooltip": "Automatically upload favorite page to client after champion is locked in",
   "currentpage.retry": "Προσπάθησε ξανά",
   "settings.about": "Αναφορικά",
   "settings.madeby": "Δημιουργήθηκε από"

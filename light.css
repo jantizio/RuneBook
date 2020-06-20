@@ -244,6 +244,16 @@ chapters-segment .ui.active.inverted.dimmer {
 	box-shadow: none !important;
 }
 
+.flex-row {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+}
+
+.flex-row > div {
+	flex: 1 1;
+}
+
 .changelog-modal > .header {
 	background: #ffffff !important;
 	color: #000000de !important;

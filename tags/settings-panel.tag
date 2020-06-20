@@ -81,9 +81,15 @@
            <h4 class="ui horizontal divider header">
             <i class="yellow flask icon" style="padding-right:.5em;font-size:1em"></i><i1-8n>settings.experimental</i1-8n>
           </h4>
-          <div class="ui toggle checkbox">
-            <input type="checkbox" name="darktheme" onchange={ toggleDarkTheme } ref="darktheme">
-            <label><i1-8n>settings.darktheme</i1-8n></label>
+          <div class="flex-row">
+            <div class="ui toggle checkbox">
+              <input type="checkbox" name="darktheme" onchange={ toggleDarkTheme } ref="darktheme">
+              <label><i1-8n>settings.darktheme</i1-8n></label>
+            </div>
+            <div class="ui toggle checkbox" data-tooltip={ i18n.localise('settings.favautoupload.tooltip')} data-position="bottom right" data-variation="basic" data-inverted="">
+              <input type="checkbox" name="favautoupload" onchange={ toggleFavAutoUpload } ref="favautoupload">
+              <label><i1-8n>settings.favautoupload</i1-8n></label>
+            </div>
           </div>
 
           <h4 class="ui horizontal divider header">
@@ -111,6 +117,7 @@
       this.refs.lang.value = opts.configfile.lang;
       this.refs.pathdiscovery.checked = opts.configfile.pathdiscovery;
       this.refs.darktheme.checked = opts.configfile.darktheme;
+      this.refs.favautoupload.checked = opts.configfile.favautoupload;
     });
 
     freezer.on("update:downloaded", () => {
@@ -146,6 +153,11 @@
     toggleDarkTheme(evt) {
       // evt.preventUpdate = true;
       freezer.emit("darktheme:switch", this.refs.darktheme.checked);
+    }
+
+    toggleFavAutoUpload(evt) {
+      // evt.preventUpdate = true;
+      freezer.emit("favautoupload:switch", this.refs.favautoupload.checked);
     }
 
     doUpdate(evt) {

@@ -69,8 +69,6 @@ function createWindow() {
     win = new BrowserWindow(options);
 
     mainWindowState.manage(win);
-    win.setResizable(true);
-    win.setFullScreenable(false);
     win.setMenu(null);
 
     // and load the index.html of the app.

@@ -12,6 +12,7 @@ freezer.get().configfile.set({
 	leaguepath: settings.get("leaguepath"),
 	pathdiscovery: settings.get("pathdiscovery"),
 	darktheme: settings.get("darktheme"),
+	favautoupload: settings.get("favautoupload"),
 	lang: settings.get("lang")
 });
 
@@ -51,6 +52,12 @@ freezer.on("pathdiscovery:switch", (val) => {
 freezer.on("darktheme:switch", (val) => {
 	freezer.get().configfile.set("darktheme", val);
 	settings.set("darktheme", val);
+});
+
+freezer.on("favautoupload:switch", (val) => {
+	freezer.get().configfile.set("favautoupload", val);
+	settings.set("favautoupload", val);
+	console.log('fav:', val);
 });
 
 freezer.on("lang:update", (val) => {
@@ -374,16 +381,7 @@ freezer.on('/lol-champ-select/v1/session:Delete', () => {
 
 freezer.on('/lol-champ-select/v1/session:Update', (data) => {
 	console.log(data);
-	var action = data.myTeam.find((el) => data.localPlayerCellId === el.cellId);
-	if(!action) return;
-	if(data.timer.phase !== "FINALIZATION") freezer.get().set("champselect", true);
-	else freezer.get().set("champselect", false);
-	if(freezer.get().autochamp === false) return;
-	if(action.championId === 0) return;
-	var champions = freezer.get().championsinfo;
-	var champion = Object.keys(champions).find((el) => champions[el].key == action.championId);
-	console.log(champion);
-	freezer.emit('champion:choose', champion);
+	handleChampionUpdate(data);
 });
 
 freezer.on("autochamp:enable", () => {
@@ -394,16 +392,45 @@ freezer.on("autochamp:enable", () => {
 	api.get("/lol-champ-select/v1/session").then((data) => {
 		console.log(data)
 		if(!data) return;
-		var action = data.myTeam.find((el) => data.localPlayerCellId === el.cellId);
-		if(!action) return;
-		if(data.timer.phase !== "FINALIZATION") freezer.get().set("champselect", true);
-		var champions = freezer.get().championsinfo;
-		var champion = Object.keys(champions).find((el) => champions[el].key == action.championId);
-		console.log(champion)
-		// if(champion !== freezer.get().current.champion) freezer.get().tab.set("active", "local"); // Avoid request spamming
-		freezer.emit('champion:choose', champion);
+		handleChampionUpdate(data);
 	});
 });
+
+function handleChampionUpdate(data) {
+	var player = data.myTeam.find((el) => data.localPlayerCellId === el.cellId);
+	if (!player) return;
+
+	freezer.get().set("champselect", (data.timer.phase !== "FINALIZATION") ? true : false);
+
+	if(player.championId === 0) return;		// no champ selected = do nothing
+	var champions = freezer.get().championsinfo;
+	var champion = Object.keys(champions).find((el) => champions[el].key == player.championId);
+
+	// Detect champion hover
+	if(freezer.get().autochamp === true) {
+		console.log(champion);
+		// Switch to local and dont query remote plugin. Undesirable for remote-only users, but prevents request spam
+		// if(champion !== freezer.get().current.champion) freezer.get().tab.set("active", "local"); 
+		freezer.emit('champion:choose', champion);
+	}
+	
+	// Fav page autoupload enabled?
+	if(freezer.get().favautoupload === false) return;
+	// In case autochamp is disabled, check if current champion matches what is hovered ingame
+	if(freezer.get().current.champion !== champion) return;
+	// Is there a fav page for current champ?
+	var fav = freezer.get().current.champ_data.fav;
+	if (!fav) return;
+	// Check if player has locked in a champion	
+	var isLockedIn = data.actions.some(action => 
+		action.some(el => 
+			((el.actorCellId === data.localPlayerCellId) && (el.type === "pick") && (el.completed === true))
+	));
+	if (!isLockedIn) return;
+	// All checks passed, upload favorite page
+	console.log("Uploading Fav page:", fav);
+	freezer.emit('page:upload', champion, fav);
+}
 
 freezer.on("autochamp:disable", () => {
 	freezer.get().set("autochamp", false);

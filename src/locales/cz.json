@@ -31,6 +31,8 @@
   "pagelist.syncfrom": "Synchronizuje se z ",
   "pagelist.unlink": "Odebrat tuto stránku",
   "pagelist.bookmarkpage": "Označit tuto stránku jako lokální",
+  "pagelist.favautoupload": "Automatically upload this page to client",
+  "pagelist.delete": "Delete this page",
   "pagelist.emptylocalpage": "Nemáte žádné stránky pro tohodle šampióna.",
   "pagelist.emptylocalpage.subheader": "Click the button below to import from your current page.",
   "pagelist.emptyremotepage": "Nepovedlo se najít runy pro tohoto šampióna.",
@@ -38,6 +40,8 @@
   "pagelist.confirmdialog": "Jste si jistý, že chcete odebrat tuto stránku?",
   "settings.experimental": "Experimentální",
   "settings.darktheme": "Tmavý vzhled",
+  "settings.favautoupload": "Auto-upload favorite page",
+  "settings.favautoupload.tooltip": "Automatically upload favorite page to client after champion is locked in",
   "currentpage.retry": "Retry",
   "settings.about": "About",
   "settings.madeby": "Made by"
