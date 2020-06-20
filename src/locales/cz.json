@@ -40,7 +40,7 @@
   "pagelist.confirmdialog": "Jste si jistý, že chcete odebrat tuto stránku?",
   "settings.experimental": "Experimentální",
   "settings.darktheme": "Tmavý vzhled",
- "settings.favautoupload": "Auto-upload favorite page",
+  "settings.favautoupload": "Auto-upload favorite page",
   "settings.favautoupload.tooltip": "Automatically upload favorite page to client after champion is locked in",
   "currentpage.retry": "Retry",
   "settings.about": "About",
