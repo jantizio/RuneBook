@@ -31,6 +31,8 @@
   "pagelist.syncfrom": "Sincronizza da ",
   "pagelist.unlink": "Rimuovi il riferimento a questa pagina",
   "pagelist.bookmarkpage": "Aggiungi un segnalibro per questa pagina",
+  "pagelist.favautoupload": "Automatically upload this page to client",
+  "pagelist.delete": "Delete this page",
   "pagelist.emptylocalpage": "Sembra che tu non abbia pagine per questo campione.",
   "pagelist.emptylocalpage.subheader": "Clicca il pulsante in basso per importare dalla tua pagina corrente.",
   "pagelist.emptyremotepage": "Impossibile trovare delle pagine per questo campione.",
@@ -38,6 +40,8 @@
   "pagelist.confirmdialog": "Sei sicuro di voler eliminare questa pagina?",
   "settings.experimental": "Sperimentale",
   "settings.darktheme": "Tema scuro",
+  "settings.favautoupload": "Auto-upload favorite page",
+  "settings.favautoupload.tooltip": "Automatically upload favorite page to client after champion is locked in",
   "currentpage.retry": "Riprova",
   "settings.about": "About",
   "settings.madeby": "Made by"
