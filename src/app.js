@@ -22,9 +22,20 @@ freezer.get().tab.set({ active: settings.get("lasttab"), loaded: true });
 var request = require('request');
 
 var {ipcRenderer} = require('electron');
-ipcRenderer.on('update:ready', (event, arg) => {
-	console.log("github new latest found")
-	freezer.get().set("updateready", true);
+ipcRenderer.on('updateinfo:ready', (event, arg) => {
+	// Determining whether an update is available
+	var appVersion = require('electron').remote.app.getVersion();
+	latestv = arg.tag_name.substring(1);
+	isUpdateAvailable = latestv !== appVersion && !isDev;
+
+	// Is this really necessary? => The log can only be seen by Dev anyway
+	if(isUpdateAvailable){
+		console.log("github new latest found");
+	}
+
+	// storage changelog and if an update is available
+	freezer.get().set("updateready", isUpdateAvailable);
+	freezer.get().set("changelogbody", arg.body);
 });
 ipcRenderer.on('update:downloaded', (event, arg) => {
 	console.log("update downloaded")
@@ -82,6 +93,7 @@ freezer.on("content:reload", () => {
 freezer.on("changelog:ready", () => {
 	var appVersion = require('electron').remote.app.getVersion();
 	console.log(appVersion, settings.get("changelogversion"))
+	freezer.get().set("showchangelog", true);
 	if(settings.get("changelogversion") != appVersion) {
 		freezer.get().set("showchangelog", true);
 		settings.set("changelogversion", appVersion);

@@ -10,8 +10,9 @@
       <h3 class="ui section horizontal divider">Greetings, Summoner!</h3>
       <h4 class="centered">RuneBook has been updated to version { require('electron-is-dev') === true ? "DEV" : require('electron').remote.app.getVersion(); }</h4>
 
-      <p>You can read about new features and bugfixes on our <a href="https://github.com/Soundofdarkness/RuneBook/releases">download page at Github</a></p>
-
+      <p><markup data={freezer.get().changelogbody}></markup></p>
+      <p if={ !freezer.get().changelogbody }>You can read about new features and bugfixes on our <a href="https://github.com/Soundofdarkness/RuneBook/releases">download page at Github</a></p>
+      
       <div class="ui divider"></div>
 
       <p>Remember, RuneBook is pretty much complete for what it has to offer, but new small features might be added from time to time, and it will still be updated to support the latest game patch.</p>
@@ -29,6 +30,10 @@
 
       freezer.emit("changelog:ready");
     });
+
+    function modChangelogBoy(body){
+      return body;
+    } 
 
   </script>
 

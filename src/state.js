@@ -67,7 +67,8 @@ var state = {
 		rune: null
 	},
 
-	showchangelog: false
+	showchangelog: false,
+	changelogbody: ''
 };
 
 module.exports = new Freezer(state);
