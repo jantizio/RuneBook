@@ -31,10 +31,6 @@
       freezer.emit("changelog:ready");
     });
 
-    function modChangelogBoy(body){
-      return body;
-    } 
-
   </script>
 
 </changelog-modal>
