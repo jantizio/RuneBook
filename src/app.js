@@ -376,12 +376,13 @@ freezer.on('/lol-perks/v1/perks:Update', (data) => {
 freezer.on('/lol-perks/v1/currentpage:Update', handleCurrentPageUpdate);
 
 freezer.on('/lol-champ-select/v1/session:Delete', () => {
-	freezer.get().set("champselect", false);
+	freezer.get().champselect.set({ active: false, favuploaded: false });
 });
 
 freezer.on('/lol-champ-select/v1/session:Update', (data) => {
 	console.log(data);
-	handleChampionUpdate(data);
+    handleChampionUpdate(data);
+    console.log(freezer.get().champselect);
 });
 
 freezer.on("autochamp:enable", () => {
@@ -400,7 +401,7 @@ function handleChampionUpdate(data) {
 	var player = data.myTeam.find((el) => data.localPlayerCellId === el.cellId);
 	if (!player) return;
 
-	freezer.get().set("champselect", (data.timer.phase !== "FINALIZATION") ? true : false);
+	freezer.get().champselect.set('active', (data.timer.phase !== 'FINALIZATION') ? true : false);
 
 	if(player.championId === 0) return;		// no champ selected = do nothing
 	var champions = freezer.get().championsinfo;
@@ -414,22 +415,27 @@ function handleChampionUpdate(data) {
 		freezer.emit('champion:choose', champion);
 	}
 	
-	// Fav page autoupload enabled?
-	if(freezer.get().favautoupload === false) return;
+	// Quit if page autoupload is disabled
+    if(freezer.get().favautoupload === false) return;
+    // Quit if favorite page was already uploaded
+    if(freezer.get().champselect.favuploaded === true) return;
 	// In case autochamp is disabled, check if current champion matches what is hovered ingame
 	if(freezer.get().current.champion !== champion) return;
 	// Is there a fav page for current champ?
-	var fav = freezer.get().current.champ_data.fav;
-	if (!fav) return;
+	var favpage = freezer.get().current.champ_data.fav;
+	if (!favpage) return;
 	// Check if player has locked in a champion	
 	var isLockedIn = data.actions.some(action => 
 		action.some(el => 
 			((el.actorCellId === data.localPlayerCellId) && (el.type === "pick") && (el.completed === true))
 	));
 	if (!isLockedIn) return;
+
 	// All checks passed, upload favorite page
-	console.log("Uploading Fav page:", fav);
-	freezer.emit('page:upload', champion, fav);
+	console.log("Uploading Fav page:", favpage);
+	freezer.emit('page:upload', champion, favpage);
+    freezer.get().champselect.set({ favuploaded: true });
+    console.log(freezer.get().champselect);
 }
 
 freezer.on("autochamp:disable", () => {
@@ -458,9 +464,9 @@ connector.on('connect', (data) => {
 connector.on('disconnect', () => {
 	console.log("client closed");
 	api.destroy();
+    freezer.get().champselect.set({ active: false, favuploaded: false });
 	freezer.get().connection.set({ page: null, summonerLevel: 0 });
 	freezer.get().session.set({ connected: false, state: "" });
-	freezer.get().set("champselect", false);
 });
 
 // Start listening for the LCU client

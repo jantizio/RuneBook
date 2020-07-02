@@ -60,7 +60,10 @@ var state = {
 
 	lolversions: [],
 
-	champselect: false,
+	champselect: {
+		active: false,
+		favuploaded: false
+	},
 	autochamp: false,
 
 	tooltips: {
