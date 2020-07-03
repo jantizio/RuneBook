@@ -45,7 +45,7 @@ function exctractPage(html, champion, rec, callback, pageType) {
 		stylesMap = Object.keys(stylesMap).length == 0 ? getStylesMap() : stylesMap;
 		var rune = $(this).text();
 		rune = rune.replace(".png", "");
-		console.log(rune)
+		//console.log(rune)
 		if(index % 11 == 0) {
 			pages[pages.length - 1].primaryStyleId = stylesMap[rune];
 			return;
