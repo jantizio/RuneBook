@@ -143,9 +143,7 @@ function loadPlugins() {
 loadPlugins();
 
 freezer.on('champion:choose', (champion) => {
-
 	var state = freezer.get();
-
 	var plugin = state.tab.active;
 
 	// Check if champion is already been cached before asking the remote plugin
@@ -176,13 +174,12 @@ freezer.on("tab:switch", (tab) => {
 	settings.set("lasttab", tab);
 
 	var state = freezer.get();
-
 	var plugin = state.tab.active;
-	var champion = freezer.get().current.champion;
+	var champion = state.current.champion;
 
 	// Check if champion is already been cached before asking the remote plugin
 	if(state.plugins.remote[plugin] && state.plugins.remote[plugin].cache[champion]) {
-		freezer.get().current.set({ champion, champ_data: state.plugins.remote[plugin].cache[champion] || {pages: {}} });
+		freezer.get().current.set({ champ_data: state.plugins.remote[plugin].cache[champion] || {pages: {}} });
 		console.log("CACHE HIT!");
 		return;
 	}
@@ -198,7 +195,7 @@ freezer.on("tab:switch", (tab) => {
 			freezer.get().plugins.remote[plugin].cache.set(champion, res);
 		
 		if(freezer.get().tab.active != state.tab.active) return;
-		freezer.get().current.set({ champion: freezer.get().current.champion, champ_data: res || {pages: {}} });
+		freezer.get().current.set({ champ_data: res || {pages: {}} });
 		freezer.get().tab.set({ loaded: true });
 	});
 });
@@ -266,7 +263,7 @@ freezer.on('page:upload', (champion, page) => {
 	console.log("DEV page", page);
 	console.log("DEV page data", state.current.champ_data.pages[page]);
 	console.log("DEV state pages", state.current.champ_data.pages);
-	page_data = state.current.champ_data.pages[page];
+	var page_data = state.current.champ_data.pages[page];
 	page_data.name = page;
 	page_data.current = true;
 
@@ -376,13 +373,18 @@ freezer.on('/lol-perks/v1/perks:Update', (data) => {
 freezer.on('/lol-perks/v1/currentpage:Update', handleCurrentPageUpdate);
 
 freezer.on('/lol-champ-select/v1/session:Delete', () => {
-	freezer.get().champselect.set({ active: false, favuploaded: false });
+	freezer.get().champselect.set({ active: false, gameMode: null, favUploaded: false });
 });
 
 freezer.on('/lol-champ-select/v1/session:Update', (data) => {
-	console.log(data);
+    console.log(data);
+    if (freezer.get().champselect.gameMode === null) {
+        api.get('/lol-gameflow/v1/session').then((gameflowData) => {
+            freezer.get().champselect.set({ gameMode: gameflowData.gameData.queue.gameMode });
+            console.log(freezer.get().champselect.gameMode);
+        });
+    }
     handleChampionUpdate(data);
-    console.log(freezer.get().champselect);
 });
 
 freezer.on("autochamp:enable", () => {
@@ -398,44 +400,53 @@ freezer.on("autochamp:enable", () => {
 });
 
 function handleChampionUpdate(data) {
+    var state = freezer.get();
 	var player = data.myTeam.find((el) => data.localPlayerCellId === el.cellId);
 	if (!player) return;
 
-	freezer.get().champselect.set('active', (data.timer.phase !== 'FINALIZATION') ? true : false);
+	state.champselect.set({ active: ((data.timer.phase !== 'FINALIZATION') ? true : false) });
 
-	if(player.championId === 0) return;		// no champ selected = do nothing
-	var champions = freezer.get().championsinfo;
-	var champion = Object.keys(champions).find((el) => champions[el].key == player.championId);
+	if (player.championId === 0) return;		// no champ selected = do nothing
+	var champions = state.championsinfo;
+    var champion = Object.keys(champions).find((el) => champions[el].key == player.championId);
 
 	// Detect champion hover
-	if(freezer.get().autochamp === true) {
+	if (state.autochamp === true) {
 		console.log(champion);
 		// Switch to local and dont query remote plugin. Undesirable for remote-only users, but prevents request spam
-		// if(champion !== freezer.get().current.champion) freezer.get().tab.set("active", "local"); 
+		// if(champion !== state.current.champion) state.tab.set("active", "local"); 
 		freezer.emit('champion:choose', champion);
-	}
-	
-	// Quit if page autoupload is disabled
-    if(freezer.get().favautoupload === false) return;
-    // Quit if favorite page was already uploaded
-    if(freezer.get().champselect.favuploaded === true) return;
-	// In case autochamp is disabled, check if current champion matches what is hovered ingame
-	if(freezer.get().current.champion !== champion) return;
-	// Is there a fav page for current champ?
-	var favpage = freezer.get().current.champ_data.fav;
-	if (!favpage) return;
-	// Check if player has locked in a champion	
-	var isLockedIn = data.actions.some(action => 
-		action.some(el => 
-			((el.actorCellId === data.localPlayerCellId) && (el.type === "pick") && (el.completed === true))
-	));
-	if (!isLockedIn) return;
+    }
+    
+    // Favpage autoupload works only in Classic SR games.
+    // In ARAM & Rotating game modes such automation is disruptive
+    if (state.champselect.gameMode !== 'CLASSIC') return;
+    api.get('/lol-champ-select/v1/current-champion').then((championId) => {
+        console.log('champ locked:', championId);
+        if (championId !== 0)
+            handleFavPageUpload(championId); 
+    });
+}
 
-	// All checks passed, upload favorite page
-	console.log("Uploading Fav page:", favpage);
-	freezer.emit('page:upload', champion, favpage);
-    freezer.get().champselect.set({ favuploaded: true });
-    console.log(freezer.get().champselect);
+function handleFavPageUpload(championId) {
+    var state = freezer.get();
+    console.log(state);
+    var champions = state.championsinfo;
+    var champion = Object.keys(champions).find((el) => champions[el].key == championId);
+    
+    // If favpage upload is enabled & not ARAM
+    if (!state.configfile.favautoupload) return;
+    // Quit if favorite page was already uploaded, 
+    // or current champion doesn't match what is hovered ingame
+    if (state.champselect.favUploaded || state.current.champion !== champion) return;
+    // Is there a favpage for current champ?
+    var favpage = state.current.champ_data.fav;
+    if (!favpage) return;
+    
+    // All checks passed
+    console.log("Uploading Fav page:", favpage);
+    freezer.emit('page:upload', champion, favpage);
+    state.champselect.set({ favUploaded: true });
 }
 
 freezer.on("autochamp:disable", () => {
@@ -464,7 +475,7 @@ connector.on('connect', (data) => {
 connector.on('disconnect', () => {
 	console.log("client closed");
 	api.destroy();
-    freezer.get().champselect.set({ active: false, favuploaded: false });
+    freezer.get().champselect.set({ active: false, gameMode: null, favUploaded: false });
 	freezer.get().connection.set({ page: null, summonerLevel: 0 });
 	freezer.get().session.set({ connected: false, state: "" });
 });

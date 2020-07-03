@@ -4,7 +4,6 @@ var state = {
 	session: {
 		connected: false,
 		state: ""
-
 	},
 
 	connection: {
@@ -62,7 +61,8 @@ var state = {
 
 	champselect: {
 		active: false,
-		favuploaded: false
+		gameMode: null,
+		favUploaded: false,
 	},
 	autochamp: false,
 
