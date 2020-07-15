@@ -1,5 +1,5 @@
 <page-list>
-  <h2 if={ opts.current.champion && _.isEmpty(opts.current.champ_data.pages.toJS()) } class="ui center aligned icon header">
+  <h2 if={ opts.current.champion && _.isEmpty(opts.current.champ_data.pages.toJS()) } class="ui center aligned icon header nopages">
     <virtual if={ opts.plugins.local[opts.tab.active] }>
       <i class="sticky note outline icon"></i>
       <div class="content">
@@ -18,7 +18,7 @@
     </virtual>
   </h2>
 
-  <div if={ opts.current.champion } class="ui middle aligned relaxed divided runepage list" style="height: 100%;">
+  <div if={ opts.current.champion } class="ui middle aligned relaxed divided runepage list">
     <div class="item" each={ page, key in opts.current.champ_data.pages }>
       <div class="buttons" data-key={ key }>
         <div class={ opts.connection.page && opts.connection.page.isEditable && opts.connection.summonerLevel >= 10 ? "ui icon button" : "ui icon button disabled" } data-key={key} onclick={ uploadPage } data-tooltip={ i18n.localise('pagelist.uploadpage') } data-position="left center" data-inverted="">
