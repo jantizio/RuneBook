@@ -1,14 +1,14 @@
 <settings-panel>
   <div class="ui modal settings-modal">
     <div class="content">
-      <div class="ui bottom attached label">
-        RuneBook <a style="text-decoration: underline;" onclick="$('.changelog-modal').modal('show')">{ require('electron-is-dev') === true ? "DEV" : require('electron').remote.app.getVersion(); }</a>
+      <div class="ui bottom attached label footer">
+        RuneBook <a onclick="$('.changelog-modal').modal('show')">{ require('electron-is-dev') === true ? "DEV" : require('electron').remote.app.getVersion(); }</a>
         <span style="float: right;"><a href="https://github.com/Soundofdarkness/RuneBook/issues" style="color: #555555;"><i class="bug icon"></i></a></span>
       </div>
       <div class="ui form">
         <div class="grouped fields">
           <h4 class="ui horizontal divider header">
-            <i class="cog icon" style="padding-right:.5em;font-size:1em"></i><i1-8n>settings.title</i1-8n>
+            <i class="cog icon"></i><i1-8n>settings.title</i1-8n>
           </h4>
           <div class="field">
             <div class="inline field">
@@ -47,7 +47,7 @@
                 <i class="open folder icon"></i>
               </button>
             </div>
-            <div class="ui orange basic top pointing label hidden" id="changeleaguelabel"><i1-8n>settings.restart.warning</i1-8n></div>
+            <div class="ui orange basic top pointing label restart hidden" id="leaguepath-restart"><i1-8n>settings.restart.warning</i1-8n></div>
           </div>
           <div class="ui toggle checkbox">
             <input type="checkbox" name="leaguepath" onchange={ togglePathDiscovery } ref="pathdiscovery">
@@ -55,7 +55,7 @@
           </div>
 
           <h4 class="ui horizontal divider header">
-            <i class="teal arrow alternate circle down outline icon" style="padding-right:.5em;font-size:1em"></i><i1-8n>settings.updates</i1-8n>
+            <i class="teal arrow alternate circle down outline icon"></i><i1-8n>settings.updates</i1-8n>
           </h4>
           <div class="field">
             <span if={ opts.updateready }><i1-8n>settings.newversion</i1-8n></span>
@@ -64,7 +64,7 @@
           </div>
 
           <h4 class="ui horizontal divider header">
-            <i class="red fire icon" style="padding-right:.5em;font-size:1em"></i><i1-8n>settings.advanced</i1-8n>
+            <i class="red fire icon"></i><i1-8n>settings.advanced</i1-8n>
           </h4>
           <div class="inline field">
             <label><i1-8n>settings.localrunefile</i1-8n> :</label>
@@ -75,29 +75,47 @@
                 <i class="open folder icon"></i>
               </button>
             </div>
-            <div class="ui orange basic left pointing label hidden" id="changelabel"><i1-8n>settings.restart.warning</i1-8n></div>
+            <div class="ui orange basic left pointing label restart hidden" id="configpath-restart"><i1-8n>settings.restart.warning</i1-8n></div>
           </div>
 
            <h4 class="ui horizontal divider header">
-            <i class="yellow flask icon" style="padding-right:.5em;font-size:1em"></i><i1-8n>settings.experimental</i1-8n>
+            <i class="yellow flask icon"></i><i1-8n>settings.experimental</i1-8n>
           </h4>
-          <div class="flex-row">
-            <div class="ui toggle checkbox">
-              <input type="checkbox" name="darktheme" onchange={ toggleDarkTheme } ref="darktheme">
-              <label><i1-8n>settings.darktheme</i1-8n></label>
-            </div>
-            <div class="ui toggle checkbox" data-tooltip={ i18n.localise('settings.favautoupload.tooltip')} data-position="bottom right" data-variation="basic" data-inverted="">
-              <input type="checkbox" name="favautoupload" onchange={ toggleFavAutoUpload } ref="favautoupload">
-              <label><i1-8n>settings.favautoupload</i1-8n></label>
+          <div class="ui equal width grid">
+            <div class="row">
+              <div class="column">
+                <div class="ui toggle checkbox">
+                  <input type="checkbox" name="darktheme" onchange={ toggleDarkTheme } ref="darktheme">
+                  <label><i1-8n>settings.darktheme</i1-8n></label>
+                </div>
+              </div>
+              <div class="column">
+                <div class="ui toggle checkbox" data-tooltip={ i18n.localise('settings.favautoupload.tooltip')} data-position="bottom right" data-variation="basic" data-inverted="">
+                  <input type="checkbox" name="favautoupload" onchange={ toggleFavAutoUpload } ref="favautoupload">
+                  <label><i1-8n>settings.favautoupload</i1-8n></label>
+                </div>
+              </div>
             </div>
           </div>
 
           <h4 class="ui horizontal divider header">
-            <i class="red heart icon" style="padding-right:.5em;font-size:1em"></i><i1-8n>settings.about</i1-8n>
+            <i class="red heart icon"></i><i1-8n>settings.about</i1-8n>
           </h4>
-          <div class="field">
-            <span><i1-8n>settings.madeby</i1-8n> <a href="https://github.com/OrangeNote/Runebook">OrangeNote</a></span>
+          <div class="ui equal width grid">
+            <div class="row">
+              <div class="column">
+                <div class="field">
+                  <span><i1-8n>settings.madeby</i1-8n> <a href="https://github.com/OrangeNote/Runebook">OrangeNote</a></span>
+                </div>
+              </div>
+              <div class="column">
+                <div class="field">
+                  <span>Maintained by <a href="https://github.com/Soundofdarkness/Runebook">Community</a></span>
+                </div>
+              </div>
+            </div>
           </div>
+
         </div>
       </div>
     </div>
@@ -108,7 +126,6 @@
       $('.settings-modal').modal({
         duration: 200,
         autofocus: false,
-        inverted: true,
       });
 
       $('.ui.dropdown.lang').dropdown();
@@ -129,7 +146,7 @@
 
       if(evt.target.files && evt.target.files.length && evt.target.files[0].name.endsWith(".json")) {
         $("#displaypath").val(evt.target.files[0].name);
-        $("#changelabel").removeClass("hidden");
+        $("#configpath-restart").removeClass("hidden");
         freezer.emit("configfile:change", evt.target.files[0].path);
       }
     }
@@ -138,7 +155,7 @@
       evt.preventUpdate = true;
       if(evt.target.files && evt.target.files.length) {
         $("#displayleaguepath").val(evt.target.files[0].name);
-        $("#changeleaguelabel").removeClass("hidden");
+        $("#leaguepath-restart").removeClass("hidden");
         freezer.emit("leaguepath:change", evt.target.files[0].path);
       }
 
@@ -146,12 +163,14 @@
 
     togglePathDiscovery(evt) {
       preventUpdate = true;
-      $("#changeleaguelabel").removeClass("hidden");
+      $("#leaguepath-restart").removeClass("hidden");
       freezer.emit("pathdiscovery:switch", this.refs.pathdiscovery.checked);
     }
 
     toggleDarkTheme(evt) {
       // evt.preventUpdate = true;
+      let selectedTheme = evt.target.checked ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', selectedTheme);
       freezer.emit("darktheme:switch", this.refs.darktheme.checked);
     }
 
