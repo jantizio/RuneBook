@@ -4,7 +4,6 @@ var state = {
 	session: {
 		connected: false,
 		state: ""
-
 	},
 
 	connection: {
@@ -60,7 +59,11 @@ var state = {
 
 	lolversions: [],
 
-	champselect: false,
+	champselect: {
+		active: false,
+		gameMode: null,
+		favUploaded: false,
+	},
 	autochamp: false,
 
 	tooltips: {
