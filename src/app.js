@@ -1,5 +1,6 @@
 var settings = require('./settings');
 var freezer = require('./state');
+const isDev = require('electron-is-dev');
 
 if(settings.get("darktheme") == null){
 	const { nativeTheme } = require('electron').remote.require('electron')
