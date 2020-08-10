@@ -1,5 +1,6 @@
 var settings = require('./settings');
 var freezer = require('./state');
+const isDev = require('electron-is-dev');
 
 if(settings.get("darktheme") == null){
 	const { nativeTheme } = require('electron').remote.require('electron')
@@ -22,9 +23,20 @@ freezer.get().tab.set({ active: settings.get("lasttab"), loaded: true });
 var request = require('request');
 
 var {ipcRenderer} = require('electron');
-ipcRenderer.on('update:ready', (event, arg) => {
-	console.log("github new latest found")
-	freezer.get().set("updateready", true);
+ipcRenderer.on('updateinfo:ready', (event, arg) => {
+	// Determining whether an update is available
+	var appVersion = require('electron').remote.app.getVersion();
+	latestv = arg.tag_name.substring(1);
+	isUpdateAvailable = latestv !== appVersion && !isDev;
+
+	// Is this really necessary? => The log can only be seen by Dev anyway
+	if(isUpdateAvailable){
+		console.log("github new latest found");
+	}
+
+	// storage changelog and if an update is available
+	freezer.get().set("updateready", isUpdateAvailable);
+	freezer.get().set("changelogbody", arg.body);
 });
 ipcRenderer.on('update:downloaded', (event, arg) => {
 	console.log("update downloaded")

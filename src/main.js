@@ -115,7 +115,6 @@ app.on('ready', function () {
     createWindow();
 
     win.webContents.on("did-finish-load", () => {
-        if (isDev) return;
         request({
                 url: 'https://api.github.com/repos/Soundofdarkness/RuneBook/releases/latest',
                 headers: {
@@ -124,11 +123,7 @@ app.on('ready', function () {
             },
             function (error, response, data) {
                 if (!error && response && response.statusCode === 200) {
-                    data = JSON.parse(data);
-                    latestv = data.tag_name.substring(1);
-                    if (latestv !== app.getVersion()) {
-                        win.webContents.send('update:ready');
-                    }
+                    win.webContents.send('updateinfo:ready', JSON.parse(data));
                 }
                 else throw Error("github api error");
             })
