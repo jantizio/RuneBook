@@ -277,7 +277,7 @@ async function _syncBookmarkAsync(champId, position, gameModeKey, callback) {
 // #region Plugin-Funktionen
 var plugin = {
     id: "ugg",
-    name: "UGG",
+    name: "U.GG",
     active: true,
     bookmarks: true,
 
