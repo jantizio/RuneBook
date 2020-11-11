@@ -101,17 +101,22 @@ async function getOverviewJsonAsync(championId, gameMode) {
         // Create URL based on the parameters
         const requestUri = `${baseOverviewUrl}/${statsVersion}/overview/${uggLoLVersion}/${gameMode}/${championId}/${overviewVersion}.json`;
 
-        // Query URL and return result
-        return await rp({
-                uri: requestUri,
-                json: true
-            })
-            .then(function(response) {
-                return response;
-            })
-            .catch(function(err) {
-                throw Error("Error when determining json => " + err);
-            });
+        // Query URL and get the result
+        var response = await rp({
+            uri: requestUri,
+            json: true
+        })
+        .then(function(response) {
+            return response;
+        })
+        .catch(function(err) {
+            // Do not throw an error to keep the loop running, just log
+            console.log("Error when determining json => " + err)
+        });
+
+        // is there a result? => return result
+        if(response)
+            return response
     }
 
     // fallback
