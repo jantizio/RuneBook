@@ -102,7 +102,7 @@ async function getOverviewJsonAsync(championId, gameMode) {
         const requestUri = `${baseOverviewUrl}/${statsVersion}/overview/${uggLoLVersion}/${gameMode}/${championId}/${overviewVersion}.json`;
 
         // Query URL and get the result
-        var response = await rp({
+        var result = await rp({
             uri: requestUri,
             json: true
         })
@@ -110,13 +110,15 @@ async function getOverviewJsonAsync(championId, gameMode) {
             return response;
         })
         .catch(function(err) {
-            // Do not throw an error to keep the loop running, just log
-            console.log("Error when determining json => " + err)
+            if(err.statusCode === 403)
+                console.log("JSON was not found => " + err);
+            else
+                throw Error("Error when determining json => " + err);  
         });
 
         // is there a result? => return result
-        if(response)
-            return response
+        if(result)
+            return result
     }
 
     // fallback
