@@ -48,6 +48,8 @@ var state = {
 
 	lang: 'en',
 
+	minimizetotray: false,
+
 	configfile: {
 		name: "config.json",
 		cwd: "[default path]"

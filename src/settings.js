@@ -9,6 +9,7 @@ settings = new Store({
 			ext: ".json"
 		},
 		lang: 'en',
+		minimizetotray: false,
 		changelogversion: "0.0.0",
 		leaguepath: 'C:\\Riot Games\\League of Legends\\LeagueClient.exe',
 		pathdiscovery: true,
