@@ -15,6 +15,7 @@
   "settings.localrunefile": "Archivo local de página de runas",
   "settings.choosefile": "Escoja un archivo .json",
   "settings.lang": "Idioma",
+  "settings.minimizetotray": "Minimizar a la bandeja del sistema",
   "chapters.title": "Secciones",
   "chapters.welcome": "¡Bienvenido a RuneBook!",
   "chapters.localpages": "Páginas locales",

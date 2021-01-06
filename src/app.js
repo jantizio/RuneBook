@@ -14,7 +14,8 @@ freezer.get().configfile.set({
 	pathdiscovery: settings.get("pathdiscovery"),
 	darktheme: settings.get("darktheme"),
 	favautoupload: settings.get("favautoupload"),
-	lang: settings.get("lang")
+	lang: settings.get("lang"),
+	minimizetotray: settings.get("minimizetotray")
 });
 
 freezer.get().set("autochamp", settings.get("autochamp"));
@@ -38,6 +39,7 @@ ipcRenderer.on('updateinfo:ready', (event, arg) => {
 	freezer.get().set("updateready", isUpdateAvailable);
 	freezer.get().set("changelogbody", arg.body);
 });
+
 ipcRenderer.on('update:downloaded', (event, arg) => {
 	console.log("update downloaded")
 	freezer.emit("update:downloaded");
@@ -75,6 +77,23 @@ freezer.on("favautoupload:switch", (val) => {
 freezer.on("lang:update", (val) => {
 	freezer.get().configfile.set("lang", val);
 	settings.set("lang", val);
+});
+
+(setMinimizeButtonBehaviour = () => {
+	minimizetotray = settings.get("minimizetotray")
+	console.log(minimizetotray)
+
+	if (minimizetotray === true)
+		ipcRenderer.send("minimizetotray:enabled")
+	else
+		ipcRenderer.send("minimizetotray:disabled")
+})()
+
+freezer.on("minimizetotray:switch", (val) => {
+	freezer.get().configfile.set("minimizetotray", val);
+	settings.set("minimizetotray", val);
+
+	setMinimizeButtonBehaviour()
 });
 
 freezer.on("leaguepath:change", (leaguepath) => {
