@@ -211,15 +211,23 @@ ipcMain.on("content:reload", () => {
     win.reload();
 });
 
+const forceHide = (evt) => {
+    evt.preventDefault();
+    win.hide();
+}
+
+const forceMinimize = () => {
+    win.minimize();
+}
+
 ipcMain.on("minimizetotray:enabled", () => {
-    win.on('minimize', (event) => {
-        event.preventDefault()
-        win.hide()
-    })
+    // console.log("set to tray icon on minimize")
+    win.removeListener('minimize', forceMinimize);
+    win.on('minimize', forceHide);
 });
 
 ipcMain.on("minimizetotray:disabled", () => {
-    win.on('minimize', () => {
-        win.minimize()
-    })
+    // console.log("set to minimize on minimize")
+    win.removeListener('minimize', forceHide);
+    win.on('minimize', () => {forceMinimize(); });
 });

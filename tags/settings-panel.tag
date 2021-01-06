@@ -132,7 +132,7 @@
               <div class="ui toggle checkbox">
                 <input type="checkbox" name="minimizetotray" onchange={ toggleMinimizeToTray } ref="minimizetotray">
                 <label>
-                  <i1-8n>settings.minimizetotray</i1-8n>:
+                  <i1-8n>settings.minimizetotray</i1-8n>
                 </label>
               </div>
             </div>
