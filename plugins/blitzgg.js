@@ -16,8 +16,9 @@ const supported_modes = [{
     }
 ];
 
-const baseApiUrl = `https://beta.iesdev.com`; //# Champion.gg used 'https://backend-alt.iesdev.com'
-const usedRegion = 'world'
+const baseApiUrl = `https://beta.iesdev.com`;
+const baseApiUrlAlt = 'https://backend-alt.iesdev.com';
+const usedRegion = 'world';
 // #endregion
 
 /**
@@ -26,40 +27,50 @@ const usedRegion = 'world'
  * @param {number} championId Id of the champion for which the data should be determined.
  * @param {string} gameMode The game mode for which the rune pages should be determined.
  * @param {string} position The position for which the rune pages should be determined.
+ * @param {string} useAltApi Specifies whether to try the alternate server.
  * @returns The full Champions-JSON for the champion in the specified game mode.
  */
-async function getChampionsJsonAsync(championId, gameMode, position = null) {
+async function getChampionsJsonAsync(championId, gameMode, position = null, useAltApi = false) {
     // Try the last two LOL versions (this is necessary because Blitz.GG is currently updating with a delay on Patch-Day)
     for (const lolVersion of freezer.get().lolversions.slice(0, 2)) {
         // Convert LOL version into a format suitable for BLITZ.GG
         const blitzggLoLVersion = lolVersion.split('.').splice(0, 2).join('.');
 
+        // Determine server URL
+        var usedServerUrl = useAltApi ? baseApiUrlAlt : baseApiUrl;
+
         // Create URL based on the parameters
-        var requestUri = `${baseApiUrl}/api/lolstats/champions/${championId}?patch=${blitzggLoLVersion}&queue=${gameMode.key}&region=${usedRegion}`;
+        var requestUri = `${usedServerUrl}/api/lolstats/champions/${championId}?patch=${blitzggLoLVersion}&queue=${gameMode.key}&region=${usedRegion}`;
 
         // add additional parameters
-        if(position)
+        if (position)
             requestUri += `&role=${position}`;
-        if(gameMode.tier)
+        if (gameMode.tier)
             requestUri += `&tier=${gameMode.tier}`;
 
         // Query URL and get the result
         var result = await rp({
-            uri: requestUri,
-            json: true
-        })
-        .then(function(response) {
-            return response;
-        })
-        .catch(function(err) {
-            if(err.statusCode === 403)
-                console.log("JSON was not found => " + err);
-            else
-                throw Error("Error when determining json => " + err);  
-        });
+                uri: requestUri,
+                json: true
+            })
+            .then(function(response) {
+                return response;
+            })
+            .catch(function(err) {
+                if (err.statusCode === 403)
+                    console.log("JSON was not found => " + err);
+                else if (err.statusCode === 418) {
+                    // If the altenative server has not been tried yet, do it. Otherwise only output error
+                    if (useAltApi === false)
+                        result = getChampionsJsonAsync(championId, gameMode, position, true);
+                    else
+                        console.log("API-Error => " + err);
+                } else
+                    throw Error("Error when determining json => " + err);
+            });
 
         // is there a result? => return result
-        if(result)
+        if (result)
             return result
     }
 
@@ -85,7 +96,7 @@ function getPage(runesJson, champInfo, gameMode) {
         const primaryStyleId = perksData[0];
         const subStyleId = perksData[5];
 
-         // Determine selected perk ids
+        // Determine selected perk ids
         const selectedPerkIds = sortRunes(perksData, primaryStyleId, subStyleId).concat(
             statShards
         );
