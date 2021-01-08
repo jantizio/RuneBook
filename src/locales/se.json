@@ -15,6 +15,7 @@
   "settings.localrunefile": "Lokala filer för sidor",
   "settings.choosefile": "Välj .json fil",
   "settings.lang": "Språk",
+  "settings.minimizetotray": "Minimize to tray",
   "chapters.title": "Sidor",
   "chapters.welcome": "Välkommen till RuneBook!",
   "chapters.localpages": "Lokala sidor",

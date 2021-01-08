@@ -15,6 +15,7 @@
   "settings.localrunefile": "File delle pagine di rune locali",
   "settings.choosefile": "Scegli un file .json",
   "settings.lang": "Lingua",
+  "settings.minimizetotray": "Minimize to tray",
   "chapters.title": "Capitoli",
   "chapters.welcome": "Benvenuto in RuneBook!",
   "chapters.localpages": "Pagine locali",
