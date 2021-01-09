@@ -18,7 +18,8 @@
     "dist": "electron-builder -p onTagOrDraft --win nsis portable",
     "dist:mac": "electron-builder --mac",
     "dist:win": "electron-builder --win",
-    "dist:all": "electron-builder -mw -p onTagOrDraft"
+    "dist:lin": "electron-builder --linux", 
+    "dist:all": "electron-builder -mwl -p onTagOrDraft"
   },
   "build": {
     "win": {
