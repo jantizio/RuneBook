@@ -6,6 +6,7 @@ const url = require('url');
 const request = require('request');
 const isDev = require('electron-is-dev');
 const windowStateKeeper = require("electron-window-state");
+const os = require("os");
 
 require('electron-debug')({ enabled: true });
 
@@ -119,32 +120,34 @@ let tray = null
 app.on('ready', function () {
     createWindow();
 
-    tray = new Tray(`${__dirname}/../img/logo.png`)
-    tray.setTitle('RuneBook')
+    if(os.platform() !== "linux"){ 
+        tray = new Tray(`${__dirname}/../img/logo.png`);
+        tray.setTitle('RuneBook');
 
-    tray.on('click', () => {
-        if (win.isVisible()) {
-            win.hide()
-        } else {
-            win.show()
-        }
-    })
-
-    const contextMenu = Menu.buildFromTemplate([
-        {
-            label: 'Show RuneBook', click: () => {
+        tray.on('click', () => {
+            if (win.isVisible()) {
+                win.hide()
+            } else {
                 win.show()
             }
-        },
-        {
-            label: 'Exit', click: () => {
-                app.isQuiting = true
-                app.quit()
-            }
-        }
-    ])
+        });
 
-    tray.setContextMenu(contextMenu)
+        const contextMenu = Menu.buildFromTemplate([
+            {
+                label: 'Show RuneBook', click: () => {
+                    win.show()
+                }
+            },
+            {
+                label: 'Exit', click: () => {
+                    app.isQuiting = true
+                    app.quit()
+                }
+            }
+        ]);
+
+        tray.setContextMenu(contextMenu);
+    }
 
     win.webContents.on("did-finish-load", () => {
         request({
@@ -212,6 +215,10 @@ ipcMain.on("content:reload", () => {
 });
 
 const forceHide = (evt) => {
+    if(os.platform() === "linux"){
+        win.minimize();
+        return;
+    }
     evt.preventDefault();
     win.hide();
 }
