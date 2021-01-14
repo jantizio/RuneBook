@@ -27,6 +27,18 @@ function getPerksMapMap(usedKeyStr = 'name') {
   return perksMap;
 }
 
+function getStyleId(runes) {
+  let styleId = -1;
+
+  freezer.get().runesreforgedinfo.forEach(runeInfo => {
+      var runeIds = ([].concat(...runeInfo.slots.map(row => row.runes))).map(rune => rune.id)
+      if (runes.every(v => runeIds.includes(v)) === true)
+          styleId = runeInfo.id;
+  });
+
+  return styleId;
+}
+
 function sortRunes(runes, primaryStyle, subStyle) {
   const indexes = new Map();
   const sortingFunc = (a, b) => indexes.get(a) - indexes.get(b);
@@ -53,4 +65,4 @@ function sortRunes(runes, primaryStyle, subStyle) {
   return groupedRunes[primaryStyle].concat(groupedRunes[subStyle]);
 }
 
-module.exports = { getStylesMap, getPerksMapMap, getJson, sortRunes };
+module.exports = { getStylesMap, getPerksMapMap, getStyleId, getJson, sortRunes };
