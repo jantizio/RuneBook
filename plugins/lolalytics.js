@@ -14,7 +14,7 @@ const supported_modes = [{
 }
 ];
 
-const pickMap = {
+const runesModeMap = {
     'win': 'HW',
     'pick': 'MP',
 };
@@ -72,9 +72,10 @@ async function getChampionsJsonAsync(championId, gameMode, position) {
  * @param {string} champion Name of the champion for which the page should be determined.
  * @param {string} gameMode The game mode for which the rune page should be determined.
  * @param {string} position The position for which the rune pages should be determined.
+ * @param {string} runesMode Rune mode for which the rune page should be determined.
  * @returns A rune page matches the given parameters.
  */
-function getPage(runesJson, champInfo, gameMode, position) {
+function getPage(runesJson, champInfo, gameMode, position, runesMode) {
     try {
         // Break Json down to the perks data and stat shards
         const perksPriData = runesJson["set"]["pri"];
@@ -100,7 +101,7 @@ function getPage(runesJson, champInfo, gameMode, position) {
 
         // Return rune page
         return {
-            name: `[${gameMode.name}] ${champInfo.name} ${positionString}`.trim(),
+            name: `[${gameMode.name}] ${champInfo.name} ${positionString} - ${runesModeMap[runesMode]}`.trim(),
             primaryStyleId: primaryStyleId,
             selectedPerkIds: selectedPerkIds,
             subStyleId: subStyleId,
@@ -108,6 +109,7 @@ function getPage(runesJson, champInfo, gameMode, position) {
                 champId: champInfo.id,
                 gameModeKey: gameMode.key,
                 position: position,
+                runesMode: runesMode,
                 remote: {
                     name: plugin.name,
                     id: plugin.id
@@ -125,9 +127,10 @@ function getPage(runesJson, champInfo, gameMode, position) {
  * @param {string} champion Name of the champion for which the pages should be determined.
  * @param {string} gameMode The game mode for which the rune pages should be determined.
  * @param {number} position Returns the position to which the data is to be returned.
+ * @param {number} force_runesMode Rune mode for which the rune page should be determined.
  * @returns all possible rune pages for a particular champion for the specified game mode.
  */
-async function getPagesForGameModeAsync(champInfo, gameMode, position) {
+async function getPagesForGameModeAsync(champInfo, gameMode, position, force_runesMode = null) {
     // Return variable (List of rune pages)
     var returnVal = [];
 
@@ -142,14 +145,15 @@ async function getPagesForGameModeAsync(champInfo, gameMode, position) {
 
             // check if runes are present in the summary (occurs when Insufficient data is available)
             if(result){
-                // Determine all possible pages
-                for (const runesMode in result) 
-                {
-                    var page = getPage(result[runesMode], champInfo, gameMode, position);
-                    page.name += ` - ${pickMap[runesMode]}`;
-
-                    returnVal.push(page);
+                if(force_runesMode){
+                    // Determine page for forced runes mode
+                    returnVal.push(getPage(result[force_runesMode], champInfo, gameMode, position, force_runesMode));
+                }else{
+                    // Determine all possible pages
+                    for (const runesMode in result) 
+                        returnVal.push(getPage(result[runesMode], champInfo, gameMode, position, runesMode));
                 }
+                
             }
         }
     } catch (e) {
@@ -252,9 +256,10 @@ async function _getPagesAsync(champion, callback) {
  * @param {string} champId Id of the champion for which the rune page should be determined.
  * @param {number} position Position for which the rune page should be determined.
  * @param {string} gameModeKey Key of the game mode for which the rune page should be determined.
+ * @param {string} runesMode Rune mode for which the rune page should be determined.
  * @param callback callback which is called for the return of the data.
  */
-async function _syncBookmarkAsync(champId, position, gameModeKey, callback) {
+async function _syncBookmarkAsync(champId, position, gameModeKey, runesMode, callback) {
     try {
         // Determine champion information based on the name
         const champInfo = freezer.get().championsinfo[champId];
@@ -263,7 +268,7 @@ async function _syncBookmarkAsync(champId, position, gameModeKey, callback) {
         const gameMode = supported_modes.filter(i => i.key == gameModeKey)[0];
 
         // determine all pages for the selected game mode and position
-        const pages = await getPagesForGameModeAsync(champInfo, gameMode, position);
+        const pages = await getPagesForGameModeAsync(champInfo, gameMode, position, runesMode);
 
         // return rune page
         callback(pages[0]);
@@ -287,7 +292,7 @@ var plugin = {
     },
     syncBookmark(bookmark, callback) {
         // Find and update a rune page based on the bookmark
-        _syncBookmarkAsync(bookmark.champId, bookmark.position, bookmark.gameModeKey, callback);
+        _syncBookmarkAsync(bookmark.champId, bookmark.position, bookmark.gameModeKey, bookmark.runesMode, callback);
     }
 };
 
