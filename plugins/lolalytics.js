@@ -90,7 +90,7 @@ function getPage(runesJson, champInfo, gameMode, position, runesMode) {
         const perksData = [].concat(primaryStyleId, perksPriData, subStyleId, perksSecData);
 
         // Determine selected perk ids
-        const selectedPerkIds = sortRunes(perksData, primaryStyleId, subStyleId).concat(
+        const selectedPerkIds = sortRunes(perksData.concat(statShards), primaryStyleId, subStyleId).concat(
             statShards
         );
 

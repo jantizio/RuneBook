@@ -1,6 +1,6 @@
 var cheerio = require('cheerio');
 var rp = require('request-promise-native');
-const { getPerksMapMap } = require('./utils');
+const { getPerksMap } = require('./utils');
 
 const baseUrl = "https://www.metasrc.com/";
 const rankFilter = "?ranks=platinum,diamond,master,grandmaster,challenger";
@@ -74,9 +74,9 @@ async function getPage(requestUri, champInfo) {
     return page;
 }
 
-function getPerksMap(){
+function _getPerksMap(){
     if(Object.keys(perksMap).length == 0){
-        for (const [key, value] of Object.entries(getPerksMapMap('icon'))) {
+        for (const [key, value] of Object.entries(getPerksMap('icon'))) {
             var fileName = key.split('/').pop().replace(/\.[^/.]+$/, "");
             perksMap[fileName.toLowerCase()] = value;
           }
@@ -93,7 +93,7 @@ function getIdFromImageUrl(url) {
     if (url.includes('perks')) {
         perkId = parseInt(fileName);
     } else {
-        perkId = getPerksMap()[fileName];
+        perkId = _getPerksMap()[fileName];
     }
 
     return perkId || -1;
