@@ -102,9 +102,7 @@ function getPage(runesJson, champInfo, gameMode, position, runesMode) {
         // Return rune page
         return {
             name: `[${gameMode.name}] ${champInfo.name} ${positionString} - ${runesModeMap[runesMode]}`.trim(),
-            primaryStyleId: primaryStyleId,
             selectedPerkIds: selectedPerkIds,
-            subStyleId: subStyleId,
             bookmark: {
                 champId: champInfo.id,
                 gameModeKey: gameMode.key,

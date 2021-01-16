@@ -19,9 +19,7 @@ var statsMap = {
 async function getPage(requestUri, champInfo) {
     var page = {
         "name": name,
-        "primaryStyleId": -1,
         "selectedPerkIds": [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        "subStyleId": -1,
         "bookmark": {
             "src": requestUri,
             "remote": {
@@ -56,12 +54,10 @@ async function getPage(requestUri, champInfo) {
 
         var ids = $('svg > image[data-xlink-href]').map((i, x) => getIdFromImageUrl($(x).attr('data-xlink-href'))).toArray();
 
-        page['primaryStyleId'] = ids[0];
         page.selectedPerkIds[0] = ids[1];
         page.selectedPerkIds[1] = ids[2];
         page.selectedPerkIds[2] = ids[3];
         page.selectedPerkIds[3] = ids[4];
-        page['subStyleId'] = ids[5];
         page.selectedPerkIds[4] = ids[6];
         page.selectedPerkIds[5] = ids[7];
         page.selectedPerkIds[6] = ids[8];
