@@ -43,30 +43,11 @@ function getPerksMap(usedKeyStr = 'name') {
 }
 
 /**
- * Returns the rune style id based on the passed rune ids.
+ * Sorts the runes as they are in the game.
  * @param {Array} runes - A list of runes ids
- * @return {number} Runic style ID that could be determined. If no ID could be determined -1 is returned.
- */
-function getStyleId(runes) {
-  let styleId = -1;
-
-  freezer.get().runesreforgedinfo.forEach(runeInfo => {
-    const runeIds = new Set(([].concat(...runeInfo.slots.map(row => row.runes))).map(rune => rune.id))
-    if (runes.every(v => runeIds.has(v)) === true)
-        styleId = runeInfo.id;
-  });
-
-  return styleId;
-}
-
-/**
- * Sortiert die Runen so wie sie auch im Spiele sind.
- * @param {Array} runes - A list of runes ids
- * @param {number} primaryStyle - Style Id of the primary runes
- * @param {number} subStyle - Style Id of the secondary runes
  * @return {Array} Sorted list of runes
  */
-function sortRunes(runes, primaryStyle, subStyle) {
+function sortRunes(runes) {
   // Index map for later sorting
   const indexes = new Map();
 
@@ -79,9 +60,15 @@ function sortRunes(runes, primaryStyle, subStyle) {
     return obj;
   }, {});
 
+  // Creates a list of style ids based on the tree
+  const styleIds = Object.keys(tree).map(Number);
+
+  // Filters style ids from the runes
+  const filteredRunes = runes.filter(rune => !styleIds.includes(rune));
+
   // Groups the passed runes fit to the respective style id
-  const groupedRunes = groupBy(runes, (rune) => {
-    for (const style of Object.keys(tree)) {
+  const groupedRunes = groupBy(filteredRunes, (rune) => {
+    for (const style of styleIds) {
       const runeIndex = tree[style].indexOf(rune);
       if (runeIndex !== -1) {
         indexes.set(rune, runeIndex);
@@ -90,13 +77,33 @@ function sortRunes(runes, primaryStyle, subStyle) {
     }
   });
 
+  // Variables for determining the 'primaryStyleId' and 'secondaryStyleId
+  let primaryStyleLength = -1;
+  let primaryStyleId = -1;
+  let secondaryStyleLength = -1;
+  let secondaryStyleId = -1;
+
+  // Get 'primaryStyleId' and 'secondaryStyleId' based on the number of runes
+  for (const styleId in groupedRunes) {
+    if(styleId !== 'undefined'){
+      if(groupedRunes[styleId].length > primaryStyleLength){
+        secondaryStyleId = primaryStyleId;
+        primaryStyleId = styleId;
+        primaryStyleLength = groupedRunes[styleId].length;
+      }else if(groupedRunes[styleId].length >= secondaryStyleLength){
+        secondaryStyleId = styleId;
+        secondaryStyleLength = groupedRunes[styleId].length;
+      }
+    }
+  }
+
   // Sorts the groups for the respective style
-  groupedRunes[primaryStyle].sort(sortingFunc);
-  groupedRunes[subStyle].sort(sortingFunc);
+  groupedRunes[primaryStyleId].sort(sortingFunc);
+  groupedRunes[secondaryStyleId].sort(sortingFunc);
 
   // Merges primary and secondary runes in the correct order
-  return groupedRunes[primaryStyle].concat(groupedRunes[subStyle]);
+  return groupedRunes[primaryStyleId].concat(groupedRunes[secondaryStyleId], groupedRunes['undefined'] ?? []);
 }
 
 // Transfer of functions for use in other modules
-module.exports = { getStylesMap, getPerksMap, getStyleId, getJson, sortRunes };
+module.exports = { getStylesMap, getPerksMap, getJson, sortRunes };

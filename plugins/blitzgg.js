@@ -92,14 +92,8 @@ function getPage(runesJson, champInfo, gameMode) {
         const perksData = runesJson["stats"]["most_common_runes"]["build"];
         const statShards = runesJson["stats"]["most_common_rune_stat_shards"]["build"];
 
-        // Get ID of primary style and sub styles
-        const primaryStyleId = perksData[0];
-        const subStyleId = perksData[5];
-
         // Determine selected perk ids
-        const selectedPerkIds = sortRunes(perksData, primaryStyleId, subStyleId).concat(
-            statShards
-        );
+        const selectedPerkIds = sortRunes(perksData).concat(statShards);
 
         // Return rune page
         return {
