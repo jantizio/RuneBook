@@ -83,7 +83,7 @@ function getPage(runesJson, champInfo, gameMode, position, runesMode) {
         const statShards = runesJson["set"]["mod"];
     
         // Merge all runes
-        const perksData = [].concat(perksPriData, perksSecData, statShards);
+        const perksData = [].concat(perksPriData, perksSecData);
 
         // Determine selected perk ids
         const selectedPerkIds = sortRunes(perksData).concat(statShards);
