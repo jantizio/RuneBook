@@ -1,5 +1,5 @@
 const rp = require('request-promise-native');
-const { sortRunes, getStyleId } = require('./utils');
+const { sortRunes } = require('./utils');
 
 // #region Settings
 const supported_modes = [{
@@ -81,18 +81,12 @@ function getPage(runesJson, champInfo, gameMode, position, runesMode) {
         const perksPriData = runesJson["set"]["pri"];
         const perksSecData = runesJson["set"]["sec"];
         const statShards = runesJson["set"]["mod"];
-
-        // Get ID of primary style and sub styles
-        const primaryStyleId = getStyleId(perksPriData);
-        const subStyleId = getStyleId(perksSecData);
     
         // Merge all runes
-        const perksData = [].concat(primaryStyleId, perksPriData, subStyleId, perksSecData);
+        const perksData = [].concat(perksPriData, perksSecData);
 
         // Determine selected perk ids
-        const selectedPerkIds = sortRunes(perksData, primaryStyleId, subStyleId).concat(
-            statShards
-        );
+        const selectedPerkIds = sortRunes(perksData).concat(statShards);
 
         // Determine the name of the position
         let positionString = gameMode.positions.length <= 1 ? '' : position;
@@ -102,9 +96,7 @@ function getPage(runesJson, champInfo, gameMode, position, runesMode) {
         // Return rune page
         return {
             name: `[${gameMode.name}] ${champInfo.name} ${positionString} - ${runesModeMap[runesMode]}`.trim(),
-            primaryStyleId: primaryStyleId,
             selectedPerkIds: selectedPerkIds,
-            subStyleId: subStyleId,
             bookmark: {
                 champId: champInfo.id,
                 gameModeKey: gameMode.key,

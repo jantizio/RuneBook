@@ -143,21 +143,13 @@ function getPage(runesJson, champInfo, position, gameMode) {
         const perksData = runesJsonModed[u.stats.perks];
         const statShards = runesJsonModed[u.stats.statShards][u.shards.stats].map(str => parseInt(str, 10));
 
-        // Get ID of primary style and sub styles
-        const primaryStyleId = perksData[u.perks.mainPerk];
-        const subStyleId = perksData[u.perks.subPerk];
-
         // Determine selected perk ids
-        const selectedPerkIds = sortRunes(perksData[u.perks.perks], primaryStyleId, subStyleId).concat(
-            statShards
-        );
+        const selectedPerkIds = sortRunes(perksData[u.perks.perks]).concat(statShards);
 
         // Return rune page
         return {
             name: `[${gameMode.name}] ${champInfo.name} ${u.positionsReversed[position]}`.trim(),
-            primaryStyleId: primaryStyleId,
             selectedPerkIds: selectedPerkIds,
-            subStyleId: subStyleId,
             bookmark: {
                 champId: champInfo.id,
                 gameModeKey: gameMode.key,
