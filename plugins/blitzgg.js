@@ -54,7 +54,9 @@ async function getChampionsJsonAsync(championId, gameMode, position = null, useA
                 json: true
             })
             .then(function(response) {
-                return response;
+                // precheck if data is present (currently blitz.gg sends an empty array if no data is present)
+                if(response["data"] && response["data"].length > 0)
+                    return response;
             })
             .catch(function(err) {
                 if (err.statusCode === 403 || err.statusCode === 500)
