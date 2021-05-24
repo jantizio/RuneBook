@@ -42,7 +42,7 @@
   "settings.experimental": "Эксперименты",
   "settings.darktheme": "Темная тема",
   "settings.favautoupload": "Автозагрузка избранной страницы",
-  "settings.favautoupload.tooltip": "Автоматичеки загружать избранную страницу после выбора чемпиона",
+  "settings.favautoupload.tooltip": "Автоматически загружать избранную страницу после выбора чемпиона",
   "currentpage.retry": "Обновить",
   "settings.about": "Об авторе",
   "settings.madeby": "Разработчик: "
