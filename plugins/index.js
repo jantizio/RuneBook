@@ -1,4 +1,4 @@
-var isDev = require('electron-is-dev');
+var isDev = !require('electron').remote.app.isPackaged;
 
 if (!isDev) {
   var plugins = ["local", "blitzgg", "koreanbuilds", "lolalytics", "opgg", "ugg", "metasrc"];

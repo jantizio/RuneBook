@@ -1,7 +1,5 @@
 const rp = require('request-promise-native');
-const {
-    sortRunes
-} = require('./utils');
+const { removePerkIds } = require('./utils');
 
 // #region Settings
 const supported_modes = [{
@@ -95,7 +93,7 @@ function getPage(runesJson, champInfo, gameMode) {
         const statShards = runesJson["stats"]["most_common_rune_stat_shards"]["build"];
 
         // Determine selected perk ids
-        const selectedPerkIds = sortRunes(perksData).concat(statShards);
+        const selectedPerkIds = removePerkIds(perksData).concat(statShards);
 
         // Return rune page
         return {

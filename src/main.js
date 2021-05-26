@@ -1,14 +1,13 @@
 const electron = require('electron');
 const { app, BrowserWindow, Tray, Menu, ipcMain, shell, dialog } = electron;
 const { autoUpdater } = require("electron-updater");
-const path = require('path');
 const url = require('url');
 const request = require('request');
-const isDev = require('electron-is-dev');
 const windowStateKeeper = require("electron-window-state");
 const os = require("os");
 
 require('electron-debug')({ enabled: true });
+require('electron-store').initRenderer();
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.

@@ -1,6 +1,7 @@
 var settings = require('./settings');
 var freezer = require('./state');
-const isDev = require('electron-is-dev');
+const isDev = !require('electron').remote.require('electron').app.isPackaged;
+const { groupBy } = require('lodash');
 
 if(settings.get("darktheme") == null){
 	const { nativeTheme } = require('electron').remote.require('electron')
@@ -81,7 +82,6 @@ freezer.on("lang:update", (val) => {
 
 (setMinimizeButtonBehaviour = () => {
 	minimizetotray = settings.get("minimizetotray")
-	console.log(minimizetotray)
 
 	if (minimizetotray === true)
 		ipcRenderer.send("minimizetotray:enabled")
@@ -293,8 +293,7 @@ freezer.on('page:upload', (champion, pagename) => {
 	var state = freezer.get();
 	console.log("Upload:", pagename);
 	console.log("State pages", state.current.champ_data.pages);
-    var page = state.current.champ_data.pages[pagename].toJS();
-	page.current = true;
+    var page = prepareRunePage(pagename, state.current.champ_data.pages[pagename].selectedPerkIds);
     console.log('upload2', page);
 
 	console.log("page.id, page.isEditable", state.connection.page.id, state.connection.page.isEditable);
@@ -303,12 +302,6 @@ freezer.on('page:upload', (champion, pagename) => {
 		freezer.get().lastuploadedpage.set({ champion, page: pagename, loading: true });
 		api.del("/lol-perks/v1/pages/" + freezer.get().connection.page.id).then((res) => {
 			console.log("api delete current page", res);
-
-			// stat shards check
-			if(!page.selectedPerkIds[6] && !page.selectedPerkIds[7] && !page.selectedPerkIds[8]) {
-				page.selectedPerkIds = page.selectedPerkIds.concat([5008, 5002, 5003]);
-			}
-
 			api.post("/lol-perks/v1/pages/", page).then((res) => {
 				if(!res) {
 					console.log("Error: no response after page upload request.");
@@ -511,3 +504,85 @@ connector.on('disconnect', () => {
 
 // Start listening for the LCU client
 connector.start();
+
+// #region Helper
+/**
+ * Creates a rune page based on the rune id and the name as it has to be passed to LoL.
+ * @param {string} pageName - Name of the rune page
+ * @param {Array} runes - A list of runes ids
+ * @return {Array} A rune page as expected by LoL.
+ */
+ function prepareRunePage(pageName, runes) {
+    // Minimal rune page as LoL expects it as a handover
+    let runePageMeta = {
+        name: pageName,
+        current: true,
+        primaryStyleId: -1,
+        selectedPerkIds: [],
+        subStyleId: -1,
+    }
+
+    // Index map for later sorting
+    const indexes = new Map();
+
+    // Sorting function that sorts the runes based on the index in the tree
+    const sortingFunc = (a, b) => indexes.get(a) - indexes.get(b);
+
+    // Creates a tree of style id and the matching runes
+    const tree = freezer.get().runesreforgedinfo.reduce((obj, curr) => {
+        obj[curr.id] = [].concat(...curr.slots.map(row => row.runes.map(i => i.id)));
+        return obj;
+    }, {});
+
+    // Creates a list of style ids based on the tree
+    const styleIds = Object.keys(tree).map(Number);
+
+    // Filters style ids from the runes
+    const filteredRunes = runes.filter(rune => !styleIds.includes(rune));
+
+    // Groups the passed runes fit to the respective style id
+    const groupedRunes = groupBy(filteredRunes, (rune) => {
+        for (const style of styleIds) {
+            const runeIndex = tree[style].indexOf(rune);
+            if (runeIndex !== -1) {
+                indexes.set(rune, runeIndex);
+                return style;
+            }
+        }
+    });
+
+    // Variables for determining the 'primaryStyleId' and 'secondaryStyleId
+    let primaryStyleLength = -1;
+    let primaryStyleId = -1;
+    let secondaryStyleLength = -1;
+    let secondaryStyleId = -1;
+
+    // Get 'primaryStyleId' and 'secondaryStyleId' based on the number of runes
+    for (const styleId in groupedRunes) {
+        if (styleId !== 'undefined') {
+            if (groupedRunes[styleId].length > primaryStyleLength) {
+                secondaryStyleId = primaryStyleId;
+                primaryStyleId = styleId;
+                primaryStyleLength = groupedRunes[styleId].length;
+            } else if (groupedRunes[styleId].length >= secondaryStyleLength) {
+                secondaryStyleId = styleId;
+                secondaryStyleLength = groupedRunes[styleId].length;
+            }
+        }
+    }
+
+    // Sorts the groups for the respective style
+    groupedRunes[primaryStyleId].sort(sortingFunc);
+    groupedRunes[secondaryStyleId].sort(sortingFunc);
+
+    // Merges primary and secondary runes in the correct order
+    runePageMeta.selectedPerkIds = groupedRunes[primaryStyleId].concat(groupedRunes[secondaryStyleId], groupedRunes['undefined'] ?? []);
+
+    // Set StyleIds
+    runePageMeta.primaryStyleId = parseInt(primaryStyleId);
+    runePageMeta.subStyleId = parseInt(secondaryStyleId);
+
+    // Return rune page
+    return runePageMeta;
+}
+// #endregion
