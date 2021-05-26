@@ -32,6 +32,9 @@
     },
     "linux": {
       "icon": "build/icon.icns"
+    },
+    "nsis": {
+      "artifactName": "${productName}-Setup-${version}.${ext}"
     }
   },
   "dependencies": {
