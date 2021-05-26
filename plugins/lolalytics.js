@@ -1,5 +1,5 @@
 const rp = require('request-promise-native');
-const { sortRunes } = require('./utils');
+const { removePerkIds } = require('./utils');
 
 // #region Settings
 const supported_modes = [{
@@ -86,7 +86,7 @@ function getPage(runesJson, champInfo, gameMode, position, runesMode) {
         const perksData = [].concat(perksPriData, perksSecData);
 
         // Determine selected perk ids
-        const selectedPerkIds = sortRunes(perksData).concat(statShards);
+        const selectedPerkIds = removePerkIds(perksData).concat(statShards);
 
         // Determine the name of the position
         let positionString = gameMode.positions.length <= 1 ? '' : position;
