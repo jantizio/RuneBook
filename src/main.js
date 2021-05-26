@@ -4,9 +4,9 @@ const { autoUpdater } = require("electron-updater");
 const path = require('path');
 const url = require('url');
 const request = require('request');
-const isDev = require('electron-is-dev');
 const windowStateKeeper = require("electron-window-state");
 const os = require("os");
+const Store = require('electron-store');
 
 require('electron-debug')({ enabled: true });
 
@@ -16,6 +16,8 @@ let win;
 let splash;
 
 let latestv = null;
+
+Store.initRenderer()
 
 function createWindow() {
 

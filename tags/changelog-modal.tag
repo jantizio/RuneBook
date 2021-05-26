@@ -3,12 +3,12 @@
   <div class="ui small modal changelog-modal">
     <i class="close icon"></i>
     <div class="header">
-      <i1-8n>whatsnew.title</i1-8n> { require('electron-is-dev') === true ? "DEV" : require('electron').remote.app.getVersion(); }
+      <i1-8n>whatsnew.title</i1-8n> { require('electron').remote.app.isPackaged === false ? "DEV" : require('electron').remote.app.getVersion(); }
     </div>
     <div class="scrolling content">
       <img class="ui fluid rounded centered image" src="./img/backdrop.png">
       <h3 class="ui section horizontal divider">Greetings, Summoner!</h3>
-      <h4 class="centered">RuneBook has been updated to version { require('electron-is-dev') === true ? "DEV" : require('electron').remote.app.getVersion(); }</h4>
+      <h4 class="centered">RuneBook has been updated to version { require('electron').remote.app.isPackaged === false ? "DEV" : require('electron').remote.app.getVersion(); }</h4>
 
       <p><markup data={freezer.get().changelogbody}></markup></p>
       <p if={ !freezer.get().changelogbody }>You can read about new features and bugfixes on our <a href="https://github.com/Soundofdarkness/RuneBook/releases">download page at Github</a></p>

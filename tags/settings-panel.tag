@@ -2,7 +2,7 @@
   <div class="ui modal settings-modal">
     <div class="content">
       <div class="ui bottom attached label footer">
-        RuneBook <a onclick="$('.changelog-modal').modal('show')">{ require('electron-is-dev') === true ? "DEV" :
+        RuneBook <a onclick="$('.changelog-modal').modal('show')">{ require('electron').remote.app.isPackaged === false ? "DEV" :
           require('electron').remote.app.getVersion(); }</a>
         <span style="float: right;"><a href="https://github.com/Soundofdarkness/RuneBook/issues"
             style="color: #555555;"><i class="bug icon"></i></a></span>

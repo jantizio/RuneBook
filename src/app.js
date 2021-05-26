@@ -1,6 +1,6 @@
 var settings = require('./settings');
 var freezer = require('./state');
-const isDev = require('electron-is-dev');
+const isDev = !require('electron').remote.require('electron').app.isPackaged;
 const { groupBy } = require('lodash');
 
 if(settings.get("darktheme") == null){
@@ -82,7 +82,6 @@ freezer.on("lang:update", (val) => {
 
 (setMinimizeButtonBehaviour = () => {
 	minimizetotray = settings.get("minimizetotray")
-	console.log(minimizetotray)
 
 	if (minimizetotray === true)
 		ipcRenderer.send("minimizetotray:enabled")
