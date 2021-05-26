@@ -35,6 +35,9 @@ function extractRunePagesFromElement($, champion, position) {
         .get()
     );
 
+    // Convert all string ids to int ids as otherwise the prepareRunePage will fail later.
+    selectedPerkIds = selectedPerkIds.map( x => parseInt(x));
+
     return {
       name,
       selectedPerkIds: selectedPerkIds,
