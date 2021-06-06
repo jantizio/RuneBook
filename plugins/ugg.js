@@ -1,5 +1,5 @@
 const rp = require('request-promise-native');
-const { removePerkIds } = require('./utils');
+const { removePerkIds, sortRunes } = require('./utils');
 
 // #region U.GG API consts
 const u = {
@@ -142,7 +142,9 @@ function getPage(runesJson, champInfo, position, gameMode) {
         const statShards = runesJsonModed[u.stats.statShards][u.shards.stats].map(str => parseInt(str, 10));
 
         // Determine selected perk ids
-        const selectedPerkIds = removePerkIds(perksData[u.perks.perks]).concat(statShards);
+        const perksSorted = sortRunes(removePerkIds(perksData[u.perks.perks]));
+        const selectedPerkIds = perksSorted.concat(statShards);
+        // console.log(selectedPerkIds);
 
         // Return rune page
         return {
