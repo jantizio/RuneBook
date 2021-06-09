@@ -189,7 +189,7 @@ freezer.on('champion:choose', (champion) => {
 
 	state = freezer.get();
 
-	plugins[state.tab.active].getPages(champion, (res) => {
+	getPagesWrapper(plugins[state.tab.active], champion, (res) => {
 		// Cache results obtained from a remote source
 		if(freezer.get().plugins.remote[plugin])
 			freezer.get().plugins.remote[plugin].cache.set(champion, res);
@@ -220,7 +220,7 @@ freezer.on("tab:switch", (tab) => {
 	state = freezer.get();
 
 	if(!state.current.champion) return;
-	plugins[state.tab.active].getPages(state.current.champion, (res) => {
+	getPagesWrapper(plugins[state.tab.active], state.current.champion, (res) => {
 		// Cache results obtained from a remote source
 		if(freezer.get().plugins.remote[plugin])
 			freezer.get().plugins.remote[plugin].cache.set(champion, res);
@@ -234,7 +234,7 @@ freezer.on("tab:switch", (tab) => {
 freezer.on('page:fav', (champion, pagename) => {
 	var state = freezer.get();
 	plugins[state.tab.active].favPage(champion, pagename);
-	plugins[state.tab.active].getPages(champion, (res) => {
+	getPagesWrapper(plugins[state.tab.active], champion, (res) => {
 		state.current.champ_data.set(res);	
 	});
 });
@@ -242,7 +242,7 @@ freezer.on('page:fav', (champion, pagename) => {
 freezer.on('page:delete', (champion, pagename) => {
 	var state = freezer.get();
 	plugins[state.tab.active].deletePage(champion, pagename);
-	plugins[state.tab.active].getPages(champion, (res) => {
+	getPagesWrapper(plugins[state.tab.active], champion, (res) => {
 		state.current.champ_data.set(res);	
 	});
 });
@@ -252,7 +252,7 @@ freezer.on('page:unlinkbookmark', (champion, pagename) => {
 		freezer.get().lastbookmarkedpage.set({page: null, champion: null});
 	var state = freezer.get();
 	plugins[state.tab.active].unlinkBookmark(champion, pagename);
-	plugins[state.tab.active].getPages(champion, (res) => {
+	getPagesWrapper(plugins[state.tab.active], champion, (res) => {
 		state.current.champ_data.set(res);	
 	});
 });
@@ -282,7 +282,7 @@ freezer.on('page:syncbookmark', (champion, pagename) => {
 			return;
 		}
 		plugins[state.tab.active].setPage(champion, _page);
-		plugins[state.tab.active].getPages(champion, (res) => {
+		getPagesWrapper(plugins[state.tab.active], champion, (res) => {
 			state.current.champ_data.set(res);
 			freezer.get().lastsyncedpage.set({champion, page: _page.name, loading: false});
 		});
@@ -293,7 +293,7 @@ freezer.on('page:upload', (champion, pagename) => {
 	var state = freezer.get();
 	console.log("Upload:", pagename);
 	console.log("State pages", state.current.champ_data.pages);
-    var page = prepareRunePage(pagename, state.current.champ_data.pages[pagename].selectedPerkIds);
+    var page = state.current.champ_data.pages[pagename].prepareRunePage;
     console.log('upload2', page);
 
 	console.log("page.id, page.isEditable", state.connection.page.id, state.connection.page.isEditable);
@@ -322,7 +322,7 @@ freezer.on('page:upload', (champion, pagename) => {
 				var state = freezer.get();
 				if(plugins[state.tab.active].local) {
 					plugins[state.tab.active].confirmPageValidity(champion, pagename, res);
-					plugins[state.tab.active].getPages(champion, (res) => {
+					getPagesWrapper(plugins[state.tab.active], champion, (res) => {
 						state.current.champ_data.set(res);
 					});
 				}
@@ -338,7 +338,7 @@ freezer.on('currentpage:download', () => {
 	var page = state.connection.page;
 
 	plugins[state.tab.active].setPage(champion, page);
-	plugins[state.tab.active].getPages(champion, (res) => {
+	getPagesWrapper(plugins[state.tab.active], champion, (res) => {
 		state.current.champ_data.set(res);	
 	});
 });
@@ -506,6 +506,30 @@ connector.on('disconnect', () => {
 connector.start();
 
 // #region Helper
+
+/**
+ * Wrapper for the "getPages" function of the plugins
+ * @param {string} champion Id of the champion for which the pages should be determined.
+ * @param callback callback which is called for the return of the data.
+ * @returns all possible rune pages for a particular champion.
+ */
+function getPagesWrapper(plugin, champion, callback){
+	// Determine rune pages from the plugin for the champ
+	plugin.getPages(champion, (res) => {
+		// Go through all rune pages
+        Object.keys(res.pages).forEach(function(key) {
+			// Add a new property that contains a rune page adapted for delivery to LoL
+			res.pages[key].prepareRunePage = prepareRunePage(key, res.pages[key].selectedPerkIds);
+
+			// Take over sorting from "prepareRunePage" (if not sorted correctly by plugin)
+			res.pages[key].selectedPerkIds = res.pages[key].prepareRunePage.selectedPerkIds;
+        });
+
+		// Return
+		callback(res);
+	});
+}
+
 /**
  * Creates a rune page based on the rune id and the name as it has to be passed to LoL.
  * @param {string} pageName - Name of the rune page
