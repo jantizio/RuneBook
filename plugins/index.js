@@ -1,7 +1,7 @@
 var isDev = !require('electron').remote.app.isPackaged;
 
 if (!isDev) {
-  var plugins = ["local", "blitzgg", "koreanbuilds", "lolalytics", "opgg", "ugg", "metasrc"];
+  var plugins = ["local", "blitzgg", "lolalytics", "opgg", "ugg", "metasrc"];
 
   var __hasProp = {}.hasOwnProperty;
 
