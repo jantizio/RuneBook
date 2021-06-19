@@ -24,8 +24,9 @@
         this.on('update', function() {
             let markup = opts.data;
             if (!markup) return;
-            let html = marked(markup);
-            this.root.innerHTML = html;
+            let renderer = new marked.Renderer();
+            renderer.link = ( href, title, text ) => `<a target="_blank" href="${ href }" title="${ title }">${ text }</a>`;
+            this.root.innerHTML = marked(markup, { renderer });
         })
     });
   </script>
