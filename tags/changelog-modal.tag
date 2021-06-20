@@ -11,12 +11,12 @@
       <h4 class="centered">RuneBook has been updated to version { require('electron').remote.app.isPackaged === false ? "DEV" : require('electron').remote.app.getVersion(); }</h4>
 
       <p><markup data={freezer.get().changelogbody}></markup></p>
-      <p if={ !freezer.get().changelogbody }>You can read about new features and bugfixes on our <a href="https://github.com/Soundofdarkness/RuneBook/releases">download page at Github</a></p>
+      <p if={ !freezer.get().changelogbody }>You can read about new features and bugfixes on our <a href="https://github.com/Soundofdarkness/RuneBook/releases" target="_blank">download page at Github</a></p>
       
       <div class="ui divider"></div>
 
       <p>Remember, RuneBook is pretty much complete for what it has to offer, but new small features might be added from time to time, and it will still be updated to support the latest game patch.</p>
-      <h4 class="ui header right floated"><a href="https://github.com/Soundofdarkness/RuneBook">RuneBook community</a></h4>
+      <h4 class="ui header right floated"><a href="https://github.com/Soundofdarkness/RuneBook" target="_blank">RuneBook community</a></h4>
     </div>
   </div>
 

@@ -4,8 +4,7 @@
       <div class="ui bottom attached label footer">
         RuneBook <a onclick="$('.changelog-modal').modal('show')">{ require('electron').remote.app.isPackaged === false ? "DEV" :
           require('electron').remote.app.getVersion(); }</a>
-        <span style="float: right;"><a href="https://github.com/Soundofdarkness/RuneBook/issues"
-            style="color: #555555;"><i class="bug icon"></i></a></span>
+        <span style="float: right;"><a href="https://github.com/Soundofdarkness/RuneBook/issues" target="_blank" style="color: #555555;"><i class="bug icon"></i></a></span>
       </div>
       <div class="ui form">
         <div class="grouped fields">
@@ -148,13 +147,13 @@
             <div class="column">
               <div class="field">
                 <span>
-                  <i1-8n>settings.madeby</i1-8n> <a href="https://github.com/OrangeNote/Runebook">OrangeNote</a>
+                  <i1-8n>settings.madeby</i1-8n> <a href="https://github.com/OrangeNote/Runebook" target="_blank">OrangeNote</a>
                 </span>
               </div>
             </div>
             <div class="column">
               <div class="field">
-                <span>Maintained by <a href="https://github.com/Soundofdarkness/Runebook">Community</a></span>
+                <span>Maintained by <a href="https://github.com/Soundofdarkness/Runebook" target="_blank">Community</a></span>
               </div>
             </div>
           </div>

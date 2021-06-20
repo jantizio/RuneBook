@@ -84,6 +84,12 @@ function createWindow() {
         win.show();
     });
 
+    // ToDo: if we upgrade to Electron 12: https://stackoverflow.com/questions/32402327/how-can-i-force-external-links-from-browser-window-to-open-in-a-default-browser/67409223#67409223
+    win.webContents.on('new-window', function(e, url) {
+        e.preventDefault();
+        require('electron').shell.openExternal(url);
+      });
+
     // Open the DevTools.
     // win.webContents.openDevTools()
 
