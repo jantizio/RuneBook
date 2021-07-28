@@ -14,7 +14,7 @@ const supported_modes = [{
     }
 ];
 
-const baseApiUrl = `https://beta.iesdev.com`;
+const baseApiUrl = 'https://league-champion-aggregate.iesdev.com';
 const baseApiUrlAlt = 'https://backend-alt.iesdev.com';
 const usedRegion = 'world';
 // #endregion
@@ -38,7 +38,7 @@ async function getChampionsJsonAsync(championId, gameMode, position = null, useA
         var usedServerUrl = useAltApi ? baseApiUrlAlt : baseApiUrl;
 
         // Create URL based on the parameters
-        var requestUri = `${usedServerUrl}/api/lolstats/champions/${championId}?patch=${blitzggLoLVersion}&queue=${gameMode.key}&region=${usedRegion}`;
+        var requestUri = `${usedServerUrl}/api/champions/${championId}?patch=${blitzggLoLVersion}&queue=${gameMode.key}&region=${usedRegion}`;
 
         // add additional parameters
         if (position)
