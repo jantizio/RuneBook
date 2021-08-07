@@ -3,11 +3,14 @@ var freezer = require('./state');
 const isDev = !require('electron').remote.require('electron').app.isPackaged;
 const { groupBy } = require('lodash');
 
+// imposta il tema in base a quello di sistema (? non sono sicuro che nativeTheme sia quello di sistema)
 if(settings.get("darktheme") == null){
 	const { nativeTheme } = require('electron').remote.require('electron')
 	settings.set("darktheme", nativeTheme.shouldUseDarkColors ?? false);
 }
 
+// aggiorna lo stato della app basandosi sulle impostazioni di gioco
+/* -- */
 freezer.get().configfile.set({
 	name: settings.get("config.name") + settings.get("config.ext"),
 	cwd: settings.get("config.cwd"),
@@ -21,10 +24,16 @@ freezer.get().configfile.set({
 
 freezer.get().set("autochamp", settings.get("autochamp"));
 freezer.get().tab.set({ active: settings.get("lasttab"), loaded: true });
+/* -- */
 
 var request = require('request');
 
 var {ipcRenderer} = require('electron');
+// ipc Renderer è un Event Emitter per il renderer process(web page) 
+// che comunica con l'ipcMain ovvero quello del main process(electron)
+
+//ascolta l'evento updateinfo:ready che viene emesso da ./main.js riga 166
+//il json richesto a github riguardo la versione è stato ricevuto
 ipcRenderer.on('updateinfo:ready', (event, arg) => {
 	// Determining whether an update is available
 	var appVersion = require('electron').remote.app.getVersion();
@@ -41,13 +50,22 @@ ipcRenderer.on('updateinfo:ready', (event, arg) => {
 	freezer.get().set("changelogbody", arg.body);
 });
 
+//ascolta l'evento update:downloaded che viene emesso da ./main.js riga 198, 213
+//l'aggiornamento precedentemente scaricato è stato installato
 ipcRenderer.on('update:downloaded', (event, arg) => {
 	console.log("update downloaded")
+	// evento emesso da freezer per ../tag/settings-panel.tag
+	// serve per cambiare l'aspetto grafico di un pulsante
 	freezer.emit("update:downloaded");
 });
 
 var path = require('path');
 
+/* -- EVENTI LETTI DA FREEZER.JS -- */
+// eventi emessi in ../tag/settings-panel.tag
+// servono a rilevare i cambiamenti nell'interfaccia grafica delle impostazioni
+
+// quando viene cambiato il path del configfile dalle impostazioni
 freezer.on("configfile:change", (newPath) => {
 
 	settings.set({
@@ -79,6 +97,8 @@ freezer.on("lang:update", (val) => {
 	freezer.get().configfile.set("lang", val);
 	settings.set("lang", val);
 });
+
+/* -- FINE EVENTI LETTI DA FREEZER.JS -- */
 
 (setMinimizeButtonBehaviour = () => {
 	minimizetotray = settings.get("minimizetotray")
