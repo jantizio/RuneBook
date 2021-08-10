@@ -23,10 +23,13 @@
   <chapters-segment current={current} lastuploadedpage={lastuploadedpage} session={session} connection={connection} tab={tab} plugins={plugins} lastbookmarkedpage={lastbookmarkedpage} lastsyncedpage={lastsyncedpage} favautoupload={configfile.favautoupload} tooltips={tooltips}></chapters-segment>
   <div style="margin-bottom: 20px;">
     <current-page connection={connection} session={session} current={current} tab={tab} plugins={plugins} tooltips={tooltips}></current-page>
+    <!-- aggiunto da me -->
+    <modifica-button></modifica-button>
   </div>
 
   <settings-panel configfile={configfile} updateready={updateready}></settings-panel>
   <changelog-modal></changelog-modal>
+  <runes-panel></runes-panel>
 
   <script>
     var remote;
