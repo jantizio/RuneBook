@@ -98,8 +98,10 @@ freezer.on("lang:update", (val) => {
 	settings.set("lang", val);
 });
 
-/* -- FINE EVENTI LETTI DA FREEZER.JS -- */
 
+
+// definisce il comportamento dell'app qundo viene mimimizzata
+// invia minimizetotray:enabled o minimizetotray:disabled al main process
 (setMinimizeButtonBehaviour = () => {
 	minimizetotray = settings.get("minimizetotray")
 
@@ -139,6 +141,7 @@ freezer.on("changelog:ready", () => {
 	}
 });
 
+// fa una richesta alle api per avere l'ultima versione di LoL (numero patch)
 request('https://ddragon.leagueoflegends.com/api/versions.json', function (error, response, data) {
 	if(!error && response && response.statusCode == 200) {
 		var ver = JSON.parse(data);
@@ -147,7 +150,7 @@ request('https://ddragon.leagueoflegends.com/api/versions.json', function (error
 	}
 	else throw Error("Couldn't get ddragon api version");
 });
-
+// aggiorna le api sulle rune e sui campioni
 freezer.on('version:set', (ver) => {
 	request('https://ddragon.leagueoflegends.com/cdn/'+ver+'/data/en_US/runesReforged.json', function(error, response, data) {
 		if(!error && response && response.statusCode == 200){
@@ -165,6 +168,8 @@ freezer.on('version:set', (ver) => {
 	});
 });
 
+// viene emesso da lcu-api.js
+// devo ancora capire bene cosa fa
 freezer.on('api:connected', () => {
 	api.get("/lol-summoner/v1/current-summoner").then((res) => {
 		updateConnectionData();
