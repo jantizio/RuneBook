@@ -19,7 +19,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
     a.src = './img/runesReforged/perkStyle/' + p_rune[i] + '.png';
     var b = document.importNode(radio, false);
     b.addEventListener('click', show_rune);
-    b.id = i;
+    b.i = i;
+    b.value = p_rune[i];
     //b.setAttribute('onclick', 'this.show_rune(' + i + ')');
     b.name = 'rr';
 
@@ -32,7 +33,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 //mostra il ramo secondario e le rune principali
 function show_rune(evt) {
-  let id = evt.currentTarget.id;
+  let id = evt.currentTarget.i;
   let rune_to_dl = document.querySelector('.second-rune');
   while (rune_to_dl.hasChildNodes())
     rune_to_dl.removeChild(rune_to_dl.firstChild);
@@ -46,7 +47,8 @@ function show_rune(evt) {
     var b = document.importNode(radio, false);
     b.name = 'sr';
     b.addEventListener('click', show_snd_rune);
-    b.id = i;
+    b.i = i;
+    b.value = p_rune[i];
     //b.setAttribute('onclick', 'show_snd_rune(' + i + ')');
 
     c.appendChild(b);
@@ -67,6 +69,7 @@ function show_rune(evt) {
       a.src = './img/runesReforged/perk/' + rune[p_rune[id]][i][j] + '.png';
       var b = document.importNode(radio, false);
       b.name = 'p' + i;
+      b.value = rune[p_rune[id]][i][j];
 
       c.appendChild(b);
       c.appendChild(a);
@@ -84,7 +87,7 @@ function show_rune(evt) {
 }
 
 function show_snd_rune(evt) {
-  let id = evt.currentTarget.id;
+  let id = evt.currentTarget.i;
   rune_to_dl = document.querySelector('.secondary-runes');
   while (rune_to_dl.hasChildNodes())
     rune_to_dl.removeChild(rune_to_dl.firstChild);
@@ -96,6 +99,7 @@ function show_snd_rune(evt) {
       a.src = './img/runesReforged/perk/' + rune[p_rune[id]][i][j] + '.png';
       var b = document.importNode(radio, false);
       b.name = 's' + i;
+      b.value = rune[p_rune[id]][i][j];
 
       c.appendChild(b);
       c.appendChild(a);
