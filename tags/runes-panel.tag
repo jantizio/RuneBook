@@ -7,10 +7,22 @@
         <button class={ (opts.current.champion && opts.plugins.local[opts.tab.active]) ? "ui icon button" : "ui icon button disabled"} data-tooltip="{ i18n.localise('currentpage.downloadcurrentpage') }" onclick={ saveCurrentPage }>
 			<i class="download icon"></i>
 		</button>
+		<div class="zio">ciao</div>
     </div>
 </div>
 
 <script>
+
+window.addEventListener('DOMContentLoaded', (event) => {
+	console.log("cotenuto caricato")
+	//document.querySelector(".zio").onclick = function(){this.show_rune};
+	document.querySelector(".zio").addEventListener("click", this.show_rune);
+});
+
+show_rune() {
+	document.querySelector(".zio").innerHTML = "ciao zio!";
+}
+
         saveCurrentPage(evt) {
 			evt.preventUpdate = true;
             let page = {
