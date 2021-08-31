@@ -1,86 +1,83 @@
 <runes-panel>
 
+
+
 <div class="ui modal runes-modal">
-    <div class="content">
-    
- <template>
-                <label>
-                    <input type="radio" name="" value="small">
-                    <img src="">
-                </label>
-            </template>
-    <div class="runes-container">
-        <div class="root-rune">
-        </div>
-        <div class="second-rune" id="second">
-        </div>
-        <div class="runes-panel">
-            <div class="primary-runes alignment">
-            </div>
-            <div class="panel">
-                <div class="secondary-runes alignment">
-                </div>
-                <div class="additional-runes alignment">
-                    <!-- additional first line -->
-                    <label>
-                        <input type="radio" name="afl" value="small" >
-                        <img src="./img/runesReforged/perk/5008.png">
-                    </label>
-
-                    <label>
-                        <input type="radio" name="afl" value="big">
-                        <img src="./img/runesReforged/perk/5005.png">
-                    </label>
-
-                    <label>
-                        <input type="radio" name="afl" value="big">
-                        <img src="./img/runesReforged/perk/5007.png">
-                    </label>
-
-                    <div class="break"></div>
-                    <!-- additional second line -->
-                    <label>
-                        <input type="radio" name="asl" value="small" >
-                        <img src="./img/runesReforged/perk/5008.png">
-                    </label>
-
-                    <label>
-                        <input type="radio" name="asl" value="big">
-                        <img src="./img/runesReforged/perk/5002.png">
-                    </label>
-
-                    <label>
-                        <input type="radio" name="asl" value="big">
-                        <img src="./img/runesReforged/perk/5003.png">
-                    </label>
-
-                    <div class="break"></div>
-                    <!-- additional third line -->
-                    <label>
-                        <input type="radio" name="atl" value="small" >
-                        <img src="./img/runesReforged/perk/5001.png">
-                    </label>
-
-                    <label>
-                        <input type="radio" name="atl" value="big">
-                        <img src="./img/runesReforged/perk/5002.png">
-                    </label>
-
-                    <label>
-                        <input type="radio" name="atl" value="big">
-                        <img src="./img/runesReforged/perk/5003.png">
-                    </label>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-	</br>Salva la pagina di rune in locale
-        <button class={ (opts.current.champion && opts.plugins.local[opts.tab.active]) ? "ui icon button" : "ui icon button disabled"} data-tooltip="{ i18n.localise('currentpage.downloadcurrentpage') }" onclick={ saveCurrentPage }>
-			<i class="download icon"></i>
+	<div class="content">
+		<template>
+			<label>
+			<input type="radio" name="" value="small">
+			<img src="">
+			</label>
+		</template>
+		<div class="runes-container">
+			<input type="text" name="rname" value="Nuova pagina di rune" id="nomepagina"><br><br>
+			<div class="runes-header">
+				<div class="root-rune">
+				</div>
+				<div class="second-rune">
+				</div>
+			</div>
+			<div class="runes-panel">
+				<div class="primary-runes alignment">
+				</div>
+				<div class="panel">
+					<div class="secondary-runes alignment">
+					</div>
+					<div class="additional-runes alignment">
+						<!-- additional first line -->
+						<label>
+						<input type="radio" name="afl" value="5008" >
+						<img src="./img/runesReforged/perk/5008.png">
+						</label>
+						<label>
+						<input type="radio" name="afl" value="5005">
+						<img src="./img/runesReforged/perk/5005.png">
+						</label>
+						<label>
+						<input type="radio" name="afl" value="5007">
+						<img src="./img/runesReforged/perk/5007.png">
+						</label>
+						<div class="break"></div>
+						<!-- additional second line -->
+						<label>
+						<input type="radio" name="asl" value="5008" >
+						<img src="./img/runesReforged/perk/5008.png">
+						</label>
+						<label>
+						<input type="radio" name="asl" value="5002">
+						<img src="./img/runesReforged/perk/5002.png">
+						</label>
+						<label>
+						<input type="radio" name="asl" value="5003">
+						<img src="./img/runesReforged/perk/5003.png">
+						</label>
+						<div class="break"></div>
+						<!-- additional third line -->
+						<label>
+						<input type="radio" name="atl" value="5001" >
+						<img src="./img/runesReforged/perk/5001.png">
+						</label>
+						<label>
+						<input type="radio" name="atl" value="5002">
+						<img src="./img/runesReforged/perk/5002.png">
+						</label>
+						<label>
+						<input type="radio" name="atl" value="5003">
+						<img src="./img/runesReforged/perk/5003.png">
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		</br>Salva la pagina di rune in locale
+		<button class={ (opts.current.champion && opts.plugins.local[opts.tab.active]) ? "ui icon button" : "ui icon button disabled"} data-tooltip="{ i18n.localise('currentpage.downloadcurrentpage') }" onclick={ saveCurrentPage }>
+		<i class="download icon"></i>
 		</button>
-    </div>
+		<button class="ui icon button" onclick={ getRadio }>
+		<i class="play icon"></i>
+		</button>
+	</div>
 </div>
 
 <script src="erune.js"></script>
@@ -88,6 +85,17 @@
 
         saveCurrentPage(evt) {
 			evt.preventUpdate = true;
+
+			const rbs = document.querySelectorAll('input[type="radio"]');
+			let selectedValues = [];
+			for (const rb of rbs) {
+                if (rb.checked) {
+                    selectedValues.push(parseInt(rb.value));
+                }
+            }
+			let primary = selectedValues.shift();
+			let sub = selectedValues.shift();
+
             let page = {
 					"autoModifiedSelections": [],
 					"current": true,
@@ -96,25 +104,22 @@
 					"isDeletable": true,
 					"isEditable": true,
 					"isValid": true,
-					"lastModified": 1630062301624,
-					"name": "ses",
+					"lastModified": new Date().getTime() / 1000,
+					"name": document.querySelector('#nomepagina').value,
 					"order": 1,
-					"primary-runesStyleId": 8100,
-					"selectedPerkIds": [
-						9923,
-						8126,
-						8138,
-						8135,
-						8345,
-						8410,
-						5005,
-						5008,
-						5002
-					],
-					"subStyleId": 8300
+					"primary-runesStyleId": primary,
+					"selectedPerkIds": selectedValues,
+					"subStyleId": sub
 				};
 			console.log("salvato");
 			freezer.emit("currentpage:save", page);
+		}
+
+		getRadio() {
+			var now = new Date().getTime() / 1000;
+			console.log(now);
+			let nome = document.querySelector('#nomepagina').value;
+			console.log(nome)
 		}
 </script>
 </runes-panel>
