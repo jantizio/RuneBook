@@ -2,26 +2,89 @@
 
 <div class="ui modal runes-modal">
     <div class="content">
-    EDITOR RUNE QUI
+    
+ <template>
+                <label>
+                    <input type="radio" name="" value="small">
+                    <img src="">
+                </label>
+            </template>
+    <div class="runes-container">
+        <div class="root-rune">
+        </div>
+        <div class="second-rune" id="second">
+        </div>
+        <div class="runes-panel">
+            <div class="primary-runes alignment">
+            </div>
+            <div class="panel">
+                <div class="secondary-runes alignment">
+                </div>
+                <div class="additional-runes alignment">
+                    <!-- additional first line -->
+                    <label>
+                        <input type="radio" name="afl" value="small" >
+                        <img src="./img/runesReforged/perk/5008.png">
+                    </label>
+
+                    <label>
+                        <input type="radio" name="afl" value="big">
+                        <img src="./img/runesReforged/perk/5005.png">
+                    </label>
+
+                    <label>
+                        <input type="radio" name="afl" value="big">
+                        <img src="./img/runesReforged/perk/5007.png">
+                    </label>
+
+                    <div class="break"></div>
+                    <!-- additional second line -->
+                    <label>
+                        <input type="radio" name="asl" value="small" >
+                        <img src="./img/runesReforged/perk/5008.png">
+                    </label>
+
+                    <label>
+                        <input type="radio" name="asl" value="big">
+                        <img src="./img/runesReforged/perk/5002.png">
+                    </label>
+
+                    <label>
+                        <input type="radio" name="asl" value="big">
+                        <img src="./img/runesReforged/perk/5003.png">
+                    </label>
+
+                    <div class="break"></div>
+                    <!-- additional third line -->
+                    <label>
+                        <input type="radio" name="atl" value="small" >
+                        <img src="./img/runesReforged/perk/5001.png">
+                    </label>
+
+                    <label>
+                        <input type="radio" name="atl" value="big">
+                        <img src="./img/runesReforged/perk/5002.png">
+                    </label>
+
+                    <label>
+                        <input type="radio" name="atl" value="big">
+                        <img src="./img/runesReforged/perk/5003.png">
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 	</br>Salva la pagina di rune in locale
         <button class={ (opts.current.champion && opts.plugins.local[opts.tab.active]) ? "ui icon button" : "ui icon button disabled"} data-tooltip="{ i18n.localise('currentpage.downloadcurrentpage') }" onclick={ saveCurrentPage }>
 			<i class="download icon"></i>
 		</button>
-		<div class="zio">ciao</div>
     </div>
 </div>
 
+<script src="erune.js"></script>
 <script>
-
-window.addEventListener('DOMContentLoaded', (event) => {
-	console.log("cotenuto caricato")
-	//document.querySelector(".zio").onclick = function(){this.show_rune};
-	document.querySelector(".zio").addEventListener("click", this.show_rune);
-});
-
-show_rune() {
-	document.querySelector(".zio").innerHTML = "ciao zio!";
-}
 
         saveCurrentPage(evt) {
 			evt.preventUpdate = true;
@@ -36,7 +99,7 @@ show_rune() {
 					"lastModified": 1630062301624,
 					"name": "ses",
 					"order": 1,
-					"primaryStyleId": 8100,
+					"primary-runesStyleId": 8100,
 					"selectedPerkIds": [
 						9923,
 						8126,
