@@ -34,9 +34,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
 //mostra il ramo secondario e le rune principali
 function show_rune(evt) {
   let id = evt.currentTarget.i;
-  let rune_to_dl = document.querySelector('.second-rune');
-  while (rune_to_dl.hasChildNodes())
-    rune_to_dl.removeChild(rune_to_dl.firstChild);
+
+  del_panel_rune('.second-rune');
+  del_panel_rune('.secondary-runes'); // FIX: fix veloce per il bug della pagina principale = a secondaria
 
   for (let i = 0; i < p_rune.length; i++) {
     if (i == id) continue;
@@ -58,9 +58,7 @@ function show_rune(evt) {
   }
 
   //--------------------------------------------------------------------
-  rune_to_dl = document.querySelector('.primary-runes');
-  while (rune_to_dl.hasChildNodes())
-    rune_to_dl.removeChild(rune_to_dl.firstChild);
+  del_panel_rune('.primary-runes');
 
   for (let i = 0; i < rune[p_rune[id]].length; i++) {
     for (let j = 0; j < rune[p_rune[id]][i].length; j++) {
@@ -88,11 +86,11 @@ function show_rune(evt) {
 
 function show_snd_rune(evt) {
   let id = evt.currentTarget.i;
-  rune_to_dl = document.querySelector('.secondary-runes');
-  while (rune_to_dl.hasChildNodes())
-    rune_to_dl.removeChild(rune_to_dl.firstChild);
 
-  for (let i = 0; i < rune[p_rune[id]].length; i++) {
+  del_panel_rune('.secondary-runes');
+
+
+  for (let i = 1; i < rune[p_rune[id]].length; i++) {
     for (let j = 0; j < rune[p_rune[id]][i].length; j++) {
       c = document.importNode(label, false);
       var a = document.importNode(img, false);
@@ -114,4 +112,11 @@ function show_snd_rune(evt) {
           .createContextualFragment('<div class="break"></div>')
       );
   }
+}
+
+//rimuove il contenuto di un div
+function del_panel_rune(panel_target) {
+  rune_to_dl = document.querySelector(panel_target);
+  while (rune_to_dl.hasChildNodes())
+    rune_to_dl.removeChild(rune_to_dl.firstChild);
 }
