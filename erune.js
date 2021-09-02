@@ -80,6 +80,7 @@ function show_rune(evt) {
   for (let i = 0; i < rune[p_rune[id]].length; i++) {
     for (let j = 0; j < rune[p_rune[id]][i].length; j++) {
       c = document.importNode(label, false);
+      if (i == 0) c.classList.add('keystone');
       var a = document.importNode(img, false);
       a.src = './img/runesReforged/perk/' + rune[p_rune[id]][i][j] + '.png';
       var b = document.importNode(radio, false);
