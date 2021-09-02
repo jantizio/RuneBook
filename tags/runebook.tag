@@ -24,7 +24,7 @@
   <div style="margin-bottom: 20px;">
     <current-page connection={connection} session={session} current={current} tab={tab} plugins={plugins} tooltips={tooltips}></current-page>
     <!-- aggiunto da me -->
-    <modifica-button></modifica-button>
+    <!--  <modifica-button></modifica-button>  -->
   </div>
 
   <settings-panel configfile={configfile} updateready={updateready}></settings-panel>
