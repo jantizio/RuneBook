@@ -11,7 +11,8 @@
 			</label>
 		</template>
 		<div class="runes-container">
-			<input type="text" name="rname" value="Nuova pagina di rune" id="nomepagina"><br><br>
+			<div contenteditable id="nomepagina"><u>Nuova pagina di rune</u></div>
+			<!--  <input type="text" name="rname" value="Nuova pagina di rune" id="nomepagina">  -->
 			<div class="runes-header">
 				<div class="root-rune">
 				</div>
@@ -20,9 +21,83 @@
 			</div>
 			<div class="runes-panel">
 				<div class="primary-runes alignment">
+					<label class="placeholder">
+						<img src="./img/runesReforged/perk/qm.png">
+					</label>
+					<label class="placeholder">
+						<img src="./img/runesReforged/perk/qm.png">
+					</label>
+					<label class="placeholder">
+						<img src="./img/runesReforged/perk/qm.png">
+					</label>
+					<div class="break"></div>
+
+					<label class="placeholder">
+						<img src="./img/runesReforged/perk/qm.png">
+					</label>
+					<label class="placeholder">
+						<img src="./img/runesReforged/perk/qm.png">
+					</label>
+					<label class="placeholder">
+						<img src="./img/runesReforged/perk/qm.png">
+					</label>
+					<div class="break"></div>
+
+					<label class="placeholder">
+						<img src="./img/runesReforged/perk/qm.png">
+					</label>
+					<label class="placeholder">
+						<img src="./img/runesReforged/perk/qm.png">
+					</label>
+					<label class="placeholder">
+						<img src="./img/runesReforged/perk/qm.png">
+					</label>
+					<div class="break"></div>
+
+					<label class="placeholder">
+						<img src="./img/runesReforged/perk/qm.png">
+					</label>
+					<label class="placeholder">
+						<img src="./img/runesReforged/perk/qm.png">
+					</label>
+					<label class="placeholder">
+						<img src="./img/runesReforged/perk/qm.png">
+					</label>
+					<div class="break"></div>
 				</div>
 				<div class="panel">
 					<div class="secondary-runes alignment">
+						<label class="placeholder">
+							<img src="./img/runesReforged/perk/qm.png">
+						</label>
+						<label class="placeholder">
+							<img src="./img/runesReforged/perk/qm.png">
+						</label>
+						<label class="placeholder">
+							<img src="./img/runesReforged/perk/qm.png">
+						</label>
+						<div class="break"></div>
+
+						<label class="placeholder">
+							<img src="./img/runesReforged/perk/qm.png">
+						</label>
+						<label class="placeholder">
+							<img src="./img/runesReforged/perk/qm.png">
+						</label>
+						<label class="placeholder">
+							<img src="./img/runesReforged/perk/qm.png">
+						</label>
+						<div class="break"></div>
+
+						<label class="placeholder">
+							<img src="./img/runesReforged/perk/qm.png">
+						</label>
+						<label class="placeholder">
+							<img src="./img/runesReforged/perk/qm.png">
+						</label>
+						<label class="placeholder">
+							<img src="./img/runesReforged/perk/qm.png">
+						</label>
 					</div>
 					<div class="additional-runes alignment">
 						<!-- additional first line -->
@@ -105,7 +180,7 @@
 					"isEditable": true,
 					"isValid": true,
 					"lastModified": new Date().getTime() / 1000,
-					"name": document.querySelector('#nomepagina').value,
+					"name": document.querySelector('#nomepagina').innerHTML,
 					"order": 1,
 					"primary-runesStyleId": primary,
 					"selectedPerkIds": selectedValues,
@@ -118,7 +193,7 @@
 		getRadio() {
 			var now = new Date().getTime() / 1000;
 			console.log(now);
-			let nome = document.querySelector('#nomepagina').value;
+			let nome = document.querySelector('#nomepagina').innerHTML;
 			console.log(nome)
 		}
 </script>

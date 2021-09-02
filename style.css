@@ -477,71 +477,86 @@ span > i1-8n,
 } */
 
 .runes-container {
-  background-color: black;
-  width: 750px;
-  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  min-height: 527px;
 
-  /* reset */
+  /* default reset */
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
-.runes-header {
-  display: flex;
-  /* background: #ff0; */
-}
 
-.root-rune {
-  width: 100%;
-}
-
-.second-rune {
-  width: 100%;
-}
-
+.runes-header,
 .runes-panel {
+  display: flex;
+}
+
+.runes-header > *,
+.runes-panel > * {
   width: 100%;
-  height: 100%;
-  display: flex;
+  text-align: center;
 }
 
-.alignment {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  align-content: flex-start;
+.runes-container .primary-runes .break,
+.runes-container .secondary-runes .break {
+  /* l'altezza totale è 34px */
+  height: 10px;
+  margin-bottom: 24px;
 }
 
-.primary-runes {
-  /* background: #f00; */
-  width: 50%;
-  /*height: 100%;*/
-  min-height: 100%;
-  padding: 2.5em;
+.runes-container .primary-runes .break,
+.runes-container .secondary-runes .break {
+  border-bottom: 2px solid rgba(0, 0, 0, 0.6);
+  border-radius: 0px 10px;
+}
+
+.primary-runes,
+.secondary-runes {
+  border-left: 3px solid rgba(0, 0, 0, 0.6);
+  border-radius: 0px 16px;
 }
 
 .panel {
-  width: 50%;
-  height: 100%;
+  padding-left: 7px;
+}
+.runes-header {
+  margin-bottom: 10px;
+}
+#nomepagina {
+  font-size: 15px;
+  margin-bottom: 7px;
+}
+#nomepagina:focus {
+  outline: none;
+}
+#nomepagina u {
+  text-underline-position: under;
 }
 
-.secondary-runes {
-  /* background: #0f0; */
-  width: 100%;
-  padding: 2.5em;
-  /*height: 70%;*/
-  min-height: 70%;
+/* IMAGE STYLES */
+
+/* default image style */
+.runes-container label img {
+  cursor: pointer;
+  max-width: 42px;
 }
-.additional-runes {
-  /* background: #00f; */
-  width: 100%;
-  padding: 2.5em;
-  /*height: 30%;*/
-  min-height: 30%;
+.runes-header label img {
+  max-width: 63px;
 }
-.break {
-  width: 100%;
+.runes-panel label img {
+  margin: 12px;
+}
+.additional-runes label img {
+  margin: 0 12px;
+}
+
+.runes-panel .keystone img {
+  max-width: 54px;
+}
+
+.runes-panel .placeholder img {
+  border-radius: 50%;
 }
 
 /* HIDE RADIO */
@@ -553,10 +568,10 @@ span > i1-8n,
 }
 
 /* IMAGE STYLES */
-[type='radio'] + img {
+/* [type='radio'] + img {
   cursor: pointer;
   max-width: 50px;
-}
+} */
 
 /* CHECKED STYLES */
 [type='radio']:checked + img {
