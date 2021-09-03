@@ -1,0 +1,6 @@
+tooltip rune mouse hover
+cambiare la finestra di dialogo quando si elimina una pagina di rune
+icona per salvare in segnalibro *
+fixare il tema
+contorno rotondo nero nel tema chiaro (nel tema scuro da pensare)
+non far scomparire il secondo ramo
