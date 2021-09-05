@@ -469,22 +469,19 @@ span > i1-8n,
 }
 
 /* -- CSS PER L'EDITOR DI RUNE -- */
-
-/* *{
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-} */
-
 .runes-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 527px;
-
   /* default reset */
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+
+.runes-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 561px;
+  color: var(--plain-text);
+  margin-bottom: 20px;
 }
 
 .runes-header,
@@ -507,13 +504,13 @@ span > i1-8n,
 
 .runes-container .primary-runes .break,
 .runes-container .secondary-runes .break {
-  border-bottom: 2px solid rgba(0, 0, 0, 0.6);
+  border-bottom: 2px solid var(--primary);
   border-radius: 0px 10px;
 }
 
 .primary-runes,
 .secondary-runes {
-  border-left: 3px solid rgba(0, 0, 0, 0.6);
+  border-left: 3px solid var(--primary);
   border-radius: 0px 16px;
 }
 
@@ -524,14 +521,24 @@ span > i1-8n,
   margin-bottom: 10px;
 }
 #nomepagina {
-  font-size: 15px;
+  font-size: 20px;
   margin-bottom: 7px;
+  width: fit-content;
 }
 #nomepagina:focus {
   outline: none;
 }
-#nomepagina u {
-  text-underline-position: under;
+#nomepagina::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: var(--menu-active);
+  transition: width 0.3s;
+}
+
+#nomepagina:focus::after {
+  width: 100%;
 }
 
 /* IMAGE STYLES */
@@ -539,20 +546,24 @@ span > i1-8n,
 /* default image style */
 .runes-container label img {
   cursor: pointer;
-  max-width: 42px;
+  max-width: 48px;
+  /* opacity: 0.4; */
+  filter: grayscale(100%);
 }
 .runes-header label img {
   max-width: 63px;
 }
 .runes-panel label img {
-  margin: 12px;
+  padding: 3px;
+  margin: 9px;
 }
 .additional-runes label img {
-  margin: 0 12px;
+  margin: 2px 12px;
+  padding: 0;
 }
 
 .runes-panel .keystone img {
-  max-width: 54px;
+  max-width: 60px;
 }
 
 .runes-panel .placeholder img {
@@ -575,5 +586,12 @@ span > i1-8n,
 
 /* CHECKED STYLES */
 [type='radio']:checked + img {
-  outline: 2px solid #f0f;
+  /* outline: 2px solid #f0f; */
+  filter: none;
+  border-radius: 50%;
+  box-shadow: 0px 0px 0px 3.5px var(--primary);
+  /* border: 3.5px solid var(--primary);
+  padding: 5px;
+  max-width: 59px; */
 }
+/*0px 0px 0px 3px var(--bg), */
