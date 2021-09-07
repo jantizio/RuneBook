@@ -160,6 +160,7 @@ function show_snd_rune(evt) {
         './img/runesReforged/perk/' + rune[runeTree][i][j] + '.png';
 
       let radio = label.querySelector('input');
+      radio.addEventListener('click', manage_secondary_runes);
       radio.value = rune[runeTree][i][j];
       radio.name = 's' + i;
 
@@ -202,21 +203,22 @@ function setPlaceholder(panel_target) {
   }
 }
 
-function manage_secondary_runes(radio_name) {
+function manage_secondary_runes(evt) {
+  const radio_name = evt.target.name;
   if (radio_name == srs[0] || radio_name == srs[1]) {
-    //bug predict?
-    return 0;
+    //bug predict? questo if sembra andare bene
+    return;
   }
 
-  if (srs.length < 2) srs[srs.length] = radio_name;
+  if (srs.length < 2) srs.push(radio_name);
   //add as last elem
   else {
     document.querySelector(
       'input[type=radio][name=' + srs[0] + ']:checked'
     ).checked = false;
 
-    srs[0] = srs[1];
-    srs[1] = radio_name;
+    srs.shift();
+    srs.push(radio_name);
   }
 }
 
