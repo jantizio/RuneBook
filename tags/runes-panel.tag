@@ -160,7 +160,7 @@
 	</div>
 </div>
 
-<script src="erune.js"></script>
+
 <script>
 
         saveCurrentPage(evt) {
