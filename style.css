@@ -549,6 +549,7 @@ span > i1-8n,
   max-width: 48px;
   /* opacity: 0.4; */
   filter: grayscale(100%);
+  transition: 0.1s;
 }
 .runes-header label img {
   max-width: 63px;
