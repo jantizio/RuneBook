@@ -153,9 +153,9 @@
 			<button class={ (opts.connection.page && opts.connection.page.isEditable && opts.connection.summonerLevel >= 10) ? "ui icon button" : "ui icon button disabled" } onclick={ uploadPage } data-tooltip={ i18n.localise('pagelist.uploadpage') } data-position="top left" data-inverted="">
 				<i class="upload icon" data-key={key}></i>
 			</button>
-			<button class="ui icon button" onclick={ getRadio }>
+			<!--  <button class="ui icon button" onclick={ getRadio }>
 				<i class="play icon"></i>
-			</button>
+			</button>  -->
 		</div>
 	</div>
 </div>
