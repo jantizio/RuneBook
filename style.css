@@ -541,6 +541,10 @@ span > i1-8n,
   width: 100%;
 }
 
+.runes-container label {
+  display: inline-block;
+}
+
 /* IMAGE STYLES */
 
 /* default image style */

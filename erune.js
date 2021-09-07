@@ -1,7 +1,9 @@
+const { template } = require('lodash');
+
 const p_rune = [8000, 8100, 8200, 8400, 8300]; //TODO: let var const
 rune =
   '{"8000":[[8005,8008,8021,8010],[9101,9111,8009],[9104,9105,9103],[8014,8017,8299]],"8100":[[8112,8124,8128,9923],[8126,8139,8143],[8136,8120,8138],[8135,8134,8105,8106]],"8200":[[8214,8229,8230],[8224,8226,8275],[8210,8234,8233],[8237,8232,8236]],"8400":[[8437,8439,8465],[8446,8463,8401],[8429,8444,8473],[8451,8453,8242]],"8300":[[8351,8360,8358],[8306,8304,8313],[8321,8316,8345],[8347,8410,8352]]}';
-let label, img, radio, c;
+//var label, img, radio, c;
 var srs = []; //2 secondary runes line name
 var rune = JSON.parse(rune);
 /*const rune = {
@@ -56,32 +58,30 @@ window.addEventListener('DOMContentLoaded', (event) => {
   /* cache image - non ho capito se funziona o no */
   preloadImages(imgList);
 
-  label = document
-    .getElementsByTagName('template')[0]
-    .content.firstElementChild.cloneNode(true);
-  img = label.querySelector('img');
-  radio = label.querySelector('input');
-
   for (var i = 0; i < p_rune.length; i++) {
-    c = document.importNode(label, false);
-    var a = document.importNode(img, false);
-    a.src = './img/runesReforged/perkStyle/' + p_rune[i] + '.png';
-    var b = document.importNode(radio, false);
-    b.addEventListener('click', show_rune);
-    b.i = i;
-    b.value = p_rune[i];
-    //b.setAttribute('onclick', 'this.show_rune(' + i + ')');
-    b.name = 'rr';
+    // faccio una copia del template
+    let label = document
+      .querySelector('template')
+      .content.firstElementChild.cloneNode(true);
 
-    c.appendChild(b);
-    c.appendChild(a);
+    // modifico l'attributo src dell'immagine
+    label.querySelector('img').src =
+      './img/runesReforged/perkStyle/' + p_rune[i] + '.png';
 
-    document.querySelector('.root-rune').appendChild(c);
+    // seleziono il radio button perchè devo modificare più di un attributo
+    let radio = label.querySelector('input');
+    radio.addEventListener('click', show_rune);
+    radio.i = i;
+    radio.value = p_rune[i];
+    radio.name = 'rr';
+
+    document.querySelector('.root-rune').appendChild(label);
   }
 });
 
 //mostra il ramo secondario e le rune principali
 function show_rune(evt) {
+  // prende l'id dell'elemento selezionato
   let id = evt.currentTarget.i;
 
   del_panel_rune('.second-rune');
@@ -90,39 +90,43 @@ function show_rune(evt) {
   for (let i = 0; i < p_rune.length; i++) {
     if (i == id) continue;
 
-    c = document.importNode(label, false);
-    var a = document.importNode(img, false);
-    a.src = './img/runesReforged/perkStyle/' + p_rune[i] + '.png';
-    var b = document.importNode(radio, false);
-    b.name = 'sr';
-    b.addEventListener('click', show_snd_rune);
-    b.i = i;
-    b.value = p_rune[i];
-    //b.setAttribute('onclick', 'show_snd_rune(' + i + ')');
+    let label = document
+      .querySelector('template')
+      .content.firstElementChild.cloneNode(true);
 
-    c.appendChild(b);
-    c.appendChild(a);
+    label.querySelector('img').src =
+      './img/runesReforged/perkStyle/' + p_rune[i] + '.png';
 
-    document.querySelector('.second-rune').appendChild(c);
+    let radio = label.querySelector('input');
+    radio.addEventListener('click', show_snd_rune);
+    radio.i = i;
+    radio.value = p_rune[i];
+    radio.name = 'sr';
+
+    document.querySelector('.second-rune').appendChild(label);
   }
 
   //--------------------------------------------------------------------
   del_panel_rune('.primary-runes');
 
-  for (let i = 0; i < rune[p_rune[id]].length; i++) {
-    for (let j = 0; j < rune[p_rune[id]][i].length; j++) {
-      c = document.importNode(label, false);
-      if (i == 0) c.classList.add('keystone');
-      var a = document.importNode(img, false);
-      a.src = './img/runesReforged/perk/' + rune[p_rune[id]][i][j] + '.png';
-      var b = document.importNode(radio, false);
-      b.name = 'p' + i;
-      b.value = rune[p_rune[id]][i][j];
+  // creo la variabile runeTree per rendere più chiaro il codice
+  let runeTree = p_rune[id];
 
-      c.appendChild(b);
-      c.appendChild(a);
+  for (let i = 0; i < rune[runeTree].length; i++) {
+    for (let j = 0; j < rune[runeTree][i].length; j++) {
+      let label = document
+        .querySelector('template')
+        .content.firstElementChild.cloneNode(true);
+      if (i == 0) label.classList.add('keystone');
 
-      document.querySelector('.primary-runes').appendChild(c);
+      label.querySelector('img').src =
+        './img/runesReforged/perk/' + rune[runeTree][i][j] + '.png';
+
+      let radio = label.querySelector('input');
+      radio.value = rune[runeTree][i][j];
+      radio.name = 'p' + i;
+
+      document.querySelector('.primary-runes').appendChild(label);
     }
     document
       .querySelector('.primary-runes')
@@ -139,19 +143,24 @@ function show_snd_rune(evt) {
 
   del_panel_rune('.secondary-runes');
 
-  for (let i = 1; i < rune[p_rune[id]].length; i++) {
-    for (let j = 0; j < rune[p_rune[id]][i].length; j++) {
-      c = document.importNode(label, false);
-      var a = document.importNode(img, false);
-      a.src = './img/runesReforged/perk/' + rune[p_rune[id]][i][j] + '.png';
-      var b = document.importNode(radio, false);
-      b.name = 's' + i;
-      b.value = rune[p_rune[id]][i][j];
+  // creo la variabile runeTree per rendere più chiaro il codice
+  let runeTree = p_rune[id];
 
-      c.appendChild(b);
-      c.appendChild(a);
+  for (let i = 1; i < rune[runeTree].length; i++) {
+    for (let j = 0; j < rune[runeTree][i].length; j++) {
+      let label = document
+        .querySelector('template')
+        .content.firstElementChild.cloneNode(true);
+      if (i == 0) label.classList.add('keystone');
 
-      document.querySelector('.secondary-runes').appendChild(c);
+      label.querySelector('img').src =
+        './img/runesReforged/perk/' + rune[runeTree][i][j] + '.png';
+
+      let radio = label.querySelector('input');
+      radio.value = rune[runeTree][i][j];
+      radio.name = 's' + i;
+
+      document.querySelector('.secondary-runes').appendChild(label);
     }
     document
       .querySelector('.secondary-runes')
