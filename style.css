@@ -2,30 +2,30 @@
  *** COLOR SCHEMES ***
  */
 
- /* LIGHT theme */
-[data-theme="light"] { 
-  --bg: #ffffff;          /* app background */  
+/* LIGHT theme */
+[data-theme='light'] {
+  --bg: #ffffff; /* app background */
   --bg-accent-1: #f7f7f7; /* some headers */
   --bg-accent-2: #ffffff; /* input fields */
-  --footer: #e4e4e4;      /* settings footer */
+  --footer: #e4e4e4; /* settings footer */
 
-  --primary: #bd9d5e;     /* buttons, borders, icons */
+  --primary: #bd9d5e; /* buttons, borders, icons */
 
-  --header-text: #191d24; 
+  --header-text: #191d24;
   --plain-text: #191d24;
-  
-  --highlight: #00acb1;   /* autoselect, current champ, toggles */
-  --logo-large: #bd9d5e;  /* icons: welcome & no pages */
-  
+
+  --highlight: #00acb1; /* autoselect, current champ, toggles */
+  --logo-large: #bd9d5e; /* icons: welcome & no pages */
+
   /* active/hovered tab, list item */
-  --list-hover: rgba(34,36,38,.1);
-  --menu-hover: rgba(0,0,0,.03);
+  --list-hover: rgba(34, 36, 38, 0.1);
+  --menu-hover: rgba(0, 0, 0, 0.03);
   --menu-active: #d8cfbd;
-  
-  --lang-dropddown-border: 1px solid rgba(34,36,38,.15);
+
+  --lang-dropddown-border: 1px solid rgba(34, 36, 38, 0.15);
 
   /* buttons, scrollbars */
-  --control: #bd9d5e; 
+  --control: #bd9d5e;
   --control-hover: #c7b185;
 
   /* changelog scrollbar */
@@ -33,40 +33,39 @@
   --scrollbar-grey-hover: rgba(0, 0, 0, 0.15);
 
   /* settings/changelog dimmer  */
-  --dimmer-modal: rgba(255,255,255,.80);
-  
+  --dimmer-modal: rgba(255, 255, 255, 0.8);
 }
 
 /* DARK theme */
-[data-theme="dark"] { 
-  --bg: #191d24;          /* app background */
+[data-theme='dark'] {
+  --bg: #191d24; /* app background */
   --bg-accent-1: #121212; /* some headers */
   --bg-accent-2: #121212; /* input fields */
-  --footer: #121212;      /* settings footer */
-  
-  --primary: #bd9d5e;     /* borders, icons */
+  --footer: #121212; /* settings footer */
+
+  --primary: #bd9d5e; /* borders, icons */
 
   --header-text: #bd9d5e;
   --plain-text: #d8cfbd;
 
-  --highlight: #00acb1;   /* autoselect, current champ, toggles */
-  --logo-large: #00acb1;  /* icons: welcome & no pages */
+  --highlight: #00acb1; /* autoselect, current champ, toggles */
+  --logo-large: #00acb1; /* icons: welcome & no pages */
 
   /* active/hovered tab, list item */
   --list-hover: #191d24;
   --menu-hover: #121212aa;
   --menu-active: #121212;
-  
+
   --lang-dropddown-border: none;
 
   /* buttons, scrollbar */
   --control: #71552b;
   --control-hover: #bd9d5e;
-  
+
   /* changelog scrollbar */
   --scrollbar-grey: rgba(255, 255, 255, 0.1);
   --scrollbar-grey-hover: rgba(255, 255, 255, 0.15);
-  
+
   /* settings/changelog dimmer  */
   --dimmer-modal: rgba(40, 42, 42, 0.85);
 }
@@ -174,7 +173,6 @@ chapters-segment > .ui.container {
   order: 3;
 }
 
-
 /*** Pagelist placeholders ***/
 
 chapters-segment .ui.active.inverted.dimmer {
@@ -194,8 +192,7 @@ chapters-segment .ui.active.inverted.dimmer {
   color: var(--logo-large) !important;
 }
 
-
-/*** Champion selection ***/ 
+/*** Champion selection ***/
 
 #autochamp-label span {
   color: var(--plain-text);
@@ -263,8 +260,7 @@ input::selection {
   color: var(--plain-text) !important;
 }
 
-
-/*** Tabs ***/ 
+/*** Tabs ***/
 
 #chapters-menu {
   margin-top: 0;
@@ -283,7 +279,8 @@ input::selection {
 
 #chapters-menu .item.active {
   background: var(--menu-active);
-  box-shadow: inset 1px 0px 0px 0px var(--primary), inset -1px 0px 0px 0px var(--primary);
+  box-shadow: inset 1px 0px 0px 0px var(--primary),
+    inset -1px 0px 0px 0px var(--primary);
   color: var(--plain-text);
 }
 
@@ -293,7 +290,6 @@ input::selection {
   border-right: 2px solid var(--primary) !important;
 }
 
-
 /*** Current page ***/
 
 current-page .ui.segment {
@@ -302,19 +298,18 @@ current-page .ui.segment {
 }
 
 current-page .ui.segment .header {
-  color: var(--plain-text) !important
+  color: var(--plain-text) !important;
 }
 
 current-page .ui.segment .header .sub.header {
-  color: var(--plain-text) !important
+  color: var(--plain-text) !important;
 }
 
 current-page .ui.button {
   margin-right: 10px;
 }
 
-
-/*** Buttons, Popups ***/ 
+/*** Buttons, Popups ***/
 
 .ui.button,
 .ui.button:focus {
@@ -348,11 +343,10 @@ current-page .ui.button {
   box-shadow: none !important;
 }
 
-
-/*** Modals ***/ 
+/*** Modals ***/
 
 .ui.dimmer {
-  background: var(--dimmer-modal) !important
+  background: var(--dimmer-modal) !important;
 }
 
 .ui.modal {
@@ -363,8 +357,8 @@ current-page .ui.button {
   background: var(--bg) !important;
 }
 
-.settings-modal .divider.header  > i {
-  padding-right: .5em;
+.settings-modal .divider.header > i {
+  padding-right: 0.5em;
   font-size: 1em;
 }
 
@@ -473,3 +467,136 @@ span > i1-8n,
 .ui.modal .scrolling::-webkit-scrollbar-thumb:hover {
   background: var(--scrollbar-grey-hover) !important;
 }
+
+/* -- CSS PER L'EDITOR DI RUNE -- */
+.runes-container {
+  /* default reset */
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.runes-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 561px;
+  color: var(--plain-text);
+  margin-bottom: 20px;
+}
+
+.runes-header,
+.runes-panel {
+  display: flex;
+}
+
+.runes-header > *,
+.runes-panel > * {
+  width: 100%;
+  text-align: center;
+}
+
+.runes-container .primary-runes .break,
+.runes-container .secondary-runes .break {
+  /* l'altezza totale è 34px */
+  height: 10px;
+  margin-bottom: 24px;
+}
+
+.runes-container .primary-runes .break,
+.runes-container .secondary-runes .break {
+  border-bottom: 2px solid var(--primary);
+  border-radius: 0px 10px;
+}
+
+.primary-runes,
+.secondary-runes {
+  border-left: 3px solid var(--primary);
+  border-radius: 0px 16px;
+}
+
+.panel {
+  padding-left: 7px;
+}
+.runes-header {
+  margin-bottom: 10px;
+}
+#nomepagina {
+  font-size: 20px;
+  margin-bottom: 7px;
+  width: fit-content;
+}
+#nomepagina:focus {
+  outline: none;
+}
+#nomepagina::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: var(--menu-active);
+  transition: width 0.3s;
+}
+
+#nomepagina:focus::after {
+  width: 100%;
+}
+
+.runes-container label {
+  display: inline-block;
+}
+
+/* IMAGE STYLES */
+
+/* default image style */
+.runes-container label img {
+  cursor: pointer;
+  max-width: 48px;
+  /* opacity: 0.4; */
+  filter: grayscale(100%);
+  transition: 0.1s;
+}
+.runes-header label img {
+  max-width: 63px;
+}
+.runes-panel label img {
+  padding: 3px;
+  margin: 9px;
+}
+.additional-runes label img {
+  margin: 2px 12px;
+  padding: 0;
+}
+
+.runes-panel .keystone img {
+  max-width: 60px;
+}
+
+.runes-panel .placeholder img {
+  border-radius: 50%;
+}
+
+/* HIDE RADIO */
+[type='radio'] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* IMAGE STYLES */
+/* [type='radio'] + img {
+  cursor: pointer;
+  max-width: 50px;
+} */
+
+/* CHECKED STYLES */
+[type='radio']:checked + img {
+  /* outline: 2px solid #f0f; */
+  filter: none;
+  border-radius: 50%;
+  box-shadow: 0px 0px 0px 3.5px var(--primary);
+  /* border: 3.5px solid var(--primary);
+  padding: 5px;
+  max-width: 59px; */
+}
+/*0px 0px 0px 3px var(--bg), */

@@ -14,3 +14,14 @@ Thanks to...
 
 # [License](https://github.com/Soundofdarkness/RuneBook/tree/master/LICENSE)
 RuneBook isn’t endorsed by Riot Games and doesn’t reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.
+
+# TODO
+
+- [ ] tooltip rune mouse hover
+- [ ] cambiare la finestra di dialogo quando si elimina una pagina di rune
+- [x] icona per salvare in segnalibro
+- [x] fixare il tema
+- [ ] contorno rotondo nero nel tema chiaro (nel tema scuro da pensare)
+- [ ] non far scomparire il secondo ramo
+- [x] importare direttamente nel client
+
