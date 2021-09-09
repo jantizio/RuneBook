@@ -17,6 +17,7 @@ RuneBook isn’t endorsed by Riot Games and doesn’t reflect the views or opini
 
 # TODO
 
+- [ ] BUG FIX: label pagina runa vuota scompare
 - [ ] tooltip rune mouse hover
 - [ ] cambiare la finestra di dialogo quando si elimina una pagina di rune
 - [x] icona per salvare in segnalibro
@@ -24,4 +25,5 @@ RuneBook isn’t endorsed by Riot Games and doesn’t reflect the views or opini
 - [ ] contorno rotondo nero nel tema chiaro (nel tema scuro da pensare)
 - [ ] non far scomparire il secondo ramo
 - [x] importare direttamente nel client
+- [ ] tasto modifica pagina esistente
 
