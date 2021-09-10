@@ -31,3 +31,4 @@ RuneBook isn’t endorsed by Riot Games and doesn’t reflect the views or opini
 - [x] non far scomparire il secondo ramo
 - [x] importare direttamente nel client
 - [ ] tasto modifica pagina esistente
+- [ ] capire cosa servono i parametri: autoModifiedSelections, current, id, order nella pagina di rune
