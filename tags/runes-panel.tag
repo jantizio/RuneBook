@@ -176,6 +176,8 @@
 			let primary = selectedValues.shift();
 			let sub = selectedValues.shift();
 
+			let name = document.querySelector('#nomepagina').innerHTML || "Nuova pagina di rune";
+
             let page = {
 					"autoModifiedSelections": [],
 					"current": true,
@@ -185,7 +187,7 @@
 					"isEditable": true,
 					"isValid": true,
 					"lastModified": new Date().getTime() / 1000,
-					"name": document.querySelector('#nomepagina').innerHTML,
+					"name": name,
 					"order": 1,
 					"primary-runesStyleId": primary,
 					"selectedPerkIds": selectedValues,
@@ -205,33 +207,8 @@
 		uploadPage(evt) {
 			evt.preventUpdate = true;
 
-			const rbs = document.querySelectorAll('input[type="radio"]');
-			let selectedValues = [];
-			for (const rb of rbs) {
-                if (rb.checked) {
-                    selectedValues.push(parseInt(rb.value));
-                }
-            }
-			let primary = selectedValues.shift();
-			let sub = selectedValues.shift();
-
-            let runePage = {
-					"autoModifiedSelections": [],
-					"current": true,
-					"id": 835441637,
-					"isActive": false,
-					"isDeletable": true,
-					"isEditable": true,
-					"isValid": true,
-					"lastModified": new Date().getTime() / 1000,
-					"name": document.querySelector('#nomepagina').innerHTML,
-					"order": 1,
-					"primary-runesStyleId": primary,
-					"selectedPerkIds": selectedValues,
-					"subStyleId": sub
-				};
-			console.log("salvato");
-			freezer.emit("currentpage:save", runePage);
+			// prima salva la pagina poi fa l'upload
+			this.saveCurrentPage(evt);
 
 			var page = document.querySelector('#nomepagina').innerHTML;
 			console.log("DEV page key", page);

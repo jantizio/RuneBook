@@ -524,16 +524,25 @@ span > i1-8n,
   font-size: 20px;
   margin-bottom: 7px;
   width: fit-content;
+  min-width: 10px;
+  min-height: 30px;
 }
 #nomepagina:focus {
   outline: none;
+}
+#nomepagina:empty {
+  width: 100%;
+}
+#nomepagina:empty::after {
+  margin-top: 28px;
+  width: 100%;
 }
 #nomepagina::after {
   content: '';
   display: block;
   width: 0;
   height: 2px;
-  background: var(--menu-active);
+  background: var(--primary);
   transition: width 0.3s;
 }
 

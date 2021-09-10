@@ -22,7 +22,7 @@ RuneBook isn’t endorsed by Riot Games and doesn’t reflect the views or opini
 
 # TODO
 
-- [ ] BUG FIX: label pagina runa vuota scompare
+- [x] BUG FIX: label pagina runa vuota scompare
 - [ ] tooltip rune mouse hover
 - [ ] cambiare la finestra di dialogo quando si elimina una pagina di rune
 - [x] icona per salvare in segnalibro
