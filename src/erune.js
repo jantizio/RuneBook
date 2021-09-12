@@ -213,9 +213,10 @@ function manage_secondary_runes(evt) {
   if (srs.length < 2) srs.push(radio_name);
   //add as last elem
   else {
-    document.querySelector(
+    let firstElem = document.querySelector(
       'input[type=radio][name=' + srs[0] + ']:checked'
-    ).checked = false;
+    );
+    if (firstElem) firstElem.checked = false;
 
     srs.shift();
     srs.push(radio_name);

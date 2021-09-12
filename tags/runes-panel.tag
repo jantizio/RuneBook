@@ -153,9 +153,13 @@
 			<button class={ (opts.connection.page && opts.connection.page.isEditable && opts.connection.summonerLevel >= 10) ? "ui icon button" : "ui icon button disabled" } onclick={ uploadPage } data-tooltip={ i18n.localise('pagelist.uploadpage') } data-position="top left" data-inverted="">
 				<i class="upload icon" data-key={key}></i>
 			</button>
+			<button class="ui icon button" onclick={ clearPage } data-tooltip={ i18n.localise('pagelist.uploadpage') } data-position="top left" data-inverted="">
+				<i class="paint brush icon"></i>
+			</button>
 			<!--  <button class="ui icon button" onclick={ getRadio }>
 				<i class="play icon"></i>
 			</button>  -->
+			
 		</div>
 	</div>
 </div>
@@ -173,6 +177,7 @@
                     selectedValues.push(parseInt(rb.value));
                 }
             }
+			if(selectedValues.length != 11) {alert("devi selezionare tutte le rune"); return;}
 			let primary = selectedValues.shift();
 			let sub = selectedValues.shift();
 
@@ -213,6 +218,18 @@
 			var page = document.querySelector('#nomepagina').innerHTML;
 			console.log("DEV page key", page);
 			freezer.emit("page:upload", opts.current.champion, page);
+		}
+
+		clearPage(evt){
+			evt.preventUpdate = true;
+
+			const rbs = document.querySelectorAll('input[type="radio"]');
+			let p_rune = [8000, 8100, 8200, 8400, 8300];
+			for (const rb of rbs) {
+                if ( rb.checked && !(p_rune.includes(parseInt(rb.value))) ) {
+                    rb.checked = false;
+                }
+            }
 		}
 
 </script>
