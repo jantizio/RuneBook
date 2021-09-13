@@ -1,3 +1,7 @@
+//EditorRune
+
+//TODO: usare questo http://ddragon.leagueoflegends.com/cdn/10.16.1/data/it_IT/runesReforged.json
+
 const { template } = require('lodash');
 
 const p_rune = [8000, 8100, 8200, 8400, 8300]; //TODO: let var const
