@@ -82,6 +82,63 @@ window.addEventListener('DOMContentLoaded', (event) => {
   }
 });
 
+//svuota la pagina
+function polishEditorRune()
+{
+  //unselect primary rune rb
+  const rbs = document.querySelectorAll('input[type="radio"]');
+	  for (const rb of rbs) {
+          rb.checked = false;
+      }
+  del_panel_rune('.primary-runes')
+  del_panel_rune('.second-rune');
+  del_panel_rune('.secondary-runes');  
+
+  for (let i = 0; i < 4; i++) {
+    for (let j = 0; j < 3; j++) {
+      let label = document
+        .querySelector('template')
+        .content.firstElementChild.cloneNode(true);
+      if (i == 0) label.classList.add('keystone');
+
+      label.querySelector('img').src = "./img/runesReforged/perk/qm.png";
+      let radio = label.querySelector('input');
+      radio.name = 'p' + i;
+      label.className="placeholder";
+
+      document.querySelector('.primary-runes').appendChild(label);
+    }
+    document
+      .querySelector('.primary-runes')
+      .appendChild(
+        document
+          .createRange()
+          .createContextualFragment('<div class="break"></div>')
+      );
+  }
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      let label = document
+        .querySelector('template')
+        .content.firstElementChild.cloneNode(true);
+      if (i == 0) label.classList.add('keystone');
+
+      label.querySelector('img').src = "./img/runesReforged/perk/qm.png";
+      let radio = label.querySelector('input');
+      radio.name = 's' + i;
+      label.className="placeholder";
+
+      document.querySelector('.secondary-runes').appendChild(label);
+    }
+    document
+      .querySelector('.secondary-runes')
+      .appendChild(
+        document
+          .createRange()
+          .createContextualFragment('<div class="break"></div>')
+      );
+  }
+}
 //mostra il ramo secondario e le rune principali
 function show_rune(evt) {
   // prende l'id dell'elemento selezionato

@@ -13,7 +13,7 @@
           </div>
 
           <div class="column two wide middle aligned">
-            <button class="ui button" onclick="$('.runes-modal').modal('show')"><i class="plus icon" style="margin:0; padding:0"></i></button>
+            <button class="ui button" onclick="$('.runes-modal').modal('show'); polishEditorRune()"><i class="plus icon" style="margin:0; padding:0"></i></button>
           </div>
           
           <div class="column middle aligned">
