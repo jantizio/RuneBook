@@ -138,6 +138,8 @@ function polishEditorRune()
           .createContextualFragment('<div class="break"></div>')
       );
   }
+  //document.getElementById("nomepagina").content="Nuova pagina di rune";
+
 }
 //mostra il ramo secondario e le rune principali
 function show_rune(evt) {

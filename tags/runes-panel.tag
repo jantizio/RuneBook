@@ -21,83 +21,9 @@
 			</div>
 			<div class="runes-panel">
 				<div class="primary-runes">
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<div class="break"></div>
-
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<div class="break"></div>
-
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<div class="break"></div>
-
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<div class="break"></div>
 				</div>
 				<div class="panel">
 					<div class="secondary-runes">
-						<label class="placeholder">
-							<img src="./img/runesReforged/perk/qm.png">
-						</label>
-						<label class="placeholder">
-							<img src="./img/runesReforged/perk/qm.png">
-						</label>
-						<label class="placeholder">
-							<img src="./img/runesReforged/perk/qm.png">
-						</label>
-						<div class="break"></div>
-
-						<label class="placeholder">
-							<img src="./img/runesReforged/perk/qm.png">
-						</label>
-						<label class="placeholder">
-							<img src="./img/runesReforged/perk/qm.png">
-						</label>
-						<label class="placeholder">
-							<img src="./img/runesReforged/perk/qm.png">
-						</label>
-						<div class="break"></div>
-
-						<label class="placeholder">
-							<img src="./img/runesReforged/perk/qm.png">
-						</label>
-						<label class="placeholder">
-							<img src="./img/runesReforged/perk/qm.png">
-						</label>
-						<label class="placeholder">
-							<img src="./img/runesReforged/perk/qm.png">
-						</label>
 					</div>
 					<div class="additional-runes">
 						<!-- additional first line -->

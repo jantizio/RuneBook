@@ -29,7 +29,7 @@ RuneBook isn’t endorsed by Riot Games and doesn’t reflect the views or opini
 - [ ] aggiungere la traduzione per il tooltip sul pulsante per pulire la pagina di rune e sul messaggio di errore quando le rune non sono selezionate
 - [ ] spostare il **+**
 - [X] reset quando viene selzionata una pagina
-- [ ] click champ -> focus *"Nome campione..."*
+- [x] click champ -> focus *"Nome campione..."*
 - [ ] togliere pulisci rune
 
 - [ ] import summoner (?)
