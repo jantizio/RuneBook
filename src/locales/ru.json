@@ -45,5 +45,6 @@
   "settings.favautoupload.tooltip": "Автоматически загружать избранную страницу после выбора чемпиона",
   "currentpage.retry": "Обновить",
   "settings.about": "Об авторе",
-  "settings.madeby": "Разработчик: "
+  "settings.madeby": "Разработчик: ",
+  "runespanel.error": "You should select every runes"
 }

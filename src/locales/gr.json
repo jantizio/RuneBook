@@ -45,5 +45,6 @@
   "settings.favautoupload.tooltip": "Automatically upload favorite page to client after champion is locked in",
   "currentpage.retry": "Προσπάθησε ξανά",
   "settings.about": "Αναφορικά",
-  "settings.madeby": "Δημιουργήθηκε από"
+  "settings.madeby": "Δημιουργήθηκε από",
+  "runespanel.error": "You should select every runes"
 }

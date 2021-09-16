@@ -103,7 +103,7 @@
                     selectedValues.push(parseInt(rb.value));
                 }
             }
-			if(selectedValues.length != 11) {alert("devi selezionare tutte le rune"); return;}
+			if(selectedValues.length != 11) {alert(i18n.localise('runespanel.error') ); return;}
 			let primary = selectedValues.shift();
 			let sub = selectedValues.shift();
 

@@ -45,5 +45,6 @@
   "settings.favautoupload.tooltip": "Lieblingsrunenseite automatisch in den LeagueClient laden nachdem den Champion gewählt wurde.",
   "currentpage.retry": "Wiederholen",
   "settings.about": "About",
-  "settings.madeby": "Made by"
+  "settings.madeby": "Made by",
+  "runespanel.error": "You should select every runes"
 }
