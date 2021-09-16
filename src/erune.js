@@ -83,63 +83,19 @@ window.addEventListener('DOMContentLoaded', (event) => {
 });
 
 //svuota la pagina
-function polishEditorRune()
-{
+function polishEditorRune() {
   //unselect primary rune rb
   const rbs = document.querySelectorAll('input[type="radio"]');
-	  for (const rb of rbs) {
-          rb.checked = false;
-      }
-  del_panel_rune('.primary-runes')
+  for (const rb of rbs) {
+    rb.checked = false;
+  }
+  del_panel_rune('.primary-runes');
   del_panel_rune('.second-rune');
-  del_panel_rune('.secondary-runes');  
+  del_panel_rune('.secondary-runes');
 
-  for (let i = 0; i < 4; i++) {
-    for (let j = 0; j < 3; j++) {
-      let label = document
-        .querySelector('template')
-        .content.firstElementChild.cloneNode(true);
-      if (i == 0) label.classList.add('keystone');
-
-      label.querySelector('img').src = "./img/runesReforged/perk/qm.png";
-      let radio = label.querySelector('input');
-      radio.name = 'p' + i;
-      label.className="placeholder";
-
-      document.querySelector('.primary-runes').appendChild(label);
-    }
-    document
-      .querySelector('.primary-runes')
-      .appendChild(
-        document
-          .createRange()
-          .createContextualFragment('<div class="break"></div>')
-      );
-  }
-  for (let i = 0; i < 3; i++) {
-    for (let j = 0; j < 3; j++) {
-      let label = document
-        .querySelector('template')
-        .content.firstElementChild.cloneNode(true);
-      if (i == 0) label.classList.add('keystone');
-
-      label.querySelector('img').src = "./img/runesReforged/perk/qm.png";
-      let radio = label.querySelector('input');
-      radio.name = 's' + i;
-      label.className="placeholder";
-
-      document.querySelector('.secondary-runes').appendChild(label);
-    }
-    document
-      .querySelector('.secondary-runes')
-      .appendChild(
-        document
-          .createRange()
-          .createContextualFragment('<div class="break"></div>')
-      );
-  }
+  setPlaceholder('.primary-runes', 4, 3);
+  setPlaceholder('.secondary-runes', 3, 3);
   //document.getElementById("nomepagina").content="Nuova pagina di rune";
-
 }
 //mostra il ramo secondario e le rune principali
 function show_rune(evt) {
@@ -148,7 +104,7 @@ function show_rune(evt) {
 
   del_panel_rune('.second-rune');
   del_panel_rune('.secondary-runes');
-  setPlaceholder('.secondary-runes'); // FIX: fix veloce per il bug della pagina principale = a secondaria
+  setPlaceholder('.secondary-runes', 3, 3); // FIX: fix veloce per il bug della pagina principale = a secondaria
 
   // stampa 4 rune su 5 per le secondarie
   for (let i = 0; i < p_rune.length; i++) {
@@ -246,7 +202,7 @@ function del_panel_rune(panel_target) {
     rune_to_dl.removeChild(rune_to_dl.firstChild);
 }
 
-function setPlaceholder(panel_target) {
+function setPlaceholder(panel_target, heigh, width) {
   const label = document.createElement('label');
   label.className = 'placeholder';
   const img = document.createElement('img');
@@ -258,8 +214,8 @@ function setPlaceholder(panel_target) {
 
   const target = document.querySelector(panel_target);
 
-  for (let i = 0; i < 3; i++) {
-    for (let j = 0; j < 3; j++) {
+  for (let i = 0; i < heigh; i++) {
+    for (let j = 0; j < width; j++) {
       target.append(label.cloneNode(true));
     }
     target.append(div.cloneNode(true));
