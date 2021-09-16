@@ -27,7 +27,7 @@ RuneBook isn’t endorsed by Riot Games and doesn’t reflect the views or opini
 - [ ] tasto modifica pagina esistente
 - [ ] capire cosa servono i parametri: autoModifiedSelections, current, id, order nella pagina di rune
 - [x] aggiungere la traduzione per il tooltip sul messaggio di errore quando le rune non sono selezionate
-- [ ] spostare il **+**
+- [x] spostare il **+**
 - [x] reset quando viene selzionata una pagina
 - [x] click champ -> focus _"Nome campione..."_
 - [x] togliere pulisci rune
