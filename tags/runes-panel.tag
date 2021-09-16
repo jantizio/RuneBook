@@ -146,6 +146,14 @@
 			freezer.emit("page:upload", opts.current.champion, page);
 		}
 
+		findTooltip(id) {
+			if(!opts.tooltips.rune) return;
+			console.log(opts.tooltips.rune)
+			var tooltip = opts.tooltips.rune.find( (element) => element.id === id)
+			/*var tooltip = opts.tooltips.rune.find((el) => el.id === opts.connection.page.selectedPerkIds[index]);*/
+			return '<b>' + tooltip.name + '</b><br>' + tooltip.longDesc;
+		}
+
 		clearPage(evt){
 			evt.preventUpdate = true;
 
