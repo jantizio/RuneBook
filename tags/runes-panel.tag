@@ -21,83 +21,9 @@
 			</div>
 			<div class="runes-panel">
 				<div class="primary-runes">
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<div class="break"></div>
-
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<div class="break"></div>
-
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<div class="break"></div>
-
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<div class="break"></div>
 				</div>
 				<div class="panel">
 					<div class="secondary-runes">
-						<label class="placeholder">
-							<img src="./img/runesReforged/perk/qm.png">
-						</label>
-						<label class="placeholder">
-							<img src="./img/runesReforged/perk/qm.png">
-						</label>
-						<label class="placeholder">
-							<img src="./img/runesReforged/perk/qm.png">
-						</label>
-						<div class="break"></div>
-
-						<label class="placeholder">
-							<img src="./img/runesReforged/perk/qm.png">
-						</label>
-						<label class="placeholder">
-							<img src="./img/runesReforged/perk/qm.png">
-						</label>
-						<label class="placeholder">
-							<img src="./img/runesReforged/perk/qm.png">
-						</label>
-						<div class="break"></div>
-
-						<label class="placeholder">
-							<img src="./img/runesReforged/perk/qm.png">
-						</label>
-						<label class="placeholder">
-							<img src="./img/runesReforged/perk/qm.png">
-						</label>
-						<label class="placeholder">
-							<img src="./img/runesReforged/perk/qm.png">
-						</label>
 					</div>
 					<div class="additional-runes">
 						<!-- additional first line -->
@@ -153,9 +79,9 @@
 			<button class={ (opts.connection.page && opts.connection.page.isEditable && opts.connection.summonerLevel >= 10) ? "ui icon button" : "ui icon button disabled" } onclick={ uploadPage } data-tooltip={ i18n.localise('pagelist.uploadpage') } data-position="top left" data-inverted="">
 				<i class="upload icon" data-key={key}></i>
 			</button>
-			<button class="ui icon button" onclick={ clearPage } data-tooltip={ i18n.localise('pagelist.uploadpage') } data-position="top left" data-inverted="">
+			<!--  <button class="ui icon button" onclick={ clearPage } data-tooltip={ i18n.localise('pagelist.uploadpage') } data-position="top left" data-inverted="">
 				<i class="paint brush icon"></i>
-			</button>
+			</button>  -->
 			<!--  <button class="ui icon button" onclick={ getRadio }>
 				<i class="play icon"></i>
 			</button>  -->
@@ -218,6 +144,14 @@
 			var page = document.querySelector('#nomepagina').innerHTML;
 			console.log("DEV page key", page);
 			freezer.emit("page:upload", opts.current.champion, page);
+		}
+
+		findTooltip(id) {
+			if(!opts.tooltips.rune) return;
+			console.log(opts.tooltips.rune)
+			var tooltip = opts.tooltips.rune.find( (element) => element.id === id)
+			/*var tooltip = opts.tooltips.rune.find((el) => el.id === opts.connection.page.selectedPerkIds[index]);*/
+			return '<b>' + tooltip.name + '</b><br>' + tooltip.longDesc;
 		}
 
 		clearPage(evt){

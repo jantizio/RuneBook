@@ -29,7 +29,7 @@
 
   <settings-panel configfile={configfile} updateready={updateready}></settings-panel>
   <changelog-modal></changelog-modal>
-  <runes-panel connection={connection} current={current} tab={tab} plugins={plugins}></runes-panel>
+  <runes-panel connection={connection} current={current} tab={tab} plugins={plugins} tooltips={tooltips}></runes-panel>
 
   <script>
     var remote;
