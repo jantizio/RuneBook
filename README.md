@@ -31,6 +31,6 @@ RuneBook isn’t endorsed by Riot Games and doesn’t reflect the views or opini
 - [x] reset quando viene selzionata una pagina
 - [x] click champ -> focus _"Nome campione..."_
 - [x] togliere pulisci rune
-- [x] aggiungere _draggable="false"_ alle immagini
+- [ ] aggiungere _draggable="false"_ alle immagini
 
 - [ ] import summoner (?)
