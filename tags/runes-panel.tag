@@ -109,10 +109,13 @@
 
 			let name = document.querySelector('#nomepagina').innerHTML || "Nuova pagina di rune";
 
+  
+
+
             let page = {
 					"autoModifiedSelections": [],
 					"current": true,
-					"id": 835441637,
+					"id": Math.floor(Math.random() * (9999999999 - 100000000 + 1) + 100000000),
 					"isActive": false,
 					"isDeletable": true,
 					"isEditable": true,
