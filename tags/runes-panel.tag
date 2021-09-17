@@ -21,83 +21,9 @@
 			</div>
 			<div class="runes-panel">
 				<div class="primary-runes">
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<div class="break"></div>
-
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<div class="break"></div>
-
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<div class="break"></div>
-
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<label class="placeholder">
-						<img src="./img/runesReforged/perk/qm.png">
-					</label>
-					<div class="break"></div>
 				</div>
 				<div class="panel">
 					<div class="secondary-runes">
-						<label class="placeholder">
-							<img src="./img/runesReforged/perk/qm.png">
-						</label>
-						<label class="placeholder">
-							<img src="./img/runesReforged/perk/qm.png">
-						</label>
-						<label class="placeholder">
-							<img src="./img/runesReforged/perk/qm.png">
-						</label>
-						<div class="break"></div>
-
-						<label class="placeholder">
-							<img src="./img/runesReforged/perk/qm.png">
-						</label>
-						<label class="placeholder">
-							<img src="./img/runesReforged/perk/qm.png">
-						</label>
-						<label class="placeholder">
-							<img src="./img/runesReforged/perk/qm.png">
-						</label>
-						<div class="break"></div>
-
-						<label class="placeholder">
-							<img src="./img/runesReforged/perk/qm.png">
-						</label>
-						<label class="placeholder">
-							<img src="./img/runesReforged/perk/qm.png">
-						</label>
-						<label class="placeholder">
-							<img src="./img/runesReforged/perk/qm.png">
-						</label>
 					</div>
 					<div class="additional-runes">
 						<!-- additional first line -->
@@ -153,9 +79,13 @@
 			<button class={ (opts.connection.page && opts.connection.page.isEditable && opts.connection.summonerLevel >= 10) ? "ui icon button" : "ui icon button disabled" } onclick={ uploadPage } data-tooltip={ i18n.localise('pagelist.uploadpage') } data-position="top left" data-inverted="">
 				<i class="upload icon" data-key={key}></i>
 			</button>
+			<!--  <button class="ui icon button" onclick={ clearPage } data-tooltip={ i18n.localise('pagelist.uploadpage') } data-position="top left" data-inverted="">
+				<i class="paint brush icon"></i>
+			</button>  -->
 			<!--  <button class="ui icon button" onclick={ getRadio }>
 				<i class="play icon"></i>
 			</button>  -->
+			
 		</div>
 	</div>
 </div>
@@ -173,8 +103,11 @@
                     selectedValues.push(parseInt(rb.value));
                 }
             }
+			if(selectedValues.length != 11) {alert("devi selezionare tutte le rune"); return;}
 			let primary = selectedValues.shift();
 			let sub = selectedValues.shift();
+
+			let name = document.querySelector('#nomepagina').innerHTML || "Nuova pagina di rune";
 
             let page = {
 					"autoModifiedSelections": [],
@@ -185,7 +118,7 @@
 					"isEditable": true,
 					"isValid": true,
 					"lastModified": new Date().getTime() / 1000,
-					"name": document.querySelector('#nomepagina').innerHTML,
+					"name": name,
 					"order": 1,
 					"primary-runesStyleId": primary,
 					"selectedPerkIds": selectedValues,
@@ -205,37 +138,32 @@
 		uploadPage(evt) {
 			evt.preventUpdate = true;
 
-			const rbs = document.querySelectorAll('input[type="radio"]');
-			let selectedValues = [];
-			for (const rb of rbs) {
-                if (rb.checked) {
-                    selectedValues.push(parseInt(rb.value));
-                }
-            }
-			let primary = selectedValues.shift();
-			let sub = selectedValues.shift();
-
-            let runePage = {
-					"autoModifiedSelections": [],
-					"current": true,
-					"id": 835441637,
-					"isActive": false,
-					"isDeletable": true,
-					"isEditable": true,
-					"isValid": true,
-					"lastModified": new Date().getTime() / 1000,
-					"name": document.querySelector('#nomepagina').innerHTML,
-					"order": 1,
-					"primary-runesStyleId": primary,
-					"selectedPerkIds": selectedValues,
-					"subStyleId": sub
-				};
-			console.log("salvato");
-			freezer.emit("currentpage:save", runePage);
+			// prima salva la pagina poi fa l'upload
+			this.saveCurrentPage(evt);
 
 			var page = document.querySelector('#nomepagina').innerHTML;
 			console.log("DEV page key", page);
 			freezer.emit("page:upload", opts.current.champion, page);
+		}
+
+		findTooltip(id) {
+			if(!opts.tooltips.rune) return;
+			console.log(opts.tooltips.rune)
+			var tooltip = opts.tooltips.rune.find( (element) => element.id === id)
+			/*var tooltip = opts.tooltips.rune.find((el) => el.id === opts.connection.page.selectedPerkIds[index]);*/
+			return '<b>' + tooltip.name + '</b><br>' + tooltip.longDesc;
+		}
+
+		clearPage(evt){
+			evt.preventUpdate = true;
+
+			const rbs = document.querySelectorAll('input[type="radio"]');
+			let p_rune = [8000, 8100, 8200, 8400, 8300];
+			for (const rb of rbs) {
+                if ( rb.checked && !(p_rune.includes(parseInt(rb.value))) ) {
+                    rb.checked = false;
+                }
+            }
 		}
 
 </script>

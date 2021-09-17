@@ -1,3 +1,7 @@
+//EditorRune
+
+//TODO: usare questo http://ddragon.leagueoflegends.com/cdn/10.16.1/data/it_IT/runesReforged.json
+
 const { template } = require('lodash');
 
 const p_rune = [8000, 8100, 8200, 8400, 8300]; //TODO: let var const
@@ -78,6 +82,21 @@ window.addEventListener('DOMContentLoaded', (event) => {
   }
 });
 
+//svuota la pagina
+function polishEditorRune() {
+  //unselect primary rune rb
+  const rbs = document.querySelectorAll('input[type="radio"]');
+  for (const rb of rbs) {
+    rb.checked = false;
+  }
+  del_panel_rune('.primary-runes');
+  del_panel_rune('.second-rune');
+  del_panel_rune('.secondary-runes');
+
+  setPlaceholder('.primary-runes', 4, 3);
+  setPlaceholder('.secondary-runes', 3, 3);
+  //document.getElementById("nomepagina").content="Nuova pagina di rune";
+}
 //mostra il ramo secondario e le rune principali
 function show_rune(evt) {
   // prende l'id dell'elemento selezionato
@@ -85,7 +104,7 @@ function show_rune(evt) {
 
   del_panel_rune('.second-rune');
   del_panel_rune('.secondary-runes');
-  setPlaceholder('.secondary-runes'); // FIX: fix veloce per il bug della pagina principale = a secondaria
+  setPlaceholder('.secondary-runes', 3, 3); // FIX: fix veloce per il bug della pagina principale = a secondaria
 
   // stampa 4 rune su 5 per le secondarie
   for (let i = 0; i < p_rune.length; i++) {
@@ -183,7 +202,7 @@ function del_panel_rune(panel_target) {
     rune_to_dl.removeChild(rune_to_dl.firstChild);
 }
 
-function setPlaceholder(panel_target) {
+function setPlaceholder(panel_target, heigh, width) {
   const label = document.createElement('label');
   label.className = 'placeholder';
   const img = document.createElement('img');
@@ -195,8 +214,8 @@ function setPlaceholder(panel_target) {
 
   const target = document.querySelector(panel_target);
 
-  for (let i = 0; i < 3; i++) {
-    for (let j = 0; j < 3; j++) {
+  for (let i = 0; i < heigh; i++) {
+    for (let j = 0; j < width; j++) {
       target.append(label.cloneNode(true));
     }
     target.append(div.cloneNode(true));
@@ -213,9 +232,10 @@ function manage_secondary_runes(evt) {
   if (srs.length < 2) srs.push(radio_name);
   //add as last elem
   else {
-    document.querySelector(
+    let firstElem = document.querySelector(
       'input[type=radio][name=' + srs[0] + ']:checked'
-    ).checked = false;
+    );
+    if (firstElem) firstElem.checked = false;
 
     srs.shift();
     srs.push(radio_name);

@@ -22,12 +22,14 @@ RuneBook isn’t endorsed by Riot Games and doesn’t reflect the views or opini
 
 # TODO
 
-- [ ] BUG FIX: label pagina runa vuota scompare
 - [ ] tooltip rune mouse hover
 - [ ] cambiare la finestra di dialogo quando si elimina una pagina di rune
-- [x] icona per salvare in segnalibro
-- [x] fixare il tema
-- [x] contorno rotondo nero nel tema chiaro (nel tema scuro da pensare)
-- [x] non far scomparire il secondo ramo
-- [x] importare direttamente nel client
 - [ ] tasto modifica pagina esistente
+- [ ] capire cosa servono i parametri: autoModifiedSelections, current, id, order nella pagina di rune
+- [ ] aggiungere la traduzione per il tooltip sul pulsante per pulire la pagina di rune e sul messaggio di errore quando le rune non sono selezionate
+- [ ] spostare il **+**
+- [x] reset quando viene selzionata una pagina
+- [x] click champ -> focus _"Nome campione..."_
+- [x] togliere pulisci rune
+
+- [ ] import summoner (?)
