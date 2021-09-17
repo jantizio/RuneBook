@@ -23,13 +23,14 @@ RuneBook isn’t endorsed by Riot Games and doesn’t reflect the views or opini
 # TODO
 
 - [ ] tooltip rune mouse hover
-- [ ] cambiare la finestra di dialogo quando si elimina una pagina di rune
+- [ ] creare un alert box personalizzato
 - [ ] tasto modifica pagina esistente
 - [ ] capire cosa servono i parametri: autoModifiedSelections, current, id, order nella pagina di rune
-- [ ] aggiungere la traduzione per il tooltip sul pulsante per pulire la pagina di rune e sul messaggio di errore quando le rune non sono selezionate
-- [ ] spostare il **+**
+- [x] aggiungere la traduzione per il tooltip sul messaggio di errore quando le rune non sono selezionate
+- [x] spostare il **+**
 - [x] reset quando viene selzionata una pagina
 - [x] click champ -> focus _"Nome campione..."_
 - [x] togliere pulisci rune
+- [x] aggiungere _draggable="false"_ alle immagini
 
 - [ ] import summoner (?)

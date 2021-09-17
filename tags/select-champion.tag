@@ -5,15 +5,12 @@
       <div class="ui equal width grid">
         <div class="row">
           
-          <div class="three wide column" onclick="document.querySelector('.prompt').focus()">
+          <div class="column">
             <img draggable="false" class="ui tiny image circular"
               src={opts.champion ? `https://ddragon.leagueoflegends.com/cdn/${freezer.get().lolversions[0]}/img/champion/${this.opts.champion}.png` : "./img/unknown.png"}>
-            <img draggable="false" class="ui tiny-ring image circular" style="position: absolute; top: -2px; left: 12px;" src={opts.autochamp ? "./img/ring_active.png" : "./img/ring.png"}>
-            <img if={ opts.autochamp && opts.champselect.active } draggable="false" class="ui tiny-spin image circular" style="position: absolute; top: -10px; left: 4px;" src="./img/ring_spinner.png" >
-          </div>
-
-          <div class="column two wide middle aligned">
-            <button class="ui button" onclick="$('.runes-modal').modal('show'); polishEditorRune()"><i class="plus icon" style="margin:0; padding:0"></i></button>
+            <img onclick="document.querySelector('.prompt').focus()" draggable="false" class="ui tiny-ring image circular" style="position: absolute; top: -2px; left: 12px;" src={opts.autochamp ? "./img/ring_active.png" : "./img/ring.png"}>
+            <img if={ opts.autochamp && opts.champselect.active } draggable="false" class="ui tiny-spin image circular" style="position: absolute; top: -10px; left: 4px;" src="./img/ring_spinner.png">
+            <button class="ui button" onclick="$('.runes-modal').modal('show'); polishEditorRune()" style="position: absolute; top: 23px; left: 110px; padding: 10px 15px; margin:0"><i class="plus icon" style="margin:0; padding:0"></i></button>
           </div>
           
           <div class="column middle aligned">

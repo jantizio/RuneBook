@@ -7,7 +7,7 @@
 		<template>
 			<label>
 			<input type="radio" name="" value="small">
-			<img src="">
+			<img draggable="false" src="">
 			</label>
 		</template>
 		<div class="runes-container">
@@ -29,43 +29,43 @@
 						<!-- additional first line -->
 						<label>
 						<input type="radio" name="afl" value="5008" >
-						<img src="./img/runesReforged/perk/5008.png">
+						<img draggable="false" src="./img/runesReforged/perk/5008.png">
 						</label>
 						<label>
 						<input type="radio" name="afl" value="5005">
-						<img src="./img/runesReforged/perk/5005.png">
+						<img draggable="false" src="./img/runesReforged/perk/5005.png">
 						</label>
 						<label>
 						<input type="radio" name="afl" value="5007">
-						<img src="./img/runesReforged/perk/5007.png">
+						<img draggable="false" src="./img/runesReforged/perk/5007.png">
 						</label>
 						<div class="break"></div>
 						<!-- additional second line -->
 						<label>
 						<input type="radio" name="asl" value="5008" >
-						<img src="./img/runesReforged/perk/5008.png">
+						<img draggable="false" src="./img/runesReforged/perk/5008.png">
 						</label>
 						<label>
 						<input type="radio" name="asl" value="5002">
-						<img src="./img/runesReforged/perk/5002.png">
+						<img draggable="false" src="./img/runesReforged/perk/5002.png">
 						</label>
 						<label>
 						<input type="radio" name="asl" value="5003">
-						<img src="./img/runesReforged/perk/5003.png">
+						<img draggable="false" src="./img/runesReforged/perk/5003.png">
 						</label>
 						<div class="break"></div>
 						<!-- additional third line -->
 						<label>
 						<input type="radio" name="atl" value="5001" >
-						<img src="./img/runesReforged/perk/5001.png">
+						<img draggable="false" src="./img/runesReforged/perk/5001.png">
 						</label>
 						<label>
 						<input type="radio" name="atl" value="5002">
-						<img src="./img/runesReforged/perk/5002.png">
+						<img draggable="false" src="./img/runesReforged/perk/5002.png">
 						</label>
 						<label>
 						<input type="radio" name="atl" value="5003">
-						<img src="./img/runesReforged/perk/5003.png">
+						<img draggable="false" src="./img/runesReforged/perk/5003.png">
 						</label>
 					</div>
 				</div>
@@ -103,7 +103,7 @@
                     selectedValues.push(parseInt(rb.value));
                 }
             }
-			if(selectedValues.length != 11) {alert("devi selezionare tutte le rune"); return;}
+			if(selectedValues.length != 11) {alert(i18n.localise('runespanel.error') ); return;}
 			let primary = selectedValues.shift();
 			let sub = selectedValues.shift();
 
