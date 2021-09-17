@@ -56,7 +56,7 @@ for (const perkStyle in rune) {
 }
 
 window.addEventListener('DOMContentLoaded', (event) => {
-  console.log('cotenuto caricato');
+  console.log('contenuto caricato');
 
   /* cache image - non ho capito se funziona o no */
   preloadImages(imgList);
@@ -203,12 +203,6 @@ function del_panel_rune(panel_target) {
 }
 
 function setPlaceholder(panel_target, heigh, width) {
-  const label = document.createElement('label');
-  label.className = 'placeholder';
-  const img = document.createElement('img');
-  img.src = './img/runesReforged/perk/qm.png';
-  label.append(img);
-
   const div = document.createElement('div');
   div.className = 'break';
 
@@ -216,7 +210,17 @@ function setPlaceholder(panel_target, heigh, width) {
 
   for (let i = 0; i < heigh; i++) {
     for (let j = 0; j < width; j++) {
-      target.append(label.cloneNode(true));
+      let label = document
+        .querySelector('template')
+        .content.firstElementChild.cloneNode(true);
+      if (i == 0 && panel_target == '.primary-runes')
+        label.classList.add('keystone');
+      label.classList.add('placeholder');
+
+      label.querySelector('img').src = './img/runesReforged/perk/qm.png';
+      label.removeChild(label.querySelector('input'));
+
+      target.append(label);
     }
     target.append(div.cloneNode(true));
   }
