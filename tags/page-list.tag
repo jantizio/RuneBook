@@ -21,6 +21,11 @@
   <div if={ opts.current.champion } class="ui middle aligned relaxed divided runepage list">
     <div class="item" each={ page, key in opts.current.champ_data.pages }>
       <div class="buttons" data-key={ key }>
+        <!-- bottone modifica -->
+        <div class="ui icon button" data-key={key} onclick={  } data-tooltip={ i18n.localise('pagelist.bookmarkpage') } data-position="left center" data-inverted="">
+          <i class="pencil icon" data-key={key}></i>
+        </div>
+        <!-- bottone modifica -->
         <div class={ opts.connection.page && opts.connection.page.isEditable && opts.connection.summonerLevel >= 10 ? "ui icon button" : "ui icon button disabled" } data-key={key} onclick={ uploadPage } data-tooltip={ i18n.localise('pagelist.uploadpage') } data-position="left center" data-inverted="">
           <i class={ opts.lastuploadedpage.page == key && opts.lastuploadedpage.champion == opts.current.champion ? (opts.lastuploadedpage.loading ? "notched circle loading icon" : (opts.lastuploadedpage.valid === false ? "warning sign icon" : "checkmark icon")) : "upload icon" } data-key={key}></i>
         </div>
