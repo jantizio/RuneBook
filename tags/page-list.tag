@@ -22,7 +22,7 @@
     <div class="item" each={ page, key in opts.current.champ_data.pages }>
       <div class="buttons" data-key={ key }>
         <!-- bottone modifica -->
-        <div class="ui icon button" data-key={key} onclick={  } data-tooltip={ i18n.localise('pagelist.bookmarkpage') } data-position="left center" data-inverted="">
+        <div class="ui icon button" data-key={key} onclick="$('.runes-modal').modal('show'); modifyRunePage(this.getAttribute('data-key'))" data-tooltip={ i18n.localise('pagelist.bookmarkpage') } data-position="left center" data-inverted="">
           <i class="pencil icon" data-key={key}></i>
         </div>
         <!-- bottone modifica -->

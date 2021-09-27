@@ -265,3 +265,9 @@ function preloadImages(array) {
     img.src = array[i];
   }
 }
+
+function modifyRunePage(name) {
+  document.getElementById("nomepagina").innerHTML = name;
+  polishEditorRune(); //temp 'cause im lazy
+  //TODO import runes
+}
