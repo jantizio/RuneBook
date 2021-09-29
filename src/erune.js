@@ -73,7 +73,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
     // seleziono il radio button perchè devo modificare più di un attributo
     let radio = label.querySelector('input');
-    radio.addEventListener('click', show_rune);
+    radio.addEventListener('change', show_rune);
     radio.i = i;
     radio.value = p_rune[i];
     radio.name = 'rr';
@@ -118,7 +118,7 @@ function show_rune(evt) {
       './img/runesReforged/perkStyle/' + p_rune[i] + '.png';
 
     let radio = label.querySelector('input');
-    radio.addEventListener('click', show_snd_rune);
+    radio.addEventListener('change', show_snd_rune);
     radio.i = i;
     radio.value = p_rune[i];
     radio.name = 'sr';
@@ -179,7 +179,7 @@ function show_snd_rune(evt) {
         './img/runesReforged/perk/' + rune[runeTree][i][j] + '.png';
 
       let radio = label.querySelector('input');
-      radio.addEventListener('click', manage_secondary_runes);
+      radio.addEventListener('change', manage_secondary_runes);
       radio.value = rune[runeTree][i][j];
       radio.name = 's' + i;
 
@@ -266,85 +266,80 @@ function preloadImages(array) {
   }
 }
 
-function modifyRunePage(name) {
-  document.getElementById("nomepagina").innerHTML = name;
-  polishEditorRune(); //temp 'cause im lazy
-  //TODO import runes
-}
-
 function saveCurrentPage(evt) {
-	evt.preventUpdate = true;
+  evt.preventUpdate = true;
 
-	const rbs = document.querySelectorAll('input[type="radio"]');
-	let selectedValues = [];
-	for (const rb of rbs) {
-	    if (rb.checked) {
-	        selectedValues.push(parseInt(rb.value));
-	    }
-	}
-	if(selectedValues.length != 11) {alert(i18n.localise('runespanel.error') ); return;}
-	let primary = selectedValues.shift();
-	let sub = selectedValues.shift();
+  const rbs = document.querySelectorAll('input[type="radio"]');
+  let selectedValues = [];
+  for (const rb of rbs) {
+    if (rb.checked) {
+      selectedValues.push(parseInt(rb.value));
+    }
+  }
+  if (selectedValues.length != 11) {
+    alert(i18n.localise('runespanel.error'));
+    return;
+  }
+  let primary = selectedValues.shift();
+  let sub = selectedValues.shift();
 
-	let name = document.querySelector('#nomepagina').innerHTML || "Nuova pagina di rune";
+  let name =
+    document.querySelector('#nomepagina').innerHTML || 'Nuova pagina di rune';
 
-
-
-
-	let page = {
-	        "autoModifiedSelections": [],
-	        "current": true,
-	        "id": Math.floor(Math.random() * (9999999999 - 100000000 + 1) + 100000000),
-	        "isActive": false,
-	        "isDeletable": true,
-	        "isEditable": true,
-	        "isValid": true,
-	        "lastModified": new Date().getTime() / 1000,
-	        "name": name,
-	        "order": 1,
-	        "primary-runesStyleId": primary,
-	        "selectedPerkIds": selectedValues,
-	        "subStyleId": sub
-	    };
-	console.log("salvato");
-	freezer.emit("currentpage:save", page);
+  let page = {
+    autoModifiedSelections: [],
+    current: true,
+    id: Math.floor(Math.random() * (9999999999 - 100000000 + 1) + 100000000),
+    isActive: false,
+    isDeletable: true,
+    isEditable: true,
+    isValid: true,
+    lastModified: new Date().getTime() / 1000,
+    name: name,
+    order: 1,
+    'primary-runesStyleId': primary,
+    selectedPerkIds: selectedValues,
+    subStyleId: sub,
+  };
+  console.log('salvato');
+  freezer.emit('currentpage:save', page);
 }
 
 function getRadio() {
-	var now = new Date().getTime() / 1000;
-	console.log(now);
-	let nome = document.querySelector('#nomepagina').innerHTML;
-	console.log(nome)
+  var now = new Date().getTime() / 1000;
+  console.log(now);
+  let nome = document.querySelector('#nomepagina').innerHTML;
+  console.log(nome);
+  console.log('prova', opts.current.champ_data.pages);
 }
 
 function uploadPage(evt) {
-	evt.preventUpdate = true;
+  evt.preventUpdate = true;
 
-	// prima salva la pagina poi fa l'upload
-	this.saveCurrentPage(evt);
+  // prima salva la pagina poi fa l'upload
+  this.saveCurrentPage(evt);
 
-	var page = document.querySelector('#nomepagina').innerHTML;
-	console.log("DEV page key", page);
-	freezer.emit("page:upload", opts.current.champion, page);
+  var page = document.querySelector('#nomepagina').innerHTML;
+  console.log('DEV page key', page);
+  freezer.emit('page:upload', opts.current.champion, page);
 }
 
 function findTooltip(id) {
-	if(!opts.tooltips.rune) return;
-	console.log(opts.tooltips.rune)
-	var tooltip = opts.tooltips.rune.find( (element) => element.id === id)
-	/*var tooltip = opts.tooltips.rune.find((el) => el.id === opts.connection.page.selectedPerkIds[index]);*/
-	return '<b>' + tooltip.name + '</b><br>' + tooltip.longDesc;
+  if (!opts.tooltips.rune) return;
+  console.log(opts.tooltips.rune);
+  var tooltip = opts.tooltips.rune.find((element) => element.id === id);
+  /*var tooltip = opts.tooltips.rune.find((el) => el.id === opts.connection.page.selectedPerkIds[index]);*/
+  return '<b>' + tooltip.name + '</b><br>' + tooltip.longDesc;
 }
 
-function clearPage(evt){
-	evt.preventUpdate = true;
+function clearPage(evt) {
+  evt.preventUpdate = true;
 
-	const rbs = document.querySelectorAll('input[type="radio"]');
-	let p_rune = [8000, 8100, 8200, 8400, 8300];
-	for (const rb of rbs) {
-	    if ( rb.checked && !(p_rune.includes(parseInt(rb.value))) ) {
-	        rb.checked = false;
-	    }
-	}
+  const rbs = document.querySelectorAll('input[type="radio"]');
+  let p_rune = [8000, 8100, 8200, 8400, 8300];
+  for (const rb of rbs) {
+    if (rb.checked && !p_rune.includes(parseInt(rb.value))) {
+      rb.checked = false;
+    }
+  }
 }
-

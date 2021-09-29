@@ -22,7 +22,7 @@
     <div class="item" each={ page, key in opts.current.champ_data.pages }>
       <div class="buttons" data-key={ key }>
         <!-- bottone modifica -->
-        <div class="ui icon button" data-key={key} onclick="$('.runes-modal').modal('show'); modifyRunePage(this.getAttribute('data-key'))" data-tooltip={ i18n.localise('pagelist.bookmarkpage') } data-position="left center" data-inverted="">
+        <div class="ui icon button" data-key={key} onclick={ modifyRunePage } data-tooltip={ i18n.localise('pagelist.bookmarkpage') } data-position="left center" data-inverted="">
           <i class="pencil icon" data-key={key}></i>
         </div>
         <!-- bottone modifica -->
@@ -122,6 +122,34 @@
       var page = $(evt.target).attr("data-key");
       console.log("DEV page key", page);
       freezer.emit("page:upload", opts.current.champion, page);
+    }
+
+    modifyRunePage(evt) {
+      var pageName = $(evt.target).attr("data-key");
+      var runePage = opts.current.champ_data.pages[pageName].prepareRunePage;
+      console.log("runas",runePage);
+      polishEditorRune(); //temp 'cause im lazy
+      
+      const rbs = document.querySelectorAll('input[type="radio"]');
+      console.log(rbs)
+      for (const rb of rbs) {
+        if(runePage.primaryStyleId == rb.value){
+          rb.checked = true;
+        }
+        for(const perk of runePage.selectedPerkIds){
+          if(perk == rb.value){
+            rb.checked = true;
+          }
+        }
+        
+      }
+      
+      //rbs[(runePage.primaryStyleId/100-80)].checked = true;
+      
+      document.getElementById('nomepagina').innerHTML = pageName;
+      
+      $('.runes-modal').modal('show')
+      //TODO import runes
     }
 
   </script>
