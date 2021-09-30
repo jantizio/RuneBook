@@ -130,8 +130,15 @@
       console.log("runas",runePage);
       polishEditorRune(); //temp 'cause im lazy
       
+      let babba = runePage.selectedPerkIds[4];
+
+      show_rune_byID(runePage.primaryStyleId);
+      show_snd_rune_byID(babba-(babba%100));
+      
+
+
       const rbs = document.querySelectorAll('input[type="radio"]');
-      console.log(rbs)
+      //console.log(rbs)
       for (const rb of rbs) {
         if(runePage.primaryStyleId == rb.value){
           rb.checked = true;
@@ -143,6 +150,11 @@
         }
         
       }
+
+
+
+
+      
       
       //rbs[(runePage.primaryStyleId/100-80)].checked = true;
       

@@ -159,10 +159,121 @@ function show_rune(evt) {
   }
 }
 
+//show_rune but by KeyRune ID
+function show_rune_byID(id) {
+  // prende l'id dell'elemento selezionato
+
+  id=parseInt(id);
+  for (let i=0; i<p_rune.length; i++)
+    if (p_rune[i]==id) {
+      id=i; //the real id is the index in p_rune
+      break;
+    }
+
+
+  del_panel_rune('.second-rune');
+  del_panel_rune('.secondary-runes');
+  setPlaceholder('.secondary-runes', 3, 3); // FIX: fix veloce per il bug della pagina principale = a secondaria
+
+  // stampa 4 rune su 5 per le secondarie
+  for (let i = 0; i < p_rune.length; i++) {
+    if (i == id) continue;
+
+    let label = document
+      .querySelector('template')
+      .content.firstElementChild.cloneNode(true);
+
+    label.querySelector('img').src =
+      './img/runesReforged/perkStyle/' + p_rune[i] + '.png';
+
+    let radio = label.querySelector('input');
+    radio.addEventListener('change', show_snd_rune);
+    radio.i = i;
+    radio.value = p_rune[i];
+    radio.name = 'sr';
+
+    document.querySelector('.second-rune').appendChild(label);
+  }
+
+  //--------------------------------------------------------------------
+  del_panel_rune('.primary-runes');
+
+  // creo la variabile runeTree per rendere più chiaro il codice
+  let runeTree = p_rune[id];
+
+  // stampa tutto il ramo di rune primarie selezionato
+  for (let i = 0; i < rune[runeTree].length; i++) {
+    for (let j = 0; j < rune[runeTree][i].length; j++) {
+      let label = document
+        .querySelector('template')
+        .content.firstElementChild.cloneNode(true);
+      if (i == 0) label.classList.add('keystone');
+
+      label.querySelector('img').src =
+        './img/runesReforged/perk/' + rune[runeTree][i][j] + '.png';
+
+      let radio = label.querySelector('input');
+      radio.value = rune[runeTree][i][j];
+      radio.name = 'p' + i;
+
+      document.querySelector('.primary-runes').appendChild(label);
+    }
+    document
+      .querySelector('.primary-runes')
+      .appendChild(
+        document
+          .createRange()
+          .createContextualFragment('<div class="break"></div>')
+      );
+  }
+}
+
 function show_snd_rune(evt) {
   let id = evt.currentTarget.i;
 
   del_panel_rune('.secondary-runes');
+
+  // creo la variabile runeTree per rendere più chiaro il codice
+  let runeTree = p_rune[id];
+
+  // stampa tutto il ramo di rune secondarie selezionato
+  for (let i = 1; i < rune[runeTree].length; i++) {
+    for (let j = 0; j < rune[runeTree][i].length; j++) {
+      let label = document
+        .querySelector('template')
+        .content.firstElementChild.cloneNode(true);
+      if (i == 0) label.classList.add('keystone');
+
+      label.querySelector('img').src =
+        './img/runesReforged/perk/' + rune[runeTree][i][j] + '.png';
+
+      let radio = label.querySelector('input');
+      radio.addEventListener('change', manage_secondary_runes);
+      radio.value = rune[runeTree][i][j];
+      radio.name = 's' + i;
+
+      document.querySelector('.secondary-runes').appendChild(label);
+    }
+    document
+      .querySelector('.secondary-runes')
+      .appendChild(
+        document
+          .createRange()
+          .createContextualFragment('<div class="break"></div>')
+      );
+  }
+}
+
+function show_snd_rune_byID(id) {
+
+  del_panel_rune('.secondary-runes');
+  
+  id=parseInt(id);
+  for (let i=0; i<p_rune.length; i++)
+    if (p_rune[i]==id) {
+      id=i; //the real id is the index in p_rune
+      break;
+    }
 
   // creo la variabile runeTree per rendere più chiaro il codice
   let runeTree = p_rune[id];
