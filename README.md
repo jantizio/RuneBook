@@ -24,7 +24,8 @@ RuneBook isn’t endorsed by Riot Games and doesn’t reflect the views or opini
 
 - [ ] tooltip rune mouse hover
 - [ ] creare un alert box personalizzato (https://stackoverflow.com/questions/39170104/custom-html-dialog-in-electron)
-- [ ] tasto modifica pagina esistente
+- [X] tasto modifica pagina esistente
+- [ ] Bugfixare il fatto che il tasto modifica è in ogni pagina.
 - [ ] capire cosa servono i parametri: current, order nella pagina di rune
 - [x] aggiungere la traduzione per il tooltip sul messaggio di errore quando le rune non sono selezionate
 - [x] spostare il **+**
