@@ -162,6 +162,7 @@ function show_rune(evt) {
 //show_rune but by KeyRune ID
 function show_rune_byID(id) {
   // prende l'id dell'elemento selezionato
+  // TODO chairire il ruolo id 
 
   id=parseInt(id);
   for (let i=0; i<p_rune.length; i++)

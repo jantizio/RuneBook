@@ -127,10 +127,14 @@
     modifyRunePage(evt) {
       var pageName = $(evt.target).attr("data-key");
       var runePage = opts.current.champ_data.pages[pageName].prepareRunePage;
-      console.log("runas",runePage);
+      //console.log("runas",runePage);
       polishEditorRune(); //temp 'cause im lazy
       
-      let babba = runePage.selectedPerkIds[4];
+      let babba = runePage.selectedPerkIds[4]; //babba è una macro per sta roba
+      if(babba==8242 || babba==8410)
+        babba = runePage.selectedPerkIds[5];
+      if(babba>9000)
+        babba-=1000;
 
       show_rune_byID(runePage.primaryStyleId);
       show_snd_rune_byID(babba-(babba%100));
@@ -140,7 +144,10 @@
       const rbs = document.querySelectorAll('input[type="radio"]');
       //console.log(rbs)
       for (const rb of rbs) {
-        if(runePage.primaryStyleId == rb.value){
+        if(runePage.primaryStyleId == rb.value && rb.name=="rr"){
+          rb.checked = true;
+        }
+        if (babba-(babba%100) == rb.value && rb.name=="sr") {
           rb.checked = true;
         }
         for(const perk of runePage.selectedPerkIds){
