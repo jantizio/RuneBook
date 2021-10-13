@@ -79,7 +79,7 @@ const supported_modes = [{
 
 const baseOverviewUrl = `https://stats2.u.gg/lol`;
 const statsVersion = "1.1";
-const overviewVersion = "1.4.0";
+const overviewVersion = "1.5.0";
 const usedServer = u.servers.world;
 // #endregion
 
