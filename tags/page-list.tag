@@ -130,45 +130,46 @@
       //console.log("runas",runePage);
       polishEditorRune(); //temp 'cause im lazy
       
-      let babba = runePage.selectedPerkIds[4]; //babba è una macro per sta roba
+      /*let babba = runePage.selectedPerkIds[4]; //babba è una macro per sta roba
       if(babba==8242 || babba==8410)
         babba = runePage.selectedPerkIds[5];
       if(babba>9000)
-        babba-=1000;
-
+        babba-=1000;*/
+        //babba-(babba%100)
       show_rune_byID(runePage.primaryStyleId);
-      show_snd_rune_byID(babba-(babba%100));
+      show_snd_rune_byID(runePage.subStyleId);
       
 
 
       const rbs = document.querySelectorAll('input[type="radio"]');
-      //console.log(rbs)
       for (const rb of rbs) {
         if(runePage.primaryStyleId == rb.value && rb.name=="rr"){
           rb.checked = true;
         }
-        if (babba-(babba%100) == rb.value && rb.name=="sr") {
+        if (runePage.subStyleId == rb.value && rb.name=="sr") {
           rb.checked = true;
         }
-        for(const perk of runePage.selectedPerkIds){
-          if(perk == rb.value){
+        for(const [index, perk] of runePage.selectedPerkIds.entries()){
+          /*
+          questo serve per le rune additional
+          il bug era causato dal fatto che alcuni id si ripetono,
+          quindi ho fatto in modo che controllasse una riga per volta
+          */
+          if(index > 5 && rb.name.includes(index.toString()) && perk == rb.value){
+            rb.checked = true;
+          }
+          if(perk == rb.value && index <= 5){
             rb.checked = true;
           }
         }
         
       }
-
-
-
-
-      
       
       //rbs[(runePage.primaryStyleId/100-80)].checked = true;
       
       document.getElementById('nomepagina').innerHTML = pageName;
       
       $('.runes-modal').modal('show')
-      //TODO import runes
     }
 
   </script>
