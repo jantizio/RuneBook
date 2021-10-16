@@ -46,5 +46,6 @@
   "currentpage.retry": "Tekrar Dene",
   "settings.about": "Hakkında",
   "settings.madeby": "Yapımcı: ",
-  "runespanel.error": "You should select every runes"
+  "runespanel.error": "You should select every runes",
+  "pagelist.modify": "Modify this runepage"
 }

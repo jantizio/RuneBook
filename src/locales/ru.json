@@ -46,5 +46,6 @@
   "currentpage.retry": "Обновить",
   "settings.about": "Об авторе",
   "settings.madeby": "Разработчик: ",
-  "runespanel.error": "You should select every runes"
+  "runespanel.error": "You should select every runes",
+  "pagelist.modify": "Modify this runepage"
 }

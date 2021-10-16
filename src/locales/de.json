@@ -46,5 +46,6 @@
   "currentpage.retry": "Wiederholen",
   "settings.about": "About",
   "settings.madeby": "Made by",
-  "runespanel.error": "You should select every runes"
+  "runespanel.error": "You should select every runes",
+  "pagelist.modify": "Modify this runepage"
 }

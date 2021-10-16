@@ -46,5 +46,6 @@
   "currentpage.retry": "Riprova",
   "settings.about": "About",
   "settings.madeby": "Made by",
-  "runespanel.error": "Devi selezionare tutte le rune"
+  "runespanel.error": "Devi selezionare tutte le rune",
+  "pagelist.modify": "Modifica questa pagina di rune"
 }
