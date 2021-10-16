@@ -22,7 +22,7 @@
     <div class="item" each={ page, key in opts.current.champ_data.pages }>
       <div class="buttons" data-key={ key }>
         <!-- bottone modifica -->
-        <div class="ui icon button" data-key={key} onclick={ modifyRunePage } data-tooltip={ i18n.localise('pagelist.bookmarkpage') } data-position="left center" data-inverted="">
+        <div if = {opts.tab.active == "local" && !page.bookmark } class="ui icon button" data-key={key} onclick={ modifyRunePage } data-tooltip={ i18n.localise('pagelist.modify') } data-position="left center" data-inverted="">
           <i class="pencil icon" data-key={key}></i>
         </div>
         <!-- bottone modifica -->
